@@ -1,7 +1,7 @@
 
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
-import About from './sections/About';
+import About from './sections/About.jsx';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Experience from './sections/Experience';
@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-white text-gray-900 dark:bg-gray-950 dark:text-white">
+    <div className="min-h-screen flex flex-col justify-between bg-blue-900 text-white">
       {/* Page Content */}
       <Navbar />
       <main className="flex-grow">

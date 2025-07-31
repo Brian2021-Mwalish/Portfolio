@@ -10,7 +10,7 @@ const Skills = () => {
   return (
     <section id="skills" className="w-full bg-navy-900 text-white py-16 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-300 mb-12">
           Skills & Tools
         </h2>
 
@@ -18,7 +18,7 @@ const Skills = () => {
           {Object.entries(skills).map(([category, items], index) => (
             <div
               key={index}
-              className="bg-navy-800 p-6 rounded-xl shadow-md hover:shadow-xl transition"
+              className="bg-navy-800 p-6 rounded-2xl shadow-lg hover:shadow-cyan-700 transition duration-300"
             >
               <h3 className="text-xl font-semibold text-cyan-400 mb-4">
                 {category}
@@ -27,7 +27,7 @@ const Skills = () => {
                 {items.map((skill, i) => (
                   <span
                     key={i}
-                    className="bg-cyan-700 text-white text-sm px-3 py-1 rounded-full"
+                    className="bg-cyan-700/80 text-white text-sm px-3 py-1 rounded-full hover:bg-cyan-500 transition"
                   >
                     {skill}
                   </span>

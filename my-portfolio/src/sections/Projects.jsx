@@ -29,39 +29,42 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="w-full bg-navy-900 text-white py-16 px-6">
+    <section
+      id="projects"
+      className="bg-navy-900 text-white py-16 px-6 md:px-20"
+    >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Projects
-        </h2>
+        <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="bg-navy-800 p-6 rounded-xl shadow-md hover:shadow-xl transition"
+              className="bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300"
             >
-              <h3 className="text-xl font-semibold text-cyan-400 mb-2">
+              <h3 className="text-2xl font-semibold text-cyan-400 mb-2">
                 {project.title}
               </h3>
-              <p className="text-gray-300 mb-4">{project.description}</p>
+              <p className="text-indigo-100 mb-4">{project.description}</p>
+
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-cyan-700 text-xs px-2 py-1 rounded-full text-white"
+                    className="bg-cyan-700/80 text-white text-xs px-3 py-1 rounded-full"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
+
               <div className="flex gap-4">
                 {project.live && (
                   <a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyan-400 hover:underline"
+                    className="text-cyan-300 hover:text-white underline-offset-2 hover:underline transition"
                   >
                     Live
                   </a>
@@ -70,7 +73,7 @@ const Projects = () => {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-cyan-400 hover:underline"
+                  className="text-cyan-300 hover:text-white underline-offset-2 hover:underline transition"
                 >
                   GitHub
                 </a>

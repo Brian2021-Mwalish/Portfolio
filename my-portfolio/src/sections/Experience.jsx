@@ -26,18 +26,23 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="bg-gray-100 py-16 px-6 md:px-20">
+    <section
+      id="experience"
+      className="bg-navy-900 text-white py-16 px-6 md:px-20"
+    >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-navy-900 text-center mb-12">Experience</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 text-white">
+          Experience
+        </h2>
         <div className="space-y-10">
           {experiences.map((exp, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition duration-300"
+              className="bg-white/10 backdrop-blur-lg p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 border border-white/20"
             >
-              <h3 className="text-2xl font-semibold text-navy-800">{exp.role}</h3>
-              <p className="text-gray-600 font-medium">{exp.company} · {exp.period}</p>
-              <ul className="mt-4 list-disc list-inside text-gray-700 space-y-2">
+              <h3 className="text-2xl font-semibold text-white">{exp.role}</h3>
+              <p className="text-indigo-200 font-medium">{exp.company} · {exp.period}</p>
+              <ul className="mt-4 list-disc list-inside text-indigo-100 space-y-2">
                 {exp.details.map((item, i) => (
                   <li key={i}>{item}</li>
                 ))}
