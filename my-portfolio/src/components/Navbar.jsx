@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ onSectionChange }) => {
   const [navOpen, setNavOpen] = useState(false);
 
   const links = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', section: 'hero' },
+    { name: 'About', section: 'about' },
+    { name: 'Projects', section: 'projects' },
+    { name: 'Experience', section: 'experience' },
+    { name: 'Contact', section: 'contact' },
   ];
 
   return (
@@ -21,12 +21,13 @@ const Navbar = () => {
         <ul className="hidden md:flex space-x-8">
           {links.map((link) => (
             <li key={link.name}>
-              <a
-                href={link.href}
-                className="hover:text-cyan-400 transition duration-300"
+              <button
+                onClick={() => onSectionChange(link.section)}
+                className="hover:text-cyan-400 transition duration-300 bg-transparent border-none outline-none cursor-pointer text-white"
+                style={{ background: 'none' }}
               >
                 {link.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
@@ -44,13 +45,16 @@ const Navbar = () => {
         <ul className="md:hidden bg-navy-800 px-6 pb-4 space-y-4">
           {links.map((link) => (
             <li key={link.name}>
-              <a
-                href={link.href}
-                className="block text-white hover:text-cyan-400"
-                onClick={() => setNavOpen(false)}
+              <button
+                onClick={() => {
+                  onSectionChange(link.section);
+                  setNavOpen(false);
+                }}
+                className="block text-white hover:text-cyan-400 bg-transparent border-none outline-none cursor-pointer w-full text-left"
+                style={{ background: 'none' }}
               >
                 {link.name}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
