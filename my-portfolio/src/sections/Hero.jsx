@@ -3,7 +3,7 @@ import ownerImage from '../assets/brian.jpg'; // Place your image in src/assets/
 
 const Hero = () => {
   return (
-    <section className="w-full h-screen bg-gradient-to-b from-navy-900 to-navy-700 flex items-center justify-center px-6">
+    <section className="w-full h-screen bg-blue-800 flex items-center justify-center px-6">
       <div className="max-w-4xl mx-auto text-center text-white flex flex-col md:flex-row items-center gap-8">
         
         {/* Image Section */}

@@ -34,7 +34,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-blue-900 text-white">
+    <div className="min-h-screen flex flex-col justify-between">
       {/* Page Content */}
       <Navbar onSectionChange={setCurrentSection} />
       <main className="flex-grow flex items-center justify-center">
