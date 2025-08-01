@@ -20,16 +20,13 @@ const Footer = () => {
 
         {/* Socials */}
         <div className="flex justify-center md:justify-end space-x-5 text-xl">
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+          <a href="https://github.com/Brian2021-Mwalish" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             <FaGithub />
           </a>
           <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             <FaLinkedin />
           </a>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-white">
-            <FaTwitter />
-          </a>
-        </div>
+                  </div>
       </div>
 
       {/* Bottom Text */}
