@@ -50,8 +50,8 @@ const Contact = () => {
         </svg>
       ),
       label: 'Email',
-      value: 'brian.mwalish@email.com',
-      link: 'mailto:brian.mwalish@email.com',
+      value: 'brianmwalish@gmail.com',
+      link: 'https://mail.google.com/mail/?view=cm&fs=1&to=brianmwalish@gmail.com',
       gradient: 'from-blue-500 to-cyan-500'
     },
     {

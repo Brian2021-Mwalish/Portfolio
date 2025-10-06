@@ -180,15 +180,15 @@ const Hero = () => {
           }}
         />
         <motion.div
-          className="absolute w-40 h-40 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-purple-500/15 to-pink-500/15 rounded-full blur-2xl sm:blur-3xl"
+          className="absolute w-40 h-40 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-full blur-2xl sm:blur-3xl"
           animate={{
             x: mousePosition.x * (windowSize.width > 768 ? -0.01 : -0.005),
             y: mousePosition.y * (windowSize.width > 768 ? -0.01 : -0.005),
           }}
           transition={{ type: "spring", damping: 50 }}
-          style={{ 
-            right: windowSize.width > 768 ? '10%' : '5%', 
-            bottom: windowSize.width > 768 ? '20%' : '10%' 
+          style={{
+            right: windowSize.width > 768 ? '10%' : '5%',
+            bottom: windowSize.width > 768 ? '20%' : '10%'
           }}
         />
 
@@ -237,7 +237,7 @@ const Hero = () => {
                 </span>
                 <br />
                 <motion.span
-                  className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+                  className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
@@ -279,7 +279,14 @@ const Hero = () => {
             >
               <motion.a
                 href="#projects"
-                className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl overflow-hidden text-center"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const projectsSection = document.getElementById('projects');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl overflow-hidden text-center cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -293,7 +300,7 @@ const Hero = () => {
               </motion.a>
 
               <motion.a
-                href="/resume.pdf"
+                href="/ENG. Mwalish CV.pdf"
                 download
                 className="group px-6 py-3 sm:px-8 sm:py-4 border-2 border-cyan-500/50 text-cyan-400 font-semibold rounded-xl backdrop-blur-sm hover:bg-cyan-500/10 transition-all duration-300 text-center"
                 whileHover={{ scale: 1.05, borderColor: 'rgb(6 182 212)' }}
