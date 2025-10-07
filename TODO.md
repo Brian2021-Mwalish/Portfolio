@@ -1,0 +1,3 @@
+- [x] Update tailwind.config.js with light mode colors for good visibility
+- [x] Verify components render correctly in light mode
+- [x] Test the portfolio site

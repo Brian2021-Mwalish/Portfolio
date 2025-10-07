@@ -189,7 +189,7 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0">

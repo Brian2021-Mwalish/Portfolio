@@ -120,7 +120,7 @@ const Contact = () => {
       case 'Network Error':
         return 'bg-red-500 text-white hover:bg-red-600';
       default:
-        return 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600';
+        return 'bg-gradient-to-r from-primary-accent to-primary-accent-alt text-white hover:from-primary-accent/80 hover:to-primary-accent-alt/80';
     }
   };
 
@@ -128,7 +128,7 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -145,15 +145,15 @@ const Contact = () => {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
               Let's Work Together
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
             Have a project in mind or want to discuss opportunities? I'd love to hear from you. 
             Let's create something amazing together.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full mt-8" />
+          <div className="w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full mt-8" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -161,10 +161,10 @@ const Contact = () => {
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="space-y-8">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
-              <p className="text-gray-300 leading-relaxed mb-8">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
-                Whether you need a full-stack developer, have questions about my work, or just want to connect, 
+              <h3 className="text-2xl font-bold text-primary-text mb-6">Get In Touch</h3>
+              <p className="text-primary-secondary leading-relaxed mb-8">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+                Whether you need a full-stack developer, have questions about my work, or just want to connect,
                 don't hesitate to reach out.
               </p>
 
@@ -180,18 +180,18 @@ const Contact = () => {
                       {info.icon}
                     </div>
                     <div>
-                      <p className="text-sm text-gray-400 font-medium">{info.label}</p>
+                      <p className="text-sm text-primary-secondary font-medium">{info.label}</p>
                       {info.link ? (
                         <a
                           href={info.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-white hover:text-cyan-400 transition-colors duration-200 break-all"
+                          className="text-primary-text hover:text-primary-accent transition-colors duration-200 break-all"
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-white">{info.value}</p>
+                        <p className="text-primary-text">{info.value}</p>
                       )}
                     </div>
                   </motion.div>
@@ -217,12 +217,12 @@ const Contact = () => {
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Send Me a Message</h3>
+              <h3 className="text-2xl font-bold text-primary-text mb-6">Send Me a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-gray-300">
+                    <label htmlFor="name" className="text-sm font-medium text-primary-secondary">
                       Full Name
                     </label>
                     <input
@@ -238,7 +238,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-gray-300">
+                    <label htmlFor="email" className="text-sm font-medium text-primary-secondary">
                       Email Address
                     </label>
                     <input
@@ -255,7 +255,7 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-gray-300">
+                  <label htmlFor="message" className="text-sm font-medium text-primary-secondary">
                     Message
                   </label>
                   <textarea
@@ -300,12 +300,12 @@ const Contact = () => {
           variants={itemVariants}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8 max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8 max-w-3xl mx-auto">
+            <h3 className="text-2xl font-bold text-primary-text mb-4">
               Let's Build Something Great
             </h3>
-            <p className="text-gray-300 leading-relaxed">
-              Whether you have a clear vision or just an idea, I'm here to help bring it to life. 
+            <p className="text-primary-secondary leading-relaxed">
+              Whether you have a clear vision or just an idea, I'm here to help bring it to life.
               Every great project starts with a conversation. Let's start ours today.
             </p>
           </div>

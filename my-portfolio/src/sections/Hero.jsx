@@ -30,11 +30,11 @@ const Particle = ({ delay }) => {
 
   return (
     <motion.div
-      className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
-      initial={{ 
-        x: Math.random() * windowSize.width, 
+      className="absolute w-1 h-1 bg-primary-accent rounded-full opacity-60"
+      initial={{
+        x: Math.random() * windowSize.width,
         y: windowSize.height + 100,
-        scale: 0 
+        scale: 0
       }}
       animate={{
         y: -100,
@@ -54,11 +54,11 @@ const Particle = ({ delay }) => {
 // Floating code snippets
 const CodeSnippet = ({ code, delay, x, y }) => (
   <motion.div
-    className="absolute text-cyan-300 font-mono text-xs sm:text-sm opacity-20 pointer-events-none hidden sm:block"
+    className="absolute text-primary-accent font-mono text-xs sm:text-sm opacity-20 pointer-events-none hidden sm:block"
     style={{ left: x, top: y }}
     initial={{ opacity: 0, y: 20 }}
-    animate={{ 
-      opacity: [0, 0.3, 0], 
+    animate={{
+      opacity: [0, 0.3, 0],
       y: [20, -20, -40],
       rotate: [0, 2, -2, 0]
     }}
@@ -163,24 +163,24 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
+    <section className="relative w-full min-h-screen bg-primary-bg overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Gradient Orbs - Responsive positioning */}
         <motion.div
-          className="absolute w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-2xl sm:blur-3xl"
+          className="absolute w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-gradient-to-r from-primary-accent/20 to-primary-accent-alt/20 rounded-full blur-2xl sm:blur-3xl"
           animate={{
             x: mousePosition.x * (windowSize.width > 768 ? 0.02 : 0.01),
             y: mousePosition.y * (windowSize.width > 768 ? 0.02 : 0.01),
           }}
           transition={{ type: "spring", damping: 50 }}
-          style={{ 
-            left: windowSize.width > 768 ? '10%' : '5%', 
-            top: windowSize.width > 768 ? '20%' : '10%' 
+          style={{
+            left: windowSize.width > 768 ? '10%' : '5%',
+            top: windowSize.width > 768 ? '20%' : '10%'
           }}
         />
         <motion.div
-          className="absolute w-40 h-40 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-full blur-2xl sm:blur-3xl"
+          className="absolute w-40 h-40 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-primary-accent-alt/15 to-primary-accent/15 rounded-full blur-2xl sm:blur-3xl"
           animate={{
             x: mousePosition.x * (windowSize.width > 768 ? -0.01 : -0.005),
             y: mousePosition.y * (windowSize.width > 768 ? -0.01 : -0.005),
@@ -221,8 +221,8 @@ const Hero = () => {
           {/* Text Content */}
           <div className="space-y-6 sm:space-y-8 order-2 lg:order-1">
             <motion.div variants={itemVariants}>
-              <motion.span 
-                className="inline-block px-3 py-2 sm:px-4 sm:py-2 bg-cyan-500/20 text-cyan-300 rounded-full text-xs sm:text-sm font-medium border border-cyan-500/30 backdrop-blur-sm"
+              <motion.span
+                className="inline-block px-3 py-2 sm:px-4 sm:py-2 bg-primary-accent/20 text-primary-accent rounded-full text-xs sm:text-sm font-medium border border-primary-accent/30 backdrop-blur-sm"
                 whileHover={{ scale: 1.05 }}
               >
                  Welcome to my digital space
@@ -231,7 +231,7 @@ const Hero = () => {
 
             <motion.div variants={itemVariants} className="space-y-3 sm:space-y-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="text-white">I'm </span>
+                <span className="text-primary-text">I'm </span>
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   Brian
                 </span>
@@ -252,7 +252,7 @@ const Hero = () => {
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentTech}
-                    className="text-cyan-400 font-bold"
+                className="text-primary-accent font-bold"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -266,7 +266,7 @@ const Hero = () => {
 
             <motion.p 
               variants={itemVariants}
-              className="text-sm sm:text-base lg:text-lg text-gray-400 max-w-xl leading-relaxed"
+              className="text-sm sm:text-base lg:text-lg text-primary-secondary max-w-xl leading-relaxed"
             >
               Full-stack software engineer passionate about building scalable applications 
               and solving complex problems. I turn ideas into reality through clean code, 
@@ -286,13 +286,13 @@ const Hero = () => {
                     projectsSection.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl overflow-hidden text-center cursor-pointer"
+                className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text font-semibold rounded-xl overflow-hidden text-center cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <span className="relative z-10">View My Work</span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400"
+                  className="absolute inset-0 bg-gradient-to-r from-primary-accent to-primary-accent-alt"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '0%' }}
                   transition={{ duration: 0.3 }}
@@ -302,7 +302,7 @@ const Hero = () => {
               <motion.a
                 href="/ENG. Mwalish CV.pdf"
                 download
-                className="group px-6 py-3 sm:px-8 sm:py-4 border-2 border-cyan-500/50 text-cyan-400 font-semibold rounded-xl backdrop-blur-sm hover:bg-cyan-500/10 transition-all duration-300 text-center"
+                className="group px-6 py-3 sm:px-8 sm:py-4 border-2 border-primary-accent/50 text-primary-accent font-semibold rounded-xl backdrop-blur-sm hover:bg-primary-accent/10 transition-all duration-300 text-center"
                 whileHover={{ scale: 1.05, borderColor: 'rgb(6 182 212)' }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -326,7 +326,7 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-6 sm:pt-8"
             >
-              <span className="text-xs sm:text-sm text-gray-500 font-medium">TECHNOLOGIES</span>
+              <span className="text-xs sm:text-sm text-primary-secondary font-medium">TECHNOLOGIES</span>
               <div className="flex gap-3 sm:gap-4 flex-wrap">
                 {[
                   { src: reactLogo, alt: "React" },

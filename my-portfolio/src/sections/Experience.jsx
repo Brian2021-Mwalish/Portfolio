@@ -7,49 +7,71 @@ const Experience = () => {
 
   const experiences = [
     {
-      role: 'Full Stack Developer',
-      company: 'TechNova Solutions',
-      period: 'Jan 2023 – Present',
-      duration: '1+ years',
+      role: 'Fullstack Software Developer',
+      company: 'Lish AI Labs',
+      period: 'May 2025 – Aug 2025',
+      duration: '3 months',
       type: 'Full-time',
       location: 'Remote',
       details: [
-        'Built and maintained scalable web applications using React, Django, and PostgreSQL',
-        'Improved application performance by 30% through efficient API design and database optimization',
-        'Led a small team of developers, implementing agile practices and weekly code reviews',
-        'Collaborated with cross-functional teams to deliver high-quality software solutions'
+        'Developed and maintained fullstack web applications with integrated AI-powered features',
+        'Collaborated with engineering team to enhance system performance and user experience',
+        'Implemented modern web technologies and best practices for scalable applications',
+        'Contributed to the development lifecycle from design to deployment'
       ],
-      technologies: ['React', 'Django', 'PostgreSQL', 'REST APIs', 'Git', 'AWS'],
+      technologies: ['React', 'Django', 'PostgreSQL', 'AI Integration', 'REST APIs', 'Git'],
       achievements: [
-        'Performance optimization: 30% improvement',
-        'Team leadership: 3-5 developers',
-        'Code review implementation'
+        'Successfully developed AI-integrated web applications',
+        'Enhanced system performance and user experience',
+        'Full development lifecycle contribution'
       ],
       gradient: 'from-emerald-500 to-teal-500',
       bgGradient: 'from-emerald-900/20 to-teal-900/20'
     },
     {
-      role: 'Frontend Developer Intern',
-      company: 'Creative Softworks',
-      period: 'Aug 2022 – Dec 2022',
-      duration: '5 months',
-      type: 'Internship',
-      location: 'Hybrid',
+      role: 'Educational Outreach Mentor',
+      company: 'University of Eastern Africa Baraton Young Mentorship Program',
+      period: 'Oct 2024 – Apr 2025',
+      duration: '6 months',
+      type: 'Volunteering',
+      location: 'On-site',
       details: [
-        'Developed reusable UI components using React and Tailwind CSS for multiple projects',
-        'Collaborated closely with designers to translate Figma designs into responsive web pages',
-        'Contributed to accessibility improvements, ensuring WCAG 2.1 compliance across applications',
-        'Participated in daily standups and sprint planning sessions using Scrum methodology'
+        'Taught children aged 6-10 years basic keyboarding skills, Windows accessories, and file exploration',
+        'Instructed children aged 11-16 years in simple programming using Scratch programming language',
+        'Developed engaging curriculum to make learning computer skills enjoyable and accessible',
+        'Mentored young students in digital literacy and basic programming concepts'
       ],
-      technologies: ['React', 'Tailwind CSS', 'JavaScript', 'Figma', 'HTML5', 'CSS3'],
+      technologies: ['Scratch Programming', 'Windows OS', 'Basic Computer Skills', 'Educational Tools'],
       achievements: [
-        'WCAG 2.1 compliance implementation',
-        '10+ reusable components created',
-        'Cross-browser compatibility'
+        'Successfully taught 20+ children computer skills',
+        'Developed comprehensive curriculum for different age groups',
+        'Improved digital literacy among young students'
       ],
       gradient: 'from-blue-500 to-purple-500',
       bgGradient: 'from-blue-900/20 to-purple-900/20'
     },
+    {
+      role: 'Graphic Designer',
+      company: 'Kariki Farm Molo',
+      period: 'Jul 2022 – Aug 2022',
+      duration: '1 month',
+      type: 'Freelance',
+      location: 'On-site',
+      details: [
+        'Designed various animations and graphics for internal company advertisements',
+        'Created visually appealing content to enhance brand communication',
+        'Utilized design software to produce professional marketing materials',
+        'Collaborated with team to understand requirements and deliver creative solutions'
+      ],
+      technologies: ['Adobe Creative Suite', 'Animation Software', 'Graphic Design Tools', 'Branding'],
+      achievements: [
+        'Created multiple advertisement animations',
+        'Enhanced internal company branding',
+        'Delivered professional design solutions'
+      ],
+      gradient: 'from-purple-500 to-pink-500',
+      bgGradient: 'from-purple-900/20 to-pink-900/20'
+    }
   ];
 
   const containerVariants = {
@@ -76,12 +98,12 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/8 to-blue-500/8 rounded-full blur-3xl top-1/4 right-1/4" />
-        <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/6 to-pink-500/6 rounded-full blur-3xl bottom-1/3 left-1/4" />
+        <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl top-1/4 right-1/4" />
+        <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/4 to-pink-500/4 rounded-full blur-3xl bottom-1/3 left-1/4" />
       </div>
 
       <motion.div
@@ -93,37 +115,27 @@ const Experience = () => {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
               Professional Experience
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            My journey in software development, from internship to full-stack leadership roles.
+          <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
+            My journey in technology, from graphic design and educational outreach to full-stack development.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full mt-8" />
+          <div className="w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full mt-8" />
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 to-purple-500" />
-
-          {/* Experience Items */}
-          <div className="space-y-16">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className={`relative flex flex-col md:flex-row items-start ${
-                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                } gap-8`}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full border-4 border-slate-800 z-10" />
-
-                {/* Content Card */}
-                <div className={`w-full md:w-1/2 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'}`}>
-                  <div className={`bg-gradient-to-br ${exp.bgGradient} backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:border-white/20 hover:shadow-xl transition-all duration-300`}>
+        {/* Experience Items */}
+        <motion.div
+          className="grid md:grid-cols-2 gap-8"
+          variants={containerVariants}
+        >
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="bg-white backdrop-blur-xl border border-primary-secondary/10 rounded-2xl p-8 hover:border-primary-secondary/20 hover:shadow-xl transition-all duration-300"
+            >
                     
                     {/* Header */}
                     <div className="mb-6">
@@ -131,33 +143,33 @@ const Experience = () => {
                         <span className={`px-3 py-1 bg-gradient-to-r ${exp.gradient} text-white text-xs font-medium rounded-full`}>
                           {exp.type}
                         </span>
-                        <span className="text-sm text-gray-400">{exp.duration}</span>
-                        <span className="text-sm text-gray-400">• {exp.location}</span>
+                        <span className="text-sm text-primary-secondary">{exp.duration}</span>
+                        <span className="text-sm text-primary-secondary">• {exp.location}</span>
                       </div>
-                      
-                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2">
+
+                      <h3 className="text-2xl lg:text-3xl font-bold text-primary-text mb-2">
                         {exp.role}
                       </h3>
-                      
-                      <div className="flex items-center gap-2 text-gray-300">
+
+                      <div className="flex items-center gap-2 text-primary-secondary">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H9m0 0H7m2 0v-5a2 2 0 012-2h2a2 2 0 012 2v5m-6 0V9a2 2 0 012-2h2a2 2 0 012 2v7.5" />
                         </svg>
                         <span className="font-semibold">{exp.company}</span>
-                        <span className="text-gray-400">•</span>
-                        <span className="text-gray-400">{exp.period}</span>
+                        <span className="text-primary-secondary">•</span>
+                        <span className="text-primary-secondary">{exp.period}</span>
                       </div>
                     </div>
 
                     {/* Responsibilities */}
                     <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+                      <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
                         Key Responsibilities
                       </h4>
                       <ul className="space-y-3">
                         {exp.details.map((detail, i) => (
-                          <li key={i} className="flex items-start text-gray-300">
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 mr-3 flex-shrink-0" />
+                          <li key={i} className="flex items-start text-primary-secondary">
+                            <div className="w-2 h-2 bg-primary-accent rounded-full mt-2 mr-3 flex-shrink-0" />
                             <span className="leading-relaxed">{detail}</span>
                           </li>
                         ))}
@@ -166,14 +178,14 @@ const Experience = () => {
 
                     {/* Technologies */}
                     <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+                      <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
                         Technologies Used
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech, i) => (
                           <span
                             key={i}
-                            className="bg-white/10 text-white text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-colors duration-200"
+                            className="bg-primary-secondary/10 text-primary-text text-sm px-3 py-1.5 rounded-lg border border-primary-secondary/20 backdrop-blur-sm hover:bg-primary-secondary/15 transition-colors duration-200"
                           >
                             {tech}
                           </span>
@@ -182,13 +194,13 @@ const Experience = () => {
                     </div>
 
                     {/* Key Achievements */}
-                    <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                      <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+                    <div className="bg-primary-secondary/5 rounded-xl p-4 border border-primary-secondary/10">
+                      <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
                         Key Achievements
                       </h4>
                       <div className="space-y-2">
                         {exp.achievements.map((achievement, i) => (
-                          <div key={i} className="flex items-center text-sm text-gray-300">
+                          <div key={i} className="flex items-center text-sm text-primary-secondary">
                             <svg className="w-4 h-4 text-green-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -197,23 +209,20 @@ const Experience = () => {
                         ))}
                       </div>
                     </div>
-                  </div>
-                </div>
               </motion.div>
             ))}
-          </div>
-        </div>
+        </motion.div>
 
         {/* Skills Summary */}
         <motion.div
           variants={itemVariants}
-          className="mt-20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8"
+          className="mt-20 bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8"
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-primary-text mb-4">
               Professional Skills Summary
             </h3>
-            <p className="text-gray-300">
+            <p className="text-primary-secondary">
               Skills developed and refined through professional experience
             </p>
           </div>
@@ -225,8 +234,8 @@ const Experience = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
-              <h4 className="font-semibold text-white mb-2">Full-Stack Development</h4>
-              <p className="text-sm text-gray-400">React, Django, PostgreSQL, REST APIs</p>
+              <h4 className="font-semibold text-primary-text mb-2">Full-Stack Development</h4>
+              <p className="text-sm text-primary-secondary">React, Django, PostgreSQL, REST APIs</p>
             </div>
 
             <div className="text-center">
@@ -235,8 +244,8 @@ const Experience = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h4 className="font-semibold text-white mb-2">Team Leadership</h4>
-              <p className="text-sm text-gray-400">Agile practices, code reviews, mentoring</p>
+              <h4 className="font-semibold text-primary-text mb-2">Team Leadership</h4>
+              <p className="text-sm text-primary-secondary">Agile practices, code reviews, mentoring</p>
             </div>
 
             <div className="text-center">
@@ -245,8 +254,8 @@ const Experience = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h4 className="font-semibold text-white mb-2">Performance Optimization</h4>
-              <p className="text-sm text-gray-400">Database optimization, API efficiency</p>
+              <h4 className="font-semibold text-primary-text mb-2">Performance Optimization</h4>
+              <p className="text-sm text-primary-secondary">Database optimization, API efficiency</p>
             </div>
           </div>
         </motion.div>
@@ -256,17 +265,17 @@ const Experience = () => {
           variants={itemVariants}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-slate-800/80 to-blue-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-primary-text mb-4">
               Ready for New Opportunities
             </h3>
-            <p className="text-gray-300 mb-6 leading-relaxed">
-              I'm always interested in challenging roles where I can contribute my experience 
+            <p className="text-primary-secondary mb-6 leading-relaxed">
+              I'm always interested in challenging roles where I can contribute my experience
               in full-stack development and team leadership.
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Get In Touch
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

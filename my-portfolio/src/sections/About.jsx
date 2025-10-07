@@ -138,7 +138,7 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative min-h-screen bg-primary-bg py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0">
@@ -197,12 +197,12 @@ const About = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
               About Me
             </span>
           </motion.h2>
           <motion.div 
-            className="w-16 sm:w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full"
+            className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -215,23 +215,23 @@ const About = () => {
           <div className="space-y-6 sm:space-y-8">
             <motion.div
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 lg:p-8 hover:bg-white/[0.08] transition-all duration-500 group"
+              className="bg-primary-secondary/5 backdrop-blur-xl border border-primary-secondary/10 rounded-2xl p-4 sm:p-6 lg:p-8 hover:bg-primary-secondary/[0.08] transition-all duration-500 group"
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 group-hover:text-cyan-400 transition-colors">
+              <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-3 sm:mb-4 group-hover:text-primary-accent transition-colors">
                 Hello, I'm Brian Mwalish
               </h3>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
-                I'm a passionate <span className="text-cyan-400 font-semibold">Full-Stack Software Engineer</span> who 
-                loves turning complex problems into elegant solutions. With a strong foundation in both 
-                frontend and backend technologies, I create digital experiences that are not just functional, 
+              <p className="text-primary-secondary text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
+                I'm a passionate <span className="text-primary-accent font-semibold">Full-Stack Software Engineer</span> who
+                loves turning complex problems into elegant solutions. With a strong foundation in both
+                frontend and backend technologies, I create digital experiences that are not just functional,
                 but delightful to use.
               </p>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                My journey in software development started with curiosity and has evolved into a deep passion 
-                for building scalable applications that make a real impact. I believe great software is born 
-                from the intersection of <span className="text-purple-400 font-semibold">technical excellence</span>, 
-                <span className="text-pink-400 font-semibold"> user empathy</span>, and 
-                <span className="text-yellow-400 font-semibold"> creative problem-solving</span>.
+              <p className="text-primary-secondary text-base sm:text-lg leading-relaxed">
+                My journey in software development started with curiosity and has evolved into a deep passion
+                for building scalable applications that make a real impact. I believe great software is born
+                from the intersection of <span className="text-primary-accent font-semibold">technical excellence</span>,
+                <span className="text-primary-accent font-semibold"> user empathy</span>, and
+                <span className="text-primary-accent font-semibold"> creative problem-solving</span>.
               </p>
             </motion.div>
 
