@@ -4,38 +4,33 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  darkMode: 'class', // Enable dark mode via `.dark` class
   theme: {
     extend: {
       colors: {
-        primary: {
-          bg: {
-            DEFAULT: '#FFFFFF',
-            dark: '#000080'
-          },
-          text: {
-            DEFAULT: '#0F172A',
-            dark: '#FFFFFF'
-          },
-          accent: {
-            DEFAULT: '#06B6D4',
-            dark: '#000080'
-          },
-          'accent-alt': {
-            DEFAULT: '#3B82F6',
-            dark: '#1E3A8A'
-          },
-          secondary: {
-            DEFAULT: '#64748B',
-            dark: '#94A3B8'
-          },
-          highlight: {
-            DEFAULT: '#1E40AF',
-            dark: '#3B82F6'
-          }
-        }
-      }
+        // Backgrounds
+        'primary-bg': '#FFFFFF',
+        'primary-bg-dark': '#000080',
+
+        // Text
+        'primary-text': '#0F172A',
+        'primary-text-dark': '#FFFFFF',
+
+        // Accents
+        'primary-accent': '#06B6D4',
+        'primary-accent-dark': '#000080',
+        'primary-accent-alt': '#3B82F6',
+        'primary-accent-alt-dark': '#1E3A8A',
+
+        // Secondary / supporting colors
+        'primary-secondary': '#64748B',
+        'primary-secondary-dark': '#94A3B8',
+
+        // Highlights (buttons, active states)
+        'primary-highlight': '#1E40AF',
+        'primary-highlight-dark': '#3B82F6',
+      },
     },
   },
   plugins: [],
-}
+};

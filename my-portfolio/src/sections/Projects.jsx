@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const Projects = () => {
+const Projects = ({ onSectionChange }) => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -246,8 +246,8 @@ const Projects = () => {
               I'm always open to discussing new projects and opportunities.
               Let's create something amazing together.
             </p>
-            <a
-              href="#contact"
+            <button
+              onClick={() => onSectionChange('contact')}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Let's Connect
@@ -259,7 +259,7 @@ const Projects = () => {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </button>
           </div>
         </motion.div>
       </motion.div>

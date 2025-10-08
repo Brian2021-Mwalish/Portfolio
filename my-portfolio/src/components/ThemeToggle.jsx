@@ -5,10 +5,28 @@ const ThemeToggle = ({ isDark, onToggle }) => {
   return (
     <button
       onClick={onToggle}
-      className="p-2 rounded-full bg-primary-bg text-primary-text hover:bg-primary-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-accent"
       aria-label="Toggle theme"
+      className="
+        p-2 rounded-full
+        bg-primary-bg dark:bg-primary-bg-dark
+        text-primary-text dark:text-primary-text-dark
+        hover:bg-primary-secondary dark:hover:bg-primary-secondary-dark
+        transition-colors duration-300 ease-in-out
+        focus:outline-none focus:ring-2 focus:ring-primary-accent dark:focus:ring-primary-accent-dark
+        shadow-sm
+      "
     >
-      {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      {isDark ? (
+        <Sun
+          size={20}
+          className="text-primary-accent dark:text-primary-accent-alt transition-colors duration-300"
+        />
+      ) : (
+        <Moon
+          size={20}
+          className="text-primary-accent dark:text-primary-accent-alt transition-colors duration-300"
+        />
+      )}
     </button>
   );
 };

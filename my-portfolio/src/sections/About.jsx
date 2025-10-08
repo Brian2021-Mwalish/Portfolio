@@ -10,7 +10,7 @@ import awsLogo from "../assets/aws.png";
 // import postgresqlLogo from "../assets/postgresql.png";
 // import tailwindLogo from "../assets/tailwind.png";
 
-const About = () => {
+const About = ({ onSectionChange }) => {
   const [activeCard, setActiveCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
@@ -197,7 +197,7 @@ const About = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 bg-clip-text text-transparent">
               About Me
             </span>
           </motion.h2>
@@ -335,8 +335,8 @@ const About = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <motion.a
-                  href="#contact"
+                <motion.button
+                  onClick={() => onSectionChange('contact')}
                   className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-sm sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
@@ -350,16 +350,16 @@ const About = () => {
                       →
                     </motion.span>
                   </span>
-                </motion.a>
-                
-                <motion.a
-                  href="#projects"
+                </motion.button>
+
+                <motion.button
+                  onClick={() => onSectionChange('projects')}
                   className="border-2 border-cyan-500/50 text-cyan-400 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl backdrop-blur-sm hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 text-sm sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   View My Work
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           </div>
@@ -381,8 +381,8 @@ const About = () => {
               className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 sm:p-6 text-center group hover:bg-white/[0.08] transition-all duration-300"
               whileHover={{ y: -5 }}
             >
-              <motion.h4 
-                className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1 sm:mb-2"
+              <motion.h4
+                className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text text-transparent mb-1 sm:mb-2"
                 initial={{ scale: 1 }}
                 whileHover={{ scale: 1.1 }}
               >
