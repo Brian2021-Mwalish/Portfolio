@@ -98,7 +98,7 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -140,7 +140,7 @@ const Experience = () => {
                     {/* Header */}
                     <div className="mb-6">
                       <div className="flex flex-wrap items-center gap-3 mb-3">
-                        <span className={`px-3 py-1 bg-gradient-to-r ${exp.gradient} text-white text-xs font-medium rounded-full`}>
+                        <span className={`px-3 py-1 bg-gradient-to-r ${exp.gradient} text-primary-text text-xs font-medium rounded-full`}>
                           {exp.type}
                         </span>
                         <span className="text-sm text-primary-secondary">{exp.duration}</span>
@@ -230,7 +230,7 @@ const Experience = () => {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
               </div>
@@ -240,7 +240,7 @@ const Experience = () => {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
@@ -250,7 +250,7 @@ const Experience = () => {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -275,7 +275,7 @@ const Experience = () => {
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Get In Touch
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

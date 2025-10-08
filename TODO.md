@@ -1,3 +1,14 @@
 - [x] Update tailwind.config.js with light mode colors for good visibility
+- [x] Update Hero.jsx text colors to use primary color variables
+- [x] Update About.jsx text colors to use primary color variables
+- [x] Update Projects.jsx text colors to use primary color variables
+- [x] Update Contact.jsx text colors to use primary color variables
+- [x] Update Experience.jsx text colors to use primary color variables
+- [x] Update Navbar.jsx text colors to use primary color variables
 - [x] Verify components render correctly in light mode
 - [x] Test the portfolio site
+- [x] Update tailwind.config.js to include dark mode variants with Navy blue accent
+- [x] Create ThemeToggle.jsx component with toggle button
+- [x] Modify App.jsx to manage theme state and apply dark class
+- [x] Add ThemeToggle to Navbar.jsx
+- [x] Test dark mode toggle functionality

@@ -253,7 +253,7 @@ const About = () => {
                       {value.title}
                     </h4>
                   </div>
-                  <p className="text-gray-400 text-xs sm:text-sm group-hover:text-gray-300 transition-colors">
+                  <p className="text-primary-secondary text-xs sm:text-sm group-hover:text-primary-text transition-colors">
                     {value.description}
                   </p>
                 </motion.div>
@@ -289,8 +289,8 @@ const About = () => {
                           <div className="w-6 h-6 sm:w-8 sm:h-8 mr-3 rounded bg-gradient-to-r from-gray-500 to-gray-400 opacity-80" />
                         )}
                         <div>
-                          <span className="text-white font-medium text-sm sm:text-base block">{skill.name}</span>
-                          <span className="text-gray-400 text-xs hidden sm:block">{skill.description}</span>
+                          <span className="text-primary-text font-medium text-sm sm:text-base block">{skill.name}</span>
+                          <span className="text-primary-secondary text-xs hidden sm:block">{skill.description}</span>
                         </div>
                       </div>
                       <span className="text-cyan-400 font-semibold text-sm sm:text-base">{skill.level}%</span>
@@ -326,11 +326,11 @@ const About = () => {
               variants={itemVariants}
               className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-4 sm:p-6 lg:p-8 text-center"
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-3 sm:mb-4">
                 Let's Build Something Amazing Together
               </h3>
-              <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                I'm always excited about new opportunities to create innovative solutions. 
+              <p className="text-primary-secondary mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                I'm always excited about new opportunities to create innovative solutions.
                 Whether it's a challenging project or an interesting collaboration, I'd love to hear from you.
               </p>
               
@@ -388,7 +388,7 @@ const About = () => {
               >
                 {stat.number}
               </motion.h4>
-              <p className="text-gray-400 text-xs sm:text-sm group-hover:text-gray-300 transition-colors">
+              <p className="text-primary-secondary text-xs sm:text-sm group-hover:text-primary-text transition-colors">
                 {stat.label}
               </p>
             </motion.div>

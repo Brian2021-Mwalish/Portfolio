@@ -8,11 +8,28 @@ import Experience from './sections/Experience';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function App() {
   const [currentSection, setCurrentSection] = useState('hero');
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('theme');
+    return saved === 'dark';
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+  };
 
   const renderSection = () => {
     switch (currentSection) {
@@ -36,8 +53,8 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col justify-between">
       {/* Page Content */}
-      <Navbar onSectionChange={setCurrentSection} />
-      <main className="flex-grow flex items-center justify-center">
+      <Navbar onSectionChange={setCurrentSection} isDark={isDark} onToggle={toggleTheme} />
+      <main className="flex-grow flex items-center justify-center pt-16 sm:pt-20">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSection}

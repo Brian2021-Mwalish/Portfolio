@@ -89,11 +89,11 @@ const Projects = () => {
             {/* Header */}
             <div className="flex justify-between items-start mb-6">
               <div>
-                <span className={`inline-block px-3 py-1 bg-gradient-to-r ${project.gradient} text-white text-xs font-medium rounded-full mb-4`}>
+                <span className={`inline-block px-3 py-1 bg-gradient-to-r ${project.gradient} text-primary-text text-xs font-medium rounded-full mb-4`}>
                   {project.category}
                 </span>
                 
-                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2 group-hover:text-gray-100 transition-colors duration-300">
+                <h3 className="text-2xl lg:text-3xl font-bold text-primary-text mb-2 group-hover:text-primary-accent transition-colors duration-300">
                   {project.title}
                 </h3>
               </div>
@@ -101,27 +101,27 @@ const Projects = () => {
               {/* Status Indicator */}
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded-full ${project.live ? 'bg-green-400' : 'bg-yellow-400'} shadow-lg`} />
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-primary-secondary">
                   {project.live ? 'Live' : 'In Development'}
                 </span>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-gray-300 leading-relaxed mb-6 flex-grow text-base">
+            <p className="text-primary-secondary leading-relaxed mb-6 flex-grow text-base">
               {project.description}
             </p>
 
             {/* Features */}
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+              <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
                 Key Features
               </h4>
               <div className="grid grid-cols-2 gap-2">
                 {project.features.map((feature, i) => (
                   <div
                     key={i}
-                    className="flex items-center text-sm text-gray-300"
+                    className="flex items-center text-sm text-primary-secondary"
                   >
                     <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2 flex-shrink-0" />
                     {feature}
@@ -132,14 +132,14 @@ const Projects = () => {
 
             {/* Tech Stack */}
             <div className="mb-8">
-              <h4 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider">
+              <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
                 Technologies
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-white/10 text-white text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-colors duration-200"
+                    className="bg-white/10 text-primary-text text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-colors duration-200"
                   >
                     {tech}
                   </span>
@@ -154,7 +154,7 @@ const Projects = () => {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex-1 bg-gradient-to-r ${project.gradient} text-white font-semibold py-3 px-6 rounded-xl text-center transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]`}
+                  className={`flex-1 bg-gradient-to-r ${project.gradient} text-primary-text font-semibold py-3 px-6 rounded-xl text-center transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]`}
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
@@ -169,7 +169,7 @@ const Projects = () => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-white/10 border-2 border-white/20 text-white font-semibold py-3 px-6 rounded-xl text-center hover:bg-white/15 hover:border-white/30 transition-all duration-200 backdrop-blur-sm hover:scale-[1.02]"
+                className="flex-1 bg-white/10 border-2 border-white/20 text-primary-text font-semibold py-3 px-6 rounded-xl text-center hover:bg-white/15 hover:border-white/30 transition-all duration-200 backdrop-blur-sm hover:scale-[1.02]"
               >
                 <span className="flex items-center justify-center gap-2">
                   GitHub
@@ -189,7 +189,7 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0">
@@ -215,8 +215,8 @@ const Projects = () => {
             </span>
           </h2>
           
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            A showcase of my recent work in full-stack development, featuring modern technologies 
+          <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
+            A showcase of my recent work in full-stack development, featuring modern technologies
             and innovative solutions to real-world problems.
           </p>
           
@@ -239,16 +239,16 @@ const Projects = () => {
           className="text-center mt-16"
         >
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8 max-w-2xl mx-auto hover:bg-cyan-500/[0.12] transition-colors duration-300">
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-primary-text mb-4">
               Interested in Working Together?
             </h3>
-            <p className="text-gray-300 mb-6 text-base leading-relaxed">
-              I'm always open to discussing new projects and opportunities. 
+            <p className="text-primary-secondary mb-6 text-base leading-relaxed">
+              I'm always open to discussing new projects and opportunities.
               Let's create something amazing together.
             </p>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Let's Connect
               <svg

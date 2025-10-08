@@ -113,14 +113,14 @@ const Contact = () => {
   const getButtonStyle = () => {
     switch (status) {
       case 'Sending...':
-        return 'bg-yellow-500 text-white cursor-not-allowed';
+        return 'bg-yellow-500 text-primary-text cursor-not-allowed';
       case 'Message Sent!':
-        return 'bg-green-500 text-white cursor-default';
+        return 'bg-green-500 text-primary-text cursor-default';
       case 'Failed to Send':
       case 'Network Error':
-        return 'bg-red-500 text-white hover:bg-red-600';
+        return 'bg-red-500 text-primary-text hover:bg-red-600';
       default:
-        return 'bg-gradient-to-r from-primary-accent to-primary-accent-alt text-white hover:from-primary-accent/80 hover:to-primary-accent-alt/80';
+        return 'bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text hover:from-primary-accent/80 hover:to-primary-accent-alt/80';
     }
   };
 
@@ -128,7 +128,7 @@ const Contact = () => {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8"
+      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
@@ -207,7 +207,7 @@ const Contact = () => {
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
                 <div>
-                  <p className="text-white font-semibold">Available for New Projects</p>
+                  <p className="text-primary-text font-semibold">Available for New Projects</p>
                   <p className="text-green-300 text-sm">Currently open for freelance and full-time opportunities</p>
                 </div>
               </div>
@@ -232,7 +232,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="Brian Mwalish"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
                       required
                     />
                   </div>
@@ -248,7 +248,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="brianmwalish@gmail.com"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
                       required
                     />
                   </div>
@@ -265,7 +265,7 @@ const Contact = () => {
                     onChange={handleInputChange}
                     rows={6}
                     placeholder="Tell me about your project or how I can help..."
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200 resize-none"
                     required
                   />
                 </div>
