@@ -30,15 +30,20 @@ export default function App() {
 
   const renderSection = () => {
     switch (currentSection) {
-      case 'hero': return <Hero />;
-      case 'about': return <About onSectionChange={setCurrentSection} />;
-      case 'projects': return <Projects onSectionChange={setCurrentSection} />;
-      case 'skills': return <Skills />;
-      case 'experience': return <Experience />;
-      case 'contact': return <Contact />;
-      default: return <Hero />;
+      case 'hero': return <Hero key="hero" />;
+      case 'about': return <About key="about" onSectionChange={setCurrentSection} />;
+      case 'projects': return <Projects key="projects" onSectionChange={setCurrentSection} />;
+      case 'skills': return <Skills key="skills" />;
+      case 'experience': return <Experience key="experience" onSectionChange={setCurrentSection} />;
+      case 'contact': return <Contact key="contact" />;
+      default: return <Hero key="hero" />;
     }
   };
+
+  // Scroll to top smoothly on section change
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentSection]);
 
   return (
     <div

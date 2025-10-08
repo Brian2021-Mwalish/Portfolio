@@ -403,13 +403,9 @@ const Hero = () => {
                 <img
                   src={ownerImage}
                   alt="Brian Mwalish - Software Engineer"
-                  className="w-full h-full object-cover object-center"
-                  loading="lazy"
+                  className="w-full h-full object-contain object-center bg-gradient-to-b from-white to-brown-500"
                 />
-                
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                
+
                 {/* Floating Badge */}
                 <motion.div
                   className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-green-500/90 text-white text-xs sm:text-sm font-medium rounded-full backdrop-blur-sm"

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const Experience = () => {
+const Experience = ({ onSectionChange }) => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -273,15 +273,15 @@ const Experience = () => {
               I'm always interested in challenging roles where I can contribute my experience
               in full-stack development and team leadership.
             </p>
-            <a
-              href="#contact"
+            <button
+              onClick={() => onSectionChange('contact')}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Get In Touch
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </button>
           </div>
         </motion.div>
       </motion.div>
