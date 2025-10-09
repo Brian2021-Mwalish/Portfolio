@@ -269,14 +269,12 @@ const Hero = () => {
                 Full-Stack Developer
               </motion.div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="text-primary">
                   Brian
                 </span>
                 <br />
                 <motion.span
-                  className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent"
-                  animate={{ opacity: [0.5, 1, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-primary"
                 >
                   Mwalish
                 </motion.span>
