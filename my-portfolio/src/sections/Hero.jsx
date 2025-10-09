@@ -75,6 +75,35 @@ const CodeSnippet = ({ code, delay, x, y }) => (
   </motion.div>
 );
 
+const Wave = ({ delay, opacity, speed }) => (
+  <motion.div
+    className="absolute bottom-0 left-0 w-full overflow-hidden"
+    style={{ opacity }}
+    initial={{ y: 0 }}
+    animate={{
+      y: [0, -20, 0],
+    }}
+    transition={{
+      duration: speed,
+      delay: delay,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }}
+  >
+    <svg
+      className="relative block w-full h-20 sm:h-32 lg:h-40"
+      viewBox="0 0 1200 120"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,60 C300,100 600,20 900,60 C1050,80 1200,40 1200,60 L1200,120 L0,120 Z"
+        fill="currentColor"
+        className="text-primary/10"
+      />
+    </svg>
+  </motion.div>
+);
+
 // ========================================
 // Main Hero Component
 // ========================================
@@ -237,6 +266,11 @@ const Hero = () => {
             y={`${Math.random() * 60 + 20}%`}
           />
         ))}
+
+        {/* Animated Waves */}
+        <Wave delay={0} opacity={0.3} speed={8} />
+        <Wave delay={2} opacity={0.2} speed={10} />
+        <Wave delay={4} opacity={0.1} speed={12} />
       </div>
 
       {/* Main Content */}
