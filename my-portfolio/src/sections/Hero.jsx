@@ -260,8 +260,8 @@ const Hero = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-3 sm:space-y-4">
-              <motion.div 
-                className="text-sm sm:text-base text-muted-foreground font-medium tracking-wider uppercase"
+              <motion.div
+                className="text-sm sm:text-base text-black font-medium tracking-wider uppercase"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
@@ -269,12 +269,12 @@ const Hero = () => {
                 Full-Stack Developer
               </motion.div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="text-primary">
+                <span className="text-black">
                   Brian
                 </span>
                 <br />
                 <motion.span
-                  className="text-primary"
+                  className="text-black"
                 >
                   Mwalish
                 </motion.span>
@@ -282,7 +282,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-base sm:text-lg lg:text-xl xl:text-2xl text-muted-foreground">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-base sm:text-lg lg:text-xl xl:text-2xl text-black">
                 <span>I craft digital experiences with</span>
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -301,10 +301,10 @@ const Hero = () => {
 
             <motion.p
               variants={itemVariants}
-              className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-xl leading-relaxed"
+              className="text-sm sm:text-base lg:text-lg text-black max-w-xl leading-relaxed"
             >
-              Full-stack software engineer passionate about building scalable applications 
-              and solving complex problems. I turn ideas into reality through clean code, 
+              Full-stack software engineer passionate about building scalable applications
+              and solving complex problems. I turn ideas into reality through clean code,
               innovative solutions, and seamless user experiences.
             </motion.p>
 
@@ -355,7 +355,7 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-6 sm:pt-8"
             >
-              <span className="text-xs sm:text-sm text-muted-foreground font-medium">TECHNOLOGIES</span>
+              <span className="text-xs sm:text-sm text-black font-medium">TECHNOLOGIES</span>
               <div className="flex gap-3 sm:gap-4 flex-wrap">
                 {techIcons.map((tech, i) => (
                   <motion.img
