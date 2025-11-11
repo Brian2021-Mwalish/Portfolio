@@ -7,6 +7,18 @@ const Projects = ({ onSectionChange }) => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const projects = [
+
+     {
+      title: 'Liquidity-Funding',
+      description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
+      tech: ['React', 'OpenAI API', 'Vite', 'JavaScript'],
+      live: 'https://liquiinvestke.co.ke',
+      github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
+      category: 'AI/Frontend',
+      gradient: 'from-purple-500 via-pink-500 to-rose-500',
+      bgGradient: 'from-purple-900/20 to-pink-900/20',
+      features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
+    },
     {
       title: 'Smart  Reservation & Optimization System',
       description: 'A comprehensive full-stack application featuring intelligent table booking, dynamic staff dashboards, customer loyalty rewards program, and real-time table status monitoring with live updates.',
@@ -18,17 +30,7 @@ const Projects = ({ onSectionChange }) => {
       bgGradient: 'from-emerald-900/20 to-teal-900/20',
       features: ['Real-time Updates', 'Admin Dashboard', 'Loyalty System', 'Responsive Design']
     },
-    {
-      title: 'Liquidity-Funding',
-      description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
-      tech: ['React', 'OpenAI API', 'Vite', 'JavaScript'],
-      live: 'https://liquiinvestke.co.ke',
-      github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
-      category: 'AI/Frontend',
-      gradient: 'from-purple-500 via-pink-500 to-rose-500',
-      bgGradient: 'from-purple-900/20 to-pink-900/20',
-      features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
-    },
+   
     {
       title: 'AI Chatbot Interface',
       description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
