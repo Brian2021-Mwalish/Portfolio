@@ -19,6 +19,17 @@ const Projects = ({ onSectionChange }) => {
       features: ['Real-time Updates', 'Admin Dashboard', 'Loyalty System', 'Responsive Design']
     },
     {
+      title: 'Liquidity-Funding',
+      description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
+      tech: ['React', 'OpenAI API', 'Vite', 'JavaScript'],
+      live: 'https://liquiinvestke.co.ke',
+      github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
+      category: 'AI/Frontend',
+      gradient: 'from-purple-500 via-pink-500 to-rose-500',
+      bgGradient: 'from-purple-900/20 to-pink-900/20',
+      features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
+    },
+    {
       title: 'AI Chatbot Interface',
       description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
       tech: ['React', 'OpenAI API', 'Vite', 'JavaScript'],
