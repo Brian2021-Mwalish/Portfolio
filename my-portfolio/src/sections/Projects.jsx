@@ -8,11 +8,11 @@ const Projects = ({ onSectionChange }) => {
 
   const projects = [
     {
-      title: 'Restaurant Reservation System',
+      title: 'Smart  Reservation & Optimization System',
       description: 'A comprehensive full-stack application featuring intelligent table booking, dynamic staff dashboards, customer loyalty rewards program, and real-time table status monitoring with live updates.',
       tech: ['React', 'Django', 'PostgreSQL', 'Tailwind CSS'],
       live: 'https://restaurant-app-demo.vercel.app',
-      github: 'https://github.com/Brian2021-Mwalish/restaurant-reservation-system',
+      github: 'https://github.com/Brian2021-Mwalish/Reservation-System.git',
       category: 'Full-Stack',
       gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
       bgGradient: 'from-emerald-900/20 to-teal-900/20',
