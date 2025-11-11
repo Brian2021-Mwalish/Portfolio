@@ -6,7 +6,6 @@ import pythonLogo from "../assets/python.png";
 import fastapiLogo from "../assets/fastapi.png";
 import dockerLogo from "../assets/docker.png";
 import awsLogo from "../assets/aws.png";
-import logoImage from "/Kraftrix Africa.png";
 
 // ========================================
 // Sub-Components
@@ -295,36 +294,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-3 sm:space-y-4">
-              {/* Logo Section */}
-              <motion.div
-                className="flex justify-center lg:justify-start"
-                initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <div className="relative">
-                  {/* Logo Glow Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-lg"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.4, 0.7, 0.4]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.img
-                    src={logoImage}
-                    alt="Kraftrix Africa Logo"
-                    className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full border-2 border-primary/30 shadow-xl backdrop-blur-sm"
-                    whileHover={{
-                      scale: 1.1,
-                      rotate: 5,
-                      boxShadow: "0 0 30px rgba(59, 130, 246, 0.5)"
-                    }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  />
-                </div>
-              </motion.div>
+
 
               <motion.div
                 className="text-sm sm:text-base text-black font-medium tracking-wider uppercase"

@@ -24,14 +24,18 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
     <nav className="fixed top-0 left-0 w-full z-50 bg-blue-100 dark:bg-blue-900 text-primary-text dark:text-primary-text-dark shadow-lg backdrop-blur-md transition-colors duration-500">
       <div className="max-w-[90rem] mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <motion.img
-          src={logoImage}
-          alt="Kraftrix Africa Logo"
-          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border border-primary/30 shadow-md cursor-pointer"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          onClick={() => handleClick('hero')}
-        />
+        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleClick('hero')}>
+          <motion.img
+            src={logoImage}
+            alt="Kraftrix Africa Logo"
+            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border border-primary/30 shadow-md"
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          />
+          <span className="text-lg sm:text-xl md:text-2xl font-bold text-primary-text dark:text-primary-text-dark">
+            Kraftrix Africa Technologies
+          </span>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
