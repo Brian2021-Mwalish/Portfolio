@@ -26,7 +26,7 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
           className="text-2xl md:text-3xl font-bold text-primary-accent dark:text-primary-accent-dark tracking-wide cursor-pointer hover:text-primary-highlight dark:hover:text-primary-highlight-dark transition-colors duration-300"
           onClick={() => handleClick('hero')}
         >
-          LISHNOVA TECH
+          Kraftrix Africa
         </h1>
 
         {/* Desktop Navigation */}
