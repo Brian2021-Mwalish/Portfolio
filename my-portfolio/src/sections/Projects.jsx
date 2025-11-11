@@ -17,7 +17,7 @@ const Projects = ({ onSectionChange }) => {
       category: 'Full-stack',
       gradient: 'from-purple-500 via-pink-500 to-rose-500',
       bgGradient: 'from-purple-900/20 to-pink-900/20',
-      features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
+      features: ['M-pesa payment Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
     },
     {
       title: 'Smart  Reservation & Optimization System',
