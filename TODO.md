@@ -1,14 +1,12 @@
-- [x] Update tailwind.config.js with light mode colors for good visibility
-- [x] Update Hero.jsx text colors to use primary color variables
-- [x] Update About.jsx text colors to use primary color variables
-- [x] Update Projects.jsx text colors to use primary color variables
-- [x] Update Contact.jsx text colors to use primary color variables
-- [x] Update Experience.jsx text colors to use primary color variables
-- [x] Update Navbar.jsx text colors to use primary color variables
-- [x] Verify components render correctly in light mode
-- [x] Test the portfolio site
-- [x] Update tailwind.config.js to include dark mode variants with Navy blue accent
-- [x] Create ThemeToggle.jsx component with toggle button
-- [x] Modify App.jsx to manage theme state and apply dark class
-- [x] Add ThemeToggle to Navbar.jsx
-- [x] Test dark mode toggle functionality
+# TODO: Add Logo to Portfolio
+
+## Tasks
+- [x] Update index.html to add favicon using the logo image
+- [x] Modify Hero.jsx to import and display the logo above the name "Brian Mwalish" with unique styling and animations
+- [x] Test the changes by running the development server
+
+## Details
+- Logo file: /public/Kraftrix Africa.png
+- Navbar: No changes needed
+- Hero section: Add logo prominently above the name with glow effects and motion animations for uniqueness
+- Favicon: Add to browser tab for URL visibility
