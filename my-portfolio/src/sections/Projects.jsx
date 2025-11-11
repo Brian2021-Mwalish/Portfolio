@@ -19,6 +19,17 @@ const Projects = ({ onSectionChange }) => {
       bgGradient: 'from-purple-900/20 to-pink-900/20',
       features: ['M-pesa payment Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
     },
+     {
+      title: 'Prime Trades',
+      description: 'Advanced administrative control panel designed for managing customer loyalty tiers, comprehensive engagement analytics visualization, and automated loyalty action triggers with manual override capabilities.',
+      tech: ['TypeScript', 'Django', 'Chart.js', 'Redux'],
+      live: 'https://www.primetrades.app',
+      github: 'https://github.com/Brian2021-Mwalish/Prime-Trade.git',
+      category: 'Dashboard/Analytics',
+      gradient: 'from-blue-500 via-indigo-500 to-purple-500',
+      bgGradient: 'from-blue-900/20 to-indigo-900/20',
+      features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization']
+    },
     {
       title: 'Smart  Reservation & Optimization System',
       description: 'A comprehensive full-stack application featuring intelligent table booking, dynamic staff dashboards, customer loyalty rewards program, and real-time table status monitoring with live updates.',
