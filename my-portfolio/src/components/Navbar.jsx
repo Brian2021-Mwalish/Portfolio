@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
+import logoImage from "/Kraftrix Africa.png";
 
 const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
   const [navOpen, setNavOpen] = useState(false);
@@ -22,12 +24,14 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
     <nav className="fixed top-0 left-0 w-full z-50 bg-blue-100 dark:bg-blue-900 text-primary-text dark:text-primary-text-dark shadow-lg backdrop-blur-md transition-colors duration-500">
       <div className="max-w-[90rem] mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <h1
-          className="text-2xl md:text-3xl font-bold text-primary-accent dark:text-primary-accent-dark tracking-wide cursor-pointer hover:text-primary-highlight dark:hover:text-primary-highlight-dark transition-colors duration-300"
+        <motion.img
+          src={logoImage}
+          alt="Kraftrix Africa Logo"
+          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border border-primary/30 shadow-md cursor-pointer"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
           onClick={() => handleClick('hero')}
-        >
-          Kraftrix Africa
-        </h1>
+        />
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">

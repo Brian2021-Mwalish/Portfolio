@@ -315,7 +315,7 @@ const Hero = () => {
                   <motion.img
                     src={logoImage}
                     alt="Kraftrix Africa Logo"
-                    className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full border-2 border-primary/30 shadow-xl backdrop-blur-sm"
+                    className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 rounded-full border-2 border-primary/30 shadow-xl backdrop-blur-sm"
                     whileHover={{
                       scale: 1.1,
                       rotate: 5,
