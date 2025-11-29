@@ -25,8 +25,8 @@ const Experience = ({ onSectionChange }) => {
         'Enhanced system performance and user experience',
         'Full development lifecycle contribution'
       ],
-      gradient: 'from-emerald-500 to-teal-500',
-      bgGradient: 'from-emerald-900/20 to-teal-900/20'
+      solidColor: 'bg-emerald-500',
+      bgSolid: 'bg-emerald-900/20'
     },
     {
       role: 'Educational Outreach Mentor',
@@ -47,8 +47,8 @@ const Experience = ({ onSectionChange }) => {
         'Developed comprehensive curriculum for different age groups',
         'Improved digital literacy among young students'
       ],
-      gradient: 'from-blue-500 to-purple-500',
-      bgGradient: 'from-blue-900/20 to-purple-900/20'
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20'
     },
     {
       role: 'Graphic Designer',
@@ -69,8 +69,8 @@ const Experience = ({ onSectionChange }) => {
         'Enhanced internal company branding',
         'Delivered professional design solutions'
       ],
-      gradient: 'from-purple-500 to-pink-500',
-      bgGradient: 'from-purple-900/20 to-pink-900/20'
+      solidColor: 'bg-pink-500',
+      bgSolid: 'bg-pink-900/20'
     }
   ];
 
@@ -102,8 +102,8 @@ const Experience = ({ onSectionChange }) => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl top-1/4 right-1/4" />
-        <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/4 to-pink-500/4 rounded-full blur-3xl bottom-1/3 left-1/4" />
+        <div className="absolute w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl top-1/4 right-1/4" />
+        <div className="absolute w-80 h-80 bg-pink-500/4 rounded-full blur-3xl bottom-1/3 left-1/4" />
       </div>
 
       <motion.div
@@ -115,14 +115,14 @@ const Experience = ({ onSectionChange }) => {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-primary-accent bg-clip-text text-transparent">
               Professional Experience
             </span>
           </h2>
           <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
             My journey in technology, from graphic design and educational outreach to full-stack development.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full mt-8" />
+          <div className="w-24 h-1 bg-primary-accent mx-auto rounded-full mt-8" />
         </motion.div>
 
         {/* Experience Items */}
@@ -140,7 +140,7 @@ const Experience = ({ onSectionChange }) => {
                     {/* Header */}
                     <div className="mb-6">
                       <div className="flex flex-wrap items-center gap-3 mb-3">
-                        <span className={`px-3 py-1 bg-gradient-to-r ${exp.gradient} text-primary-text text-xs font-medium rounded-full`}>
+        <span className={`px-3 py-1 ${exp.solidColor} text-primary-text text-xs font-medium rounded-full`}>
                           {exp.type}
                         </span>
                         <span className="text-sm text-primary-secondary">{exp.duration}</span>
@@ -216,7 +216,7 @@ const Experience = ({ onSectionChange }) => {
         {/* Skills Summary */}
         <motion.div
           variants={itemVariants}
-          className="mt-20 bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8"
+          className="mt-20 bg-primary-accent/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8"
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-primary-text mb-4">
@@ -229,7 +229,7 @@ const Experience = ({ onSectionChange }) => {
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                 </svg>
@@ -239,7 +239,7 @@ const Experience = ({ onSectionChange }) => {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
@@ -249,7 +249,7 @@ const Experience = ({ onSectionChange }) => {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-primary-text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -265,7 +265,7 @@ const Experience = ({ onSectionChange }) => {
           variants={itemVariants}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8 max-w-2xl mx-auto">
+          <div className="bg-primary-accent/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-primary-text mb-4">
               Ready for New Opportunities
             </h3>
@@ -275,7 +275,7 @@ const Experience = ({ onSectionChange }) => {
             </p>
             <button
               onClick={() => onSectionChange('contact')}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 bg-primary-accent text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Get In Touch
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

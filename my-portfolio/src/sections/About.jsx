@@ -365,35 +365,7 @@ const About = ({ onSectionChange }) => {
           </div>
         </div>
 
-        {/* Bottom Stats */}
-        <motion.div
-          variants={itemVariants}
-          className="mt-12 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"
-        >
-          {[
-            { number: '3+', label: 'Years Experience' },
-            { number: '20+', label: 'Projects Completed' },
-            { number: '5+', label: 'Technologies Mastered' },
-            { number: '100%', label: 'Client Satisfaction' }
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 sm:p-6 text-center group hover:bg-white/[0.08] transition-all duration-300"
-              whileHover={{ y: -5 }}
-            >
-              <motion.h4
-                className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text text-transparent mb-1 sm:mb-2"
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-              >
-                {stat.number}
-              </motion.h4>
-              <p className="text-primary-secondary text-xs sm:text-sm group-hover:text-primary-text transition-colors">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+
       </motion.div>
     </section>
   );

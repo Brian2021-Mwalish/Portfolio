@@ -52,7 +52,7 @@ const Contact = () => {
       label: 'Email',
       value: 'brianmwalish@gmail.com',
       link: 'https://mail.google.com/mail/?view=cm&fs=1&to=brianmwalish@gmail.com',
-      gradient: 'from-blue-500 to-cyan-500'
+      color: 'bg-blue-500'
     },
     {
       icon: (
@@ -63,7 +63,7 @@ const Contact = () => {
       label: 'LinkedIn',
       value: 'linkedin.com/in/brianmwalish',
       link: 'https://linkedin.com/in/brianmwalish',
-      gradient: 'from-blue-600 to-blue-800'
+      color: 'bg-blue-600'
     },
     {
       icon: (
@@ -74,7 +74,7 @@ const Contact = () => {
       label: 'GitHub',
       value: 'github.com/Brian2021-Mwalish',
       link: 'https://github.com/Brian2021-Mwalish',
-      gradient: 'from-gray-700 to-gray-900'
+      color: 'bg-gray-700'
     },
     {
       icon: (
@@ -86,7 +86,7 @@ const Contact = () => {
       label: 'Location',
       value: 'Nairobi, Kenya',
       link: null,
-      gradient: 'from-emerald-500 to-teal-500'
+      color: 'bg-emerald-500'
     }
   ];
 
@@ -120,7 +120,7 @@ const Contact = () => {
       case 'Network Error':
         return 'bg-red-500 text-primary-text hover:bg-red-600';
       default:
-        return 'bg-gradient-to-r from-primary-accent to-primary-accent-alt text-primary-text hover:from-primary-accent/80 hover:to-primary-accent-alt/80';
+        return 'bg-blue-500 text-primary-text hover:bg-blue-600';
     }
   };
 
@@ -132,8 +132,8 @@ const Contact = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl top-1/4 left-1/4" />
-        <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/8 to-pink-500/8 rounded-full blur-3xl bottom-1/4 right-1/4" />
+        <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full blur-3xl top-1/4 left-1/4" />
+        <div className="absolute w-80 h-80 bg-green-500/10 rounded-full blur-3xl bottom-1/4 right-1/4" />
       </div>
 
       <motion.div
@@ -145,19 +145,19 @@ const Contact = () => {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-primary-accent via-primary-accent-alt to-purple-400 bg-clip-text text-transparent">
+            <span className="text-blue-400">
               Let's Work Together
             </span>
           </h2>
           <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
-            Have a project in mind or want to discuss opportunities? I'd love to hear from you. 
+            Have a project in mind or want to discuss opportunities? I'd love to hear from you.
             Let's create something amazing together.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full mt-8" />
+          <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full mt-8" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          
+
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="space-y-8">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
@@ -176,7 +176,7 @@ const Contact = () => {
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className={`w-12 h-12 bg-gradient-to-r ${info.gradient} rounded-xl flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-200`}>
+                    <div className={`w-12 h-12 ${info.color} rounded-xl flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-200`}>
                       {info.icon}
                     </div>
                     <div>
@@ -202,7 +202,7 @@ const Contact = () => {
             {/* Availability Status */}
             <motion.div
               variants={itemVariants}
-              className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 backdrop-blur-xl border border-green-500/20 rounded-2xl p-6"
+              className="bg-green-500/10 backdrop-blur-xl border border-green-500/20 rounded-2xl p-6"
             >
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
@@ -216,12 +216,12 @@ const Contact = () => {
 
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl hover:scale-105 transition-transform duration-300">
               <h3 className="text-2xl font-bold text-primary-text mb-6">Send Me a Message</h3>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
+                  <div className="space-y-2 bg-white/5 border border-white/20 rounded-xl p-4">
                     <label htmlFor="name" className="text-sm font-medium text-primary-secondary">
                       Full Name
                     </label>
@@ -231,13 +231,13 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      placeholder="Brian Mwalish"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
+                      placeholder="Enter your full name"
+                      className="w-full px-4 py-3 bg-transparent border border-white/20 rounded-lg text-primary-text placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-cyan-500 backdrop-blur-sm transition-all duration-200"
                       required
                     />
                   </div>
-                  
-                  <div className="space-y-2">
+
+                  <div className="space-y-2 bg-white/5 border border-white/20 rounded-xl p-4">
                     <label htmlFor="email" className="text-sm font-medium text-primary-secondary">
                       Email Address
                     </label>
@@ -247,14 +247,14 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="brianmwalish@gmail.com"
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200"
+                      placeholder="Enter your email address"
+                      className="w-full px-4 py-3 bg-transparent border border-white/20 rounded-lg text-primary-text placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-cyan-500 backdrop-blur-sm transition-all duration-200"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 bg-white/5 border border-white/20 rounded-xl p-4">
                   <label htmlFor="message" className="text-sm font-medium text-primary-secondary">
                     Message
                   </label>
@@ -264,8 +264,8 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={6}
-                    placeholder="Tell me about your project or how I can help..."
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-primary-text placeholder-gray-400 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 backdrop-blur-sm transition-all duration-200 resize-none"
+                    placeholder="Enter your message here"
+                    className="w-full px-4 py-3 bg-transparent border border-white/20 rounded-lg text-primary-text placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-cyan-500 backdrop-blur-sm transition-all duration-200 resize-none"
                     required
                   />
                 </div>
@@ -300,7 +300,7 @@ const Contact = () => {
           variants={itemVariants}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-primary-accent/10 to-primary-accent-alt/10 backdrop-blur-xl border border-primary-accent/20 rounded-2xl p-8 max-w-3xl mx-auto">
+          <div className="bg-blue-500/10 backdrop-blur-xl border border-blue-500/20 rounded-2xl p-8 max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-primary-text mb-4">
               Let's Build Something Great
             </h3>
