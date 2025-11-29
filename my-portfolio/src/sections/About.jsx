@@ -37,46 +37,46 @@ const About = ({ onSectionChange }) => {
 
   // Skills data with actual logos and descriptions
   const skills = [
-    { 
-      name: 'React', 
-      logo: reactLogo, 
-      level: 95, 
-      color: 'from-blue-500 to-cyan-400',
+    {
+      name: 'React',
+      logo: reactLogo,
+      level: 95,
+      color: 'bg-blue-500',
       description: 'Building dynamic user interfaces'
     },
-    { 
-      name: 'Python', 
-      logo: pythonLogo, 
-      level: 90, 
-      color: 'from-green-500 to-emerald-400',
+    {
+      name: 'Python',
+      logo: pythonLogo,
+      level: 90,
+      color: 'bg-green-500',
       description: 'Backend development & automation'
     },
-    { 
-      name: 'FastAPI', 
-      logo: fastapiLogo, 
-      level: 88, 
-      color: 'from-green-600 to-teal-400',
+    {
+      name: 'FastAPI',
+      logo: fastapiLogo,
+      level: 88,
+      color: 'bg-teal-500',
       description: 'High-performance API development'
     },
-    { 
-      name: 'Docker', 
-      logo: dockerLogo, 
-      level: 82, 
-      color: 'from-blue-600 to-indigo-400',
+    {
+      name: 'Docker',
+      logo: dockerLogo,
+      level: 82,
+      color: 'bg-blue-600',
       description: 'Containerization & deployment'
     },
-    { 
-      name: 'AWS', 
-      logo: awsLogo, 
-      level: 75, 
-      color: 'from-orange-500 to-amber-400',
+    {
+      name: 'AWS',
+      logo: awsLogo,
+      level: 75,
+      color: 'bg-orange-500',
       description: 'Cloud infrastructure & services'
     },
-    { 
-      name: 'PostgreSQL', 
+    {
+      name: 'PostgreSQL',
       logo: null, // Use placeholder or add logo to assets
-      level: 85, 
-      color: 'from-blue-700 to-indigo-500',
+      level: 85,
+      color: 'bg-blue-700',
       description: 'Database design & optimization'
     }
   ];
@@ -86,22 +86,22 @@ const About = ({ onSectionChange }) => {
     {
       title: 'Detail-Oriented',
       description: 'Every pixel matters. I believe in crafting polished experiences that users love.',
-      gradient: 'from-purple-500 to-pink-500'
+      color: 'bg-blue-500'
     },
     {
       title: 'Collaborative',
       description: 'Great software is built by great teams. I thrive in collaborative environments.',
-      gradient: 'from-blue-500 to-cyan-500'
+      color: 'bg-cyan-500'
     },
     {
       title: 'Innovation-Driven',
       description: 'Always exploring new technologies and methodologies to solve problems better.',
-      gradient: 'from-emerald-500 to-teal-500'
+      color: 'bg-emerald-500'
     },
     {
       title: 'Growth Mindset',
       description: 'Continuous learning is key. Every challenge is an opportunity to improve.',
-      gradient: 'from-orange-500 to-red-500'
+      color: 'bg-orange-500'
     }
   ];
 
@@ -144,7 +144,7 @@ const About = ({ onSectionChange }) => {
       <div className="absolute inset-0">
         {/* Animated gradient orbs */}
         <motion.div
-          className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-2xl sm:blur-3xl"
+          className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-cyan-500/10 rounded-full blur-2xl sm:blur-3xl"
           animate={{
             x: mousePosition.x * 0.02,
             y: mousePosition.y * 0.02,
@@ -153,7 +153,7 @@ const About = ({ onSectionChange }) => {
           style={{ left: '10%', top: '20%' }}
         />
         <motion.div
-          className="absolute w-48 h-48 sm:w-80 sm:h-80 bg-gradient-to-r from-purple-500/8 to-pink-500/8 rounded-full blur-2xl sm:blur-3xl"
+          className="absolute w-48 h-48 sm:w-80 sm:h-80 bg-emerald-500/8 rounded-full blur-2xl sm:blur-3xl"
           animate={{
             x: mousePosition.x * -0.015,
             y: mousePosition.y * -0.015,
@@ -197,12 +197,12 @@ const About = ({ onSectionChange }) => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-600 bg-clip-text text-transparent">
+            <span className="text-slate-700">
               About Me
             </span>
           </motion.h2>
-          <motion.div 
-            className="w-16 sm:w-24 h-1 bg-gradient-to-r from-primary-accent to-primary-accent-alt mx-auto rounded-full"
+          <motion.div
+            className="w-16 sm:w-24 h-1 bg-cyan-500 mx-auto rounded-full"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -246,10 +246,10 @@ const About = ({ onSectionChange }) => {
                   onHoverEnd={() => setActiveCard(null)}
                 >
                   <div className="flex items-center mb-2 sm:mb-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center mr-3">
-                      <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gradient-to-r ${value.gradient}`} />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-500/20 flex items-center justify-center mr-3">
+                      <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${value.color}`} />
                     </div>
-                    <h4 className={`font-semibold text-base sm:text-lg bg-gradient-to-r ${value.gradient} bg-clip-text text-transparent`}>
+                    <h4 className={`font-semibold text-base sm:text-lg text-${value.color.split('-')[1]}-500`}>
                       {value.title}
                     </h4>
                   </div>
@@ -268,8 +268,8 @@ const About = ({ onSectionChange }) => {
               className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 lg:p-8"
             >
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-r from-cyan-500/20 to-blue-500/20 flex items-center justify-center mr-3">
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-gradient-to-r from-cyan-400 to-blue-400" />
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mr-3">
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-cyan-500" />
                 </div>
                 Technical Skills
               </h3>
@@ -286,7 +286,7 @@ const About = ({ onSectionChange }) => {
                             className="w-6 h-6 sm:w-8 sm:h-8 mr-3 opacity-80 group-hover:opacity-100 transition-opacity"
                           />
                         ) : (
-                          <div className="w-6 h-6 sm:w-8 sm:h-8 mr-3 rounded bg-gradient-to-r from-gray-500 to-gray-400 opacity-80" />
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 mr-3 rounded bg-gray-500 opacity-80" />
                         )}
                         <div>
                           <span className="text-primary-text font-medium text-sm sm:text-base block">{skill.name}</span>
@@ -298,7 +298,7 @@ const About = ({ onSectionChange }) => {
                     
                     <div className="h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
                       <motion.div
-                        className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative`}
+                        className={`h-full ${skill.color} rounded-full relative`}
                         variants={skillVariants}
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
@@ -324,7 +324,7 @@ const About = ({ onSectionChange }) => {
             {/* Call to Action */}
             <motion.div
               variants={itemVariants}
-              className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-4 sm:p-6 lg:p-8 text-center"
+              className="bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-4 sm:p-6 lg:p-8 text-center"
             >
               <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-3 sm:mb-4">
                 Let's Build Something Amazing Together
@@ -337,7 +337,7 @@ const About = ({ onSectionChange }) => {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <motion.button
                   onClick={() => onSectionChange('contact')}
-                  className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-sm sm:text-base"
+                  className="bg-cyan-500 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-sm sm:text-base"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >

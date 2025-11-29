@@ -1,12 +1,10 @@
-# TODO: Add Logo to Portfolio
+# TODO: Update About Page
 
-## Tasks
-- [x] Update index.html to add favicon using the logo image
-- [x] Modify Hero.jsx to import and display the logo above the name "Brian Mwalish" with unique styling and animations
-- [x] Test the changes by running the development server
-
-## Details
-- Logo file: /public/Kraftrix Africa.png
-- Navbar: No changes needed
-- Hero section: Add logo prominently above the name with glow effects and motion animations for uniqueness
-- Favicon: Add to browser tab for URL visibility
+- [ ] Update skills section to use solid colors instead of gradients (e.g., change 'from-blue-500 to-cyan-400' to 'bg-blue-500')
+- [ ] Update values section to use solid colors, avoiding purple (e.g., change 'from-purple-500 to-pink-500' to 'bg-blue-500')
+- [ ] Update background orbs and floating elements to solid colors
+- [ ] Update header text and other gradient text to solid colors
+- [ ] Update buttons and call-to-action elements to solid colors
+- [ ] Add Mission section after the story with solid styling and unique content
+- [ ] Add Vision section after Mission with solid styling and unique content
+- [ ] Ensure overall styling remains responsive and professional
