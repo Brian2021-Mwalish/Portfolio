@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
 const Projects = ({ onSectionChange }) => {
+  const sectionRef = useRef(null);
 
   const projects = [
     {
