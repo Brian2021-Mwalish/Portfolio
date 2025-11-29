@@ -1,47 +1,41 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef } from 'react';
 
 const Projects = ({ onSectionChange }) => {
-  const [hoveredProject, setHoveredProject] = useState(null);
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const projects = [
-
-     {
+    {
       title: 'Liquidity-Funding',
       description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
-      tech: ['React', 'Django', 'Vite', 'JavaScript' ,'Tailwind CSS'],
+      tech: ['React', 'Django', 'Vite', 'JavaScript', 'Tailwind CSS'],
       live: 'https://liquiinvestke.co.ke',
       github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
       category: 'Full-stack',
-      gradient: 'from-purple-500 via-pink-500 to-rose-500',
-      bgGradient: 'from-purple-900/20 to-pink-900/20',
+      solidColor: 'bg-purple-500',
+      bgSolid: 'bg-purple-900/20',
       features: ['M-pesa payment Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
     },
-     {
+    {
       title: 'Prime Trades',
       description: 'Advanced administrative control panel designed for managing customer loyalty tiers, comprehensive engagement analytics visualization, and automated loyalty action triggers with manual override capabilities.',
       tech: ['TypeScript', 'Django', 'Chart.js', 'Redux'],
       live: 'https://www.primetrades.app',
       github: 'https://github.com/Brian2021-Mwalish/Prime-Trade.git',
       category: 'Dashboard/Analytics',
-      gradient: 'from-blue-500 via-indigo-500 to-purple-500',
-      bgGradient: 'from-blue-900/20 to-indigo-900/20',
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20',
       features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization']
     },
     {
-      title: 'Smart  Reservation & Optimization System',
+      title: 'Smart Reservation & Optimization System',
       description: 'A comprehensive full-stack application featuring intelligent table booking, dynamic staff dashboards, customer loyalty rewards program, and real-time table status monitoring with live updates.',
       tech: ['React', 'Django', 'PostgreSQL', 'Tailwind CSS'],
       live: 'https://restaurant-app-demo.vercel.app',
       github: 'https://github.com/Brian2021-Mwalish/Reservation-System.git',
       category: 'Full-Stack',
-      gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
-      bgGradient: 'from-emerald-900/20 to-teal-900/20',
+      solidColor: 'bg-emerald-500',
+      bgSolid: 'bg-emerald-900/20',
       features: ['Real-time Updates', 'Admin Dashboard', 'Loyalty System', 'Responsive Design']
     },
-   
     {
       title: 'AI Chatbot Interface',
       description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
@@ -49,8 +43,8 @@ const Projects = ({ onSectionChange }) => {
       live: 'https://mwalish-chatbot.vercel.app',
       github: 'https://github.com/Brian2021-Mwalish/ai-chatbot',
       category: 'AI/Frontend',
-      gradient: 'from-purple-500 via-pink-500 to-rose-500',
-      bgGradient: 'from-purple-900/20 to-pink-900/20',
+      solidColor: 'bg-purple-500',
+      bgSolid: 'bg-purple-900/20',
       features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
     },
     {
@@ -60,68 +54,31 @@ const Projects = ({ onSectionChange }) => {
       live: '',
       github: 'https://github.com/Brian2021-Mwalish/loyalty-dashboard',
       category: 'Dashboard/Analytics',
-      gradient: 'from-blue-500 via-indigo-500 to-purple-500',
-      bgGradient: 'from-blue-900/20 to-indigo-900/20',
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20',
       features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization']
     },
   ];
 
-  // Simple animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.15
-      }
-    }
-  };
 
-  const projectVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
 
   const ProjectCard = ({ project, index }) => {
     return (
-      <motion.div
-        variants={projectVariants}
-        className="group relative"
-        onMouseEnter={() => setHoveredProject(index)}
-        onMouseLeave={() => setHoveredProject(null)}
-      >
+      <div className="relative">
         {/* Card Container */}
-        <div className={`relative bg-gradient-to-br ${project.bgGradient} backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full transition-all duration-300 hover:border-white/20 hover:shadow-xl`}>
-          
-          {/* Subtle hover gradient */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 hover:opacity-[0.03] transition-opacity duration-300 rounded-2xl`} />
-
+        <div className={`relative ${project.bgSolid} backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full`}>
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col">
-            
             {/* Header */}
             <div className="flex justify-between items-start mb-6">
               <div>
-                <span className={`inline-block px-3 py-1 bg-gradient-to-r ${project.gradient} text-primary-text text-xs font-medium rounded-full mb-4`}>
+                <span className={`inline-block px-3 py-1 ${project.solidColor} text-primary-text text-xs font-medium rounded-full mb-4`}>
                   {project.category}
                 </span>
-                
-                <h3 className="text-2xl lg:text-3xl font-bold text-primary-text mb-2 group-hover:text-primary-accent transition-colors duration-300">
+                <h3 className="text-2xl lg:text-3xl font-bold text-primary-text mb-2">
                   {project.title}
                 </h3>
               </div>
-
               {/* Status Indicator */}
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded-full ${project.live ? 'bg-green-400' : 'bg-yellow-400'} shadow-lg`} />
@@ -130,12 +87,10 @@ const Projects = ({ onSectionChange }) => {
                 </span>
               </div>
             </div>
-
             {/* Description */}
             <p className="text-primary-secondary leading-relaxed mb-6 flex-grow text-base">
               {project.description}
             </p>
-
             {/* Features */}
             <div className="mb-6">
               <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
@@ -153,7 +108,6 @@ const Projects = ({ onSectionChange }) => {
                 ))}
               </div>
             </div>
-
             {/* Tech Stack */}
             <div className="mb-8">
               <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
@@ -163,14 +117,13 @@ const Projects = ({ onSectionChange }) => {
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-white/10 text-primary-text text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm hover:bg-white/15 transition-colors duration-200"
+                    className="bg-white/10 text-primary-text text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
             </div>
-
             {/* Action Buttons */}
             <div className="flex gap-4 mt-auto">
               {project.live && (
@@ -178,7 +131,7 @@ const Projects = ({ onSectionChange }) => {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex-1 bg-gradient-to-r ${project.gradient} text-primary-text font-semibold py-3 px-6 rounded-xl text-center transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02]`}
+                  className={`flex-1 ${project.solidColor} text-primary-text font-semibold py-3 px-6 rounded-xl text-center shadow-lg`}
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
@@ -188,12 +141,11 @@ const Projects = ({ onSectionChange }) => {
                   </span>
                 </a>
               )}
-              
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-white/10 border-2 border-white/20 text-primary-text font-semibold py-3 px-6 rounded-xl text-center hover:bg-white/15 hover:border-white/30 transition-all duration-200 backdrop-blur-sm hover:scale-[1.02]"
+                className="flex-1 bg-white/10 border-2 border-white/20 text-primary-text font-semibold py-3 px-6 rounded-xl text-center backdrop-blur-sm"
               >
                 <span className="flex items-center justify-center gap-2">
                   GitHub
@@ -205,7 +157,7 @@ const Projects = ({ onSectionChange }) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   };
 
@@ -217,52 +169,38 @@ const Projects = ({ onSectionChange }) => {
     >
       {/* Subtle background elements */}
       <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full blur-3xl top-1/4 left-1/4" />
-        <div className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl bottom-1/4 right-1/4" />
+        <div className="absolute w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl top-1/4 left-1/4" />
+        <div className="absolute w-80 h-80 bg-purple-500/5 rounded-full blur-3xl bottom-1/4 right-1/4" />
       </div>
 
       {/* Main Content */}
-      <motion.div
-        className="relative z-10 max-w-7xl mx-auto"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-      >
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div 
-          variants={projectVariants}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="text-cyan-400">
               Featured Projects
             </span>
           </h2>
-          
+
           <p className="text-xl text-primary-secondary max-w-3xl mx-auto leading-relaxed">
             A showcase of my recent work in full-stack development, featuring modern technologies
             and innovative solutions to real-world problems.
           </p>
-          
-          <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full mt-8" />
-        </motion.div>
+
+          <div className="w-24 h-1 bg-cyan-500 mx-auto rounded-full mt-8" />
+        </div>
 
         {/* Projects Grid */}
-        <motion.div 
-          className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8"
-          variants={containerVariants}
-        >
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
-        <motion.div
-          variants={projectVariants}
-          className="text-center mt-16"
-        >
-          <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8 max-w-2xl mx-auto hover:bg-cyan-500/[0.12] transition-colors duration-300">
+        <div className="text-center mt-16">
+          <div className="bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-8 max-w-2xl mx-auto hover:bg-cyan-500/[0.12] transition-colors duration-300">
             <h3 className="text-2xl font-bold text-primary-text mb-4">
               Interested in Working Together?
             </h3>
@@ -272,7 +210,7 @@ const Projects = ({ onSectionChange }) => {
             </p>
             <button
               onClick={() => onSectionChange('contact')}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 bg-cyan-500 text-primary-text font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
             >
               Let's Connect
               <svg
@@ -285,8 +223,8 @@ const Projects = ({ onSectionChange }) => {
               </svg>
             </button>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
