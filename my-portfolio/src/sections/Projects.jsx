@@ -6,14 +6,14 @@ const Projects = ({ onSectionChange }) => {
   const projects = [
     {
       title: 'Liquidity-Funding',
-      description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
+      description: 'A modern investment platform enabling seamless funding and investment management. Features include real-time dashboards, M-Pesa integration, context-aware tracking, and a referral rewards system for enhanced user engagement.',
       tech: ['React', 'Django', 'Vite', 'JavaScript', 'Tailwind CSS'],
       live: 'https://liquiinvestke.co.ke',
       github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
       category: 'Full-stack',
       solidColor: 'bg-purple-500',
       bgSolid: 'bg-purple-900/20',
-      features: ['M-pesa payment Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
+      features: ['M-Pesa Payment Integration', 'Real-Time Dashboard', 'Investment Tracking', 'Referral Program', 'Modern UI']
     },
     {
       title: 'Prime Trades',

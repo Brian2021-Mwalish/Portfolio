@@ -11,7 +11,6 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
   const links = [
     { name: 'Home', section: 'hero' },
     { name: 'Projects', section: 'projects' },
-    { name: 'Contact', section: 'contact' },
   ];
 
   const aboutDropdown = [
@@ -110,6 +109,18 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Contact */}
+          <button
+            onClick={() => handleClick('contact')}
+            className={`text-base font-medium transition-colors duration-300 ${
+              activeSection === 'contact'
+                ? 'text-primary-accent dark:text-primary-accent-dark'
+                : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
+            }`}
+          >
+            Contact
+          </button>
         </div>
 
         {/* Theme Toggle and Hamburger */}
@@ -170,6 +181,80 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
               </button>
             </li>
           ))}
+
+          {/* About Me Dropdown in Sidebar */}
+          <li>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`
+                block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
+                ${
+                  aboutDropdown.some(item => item.section === activeSection)
+                    ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
+                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
+                }
+                focus:outline-none
+                active:scale-95 active:shadow-inner
+                transition-all duration-300
+              `}
+            >
+              About Me
+            </button>
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.ul
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="ml-4 mt-2 space-y-2"
+                >
+                  {aboutDropdown.map((item, index) => (
+                    <motion.li
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
+                    >
+                      <button
+                        onClick={() => {
+                          handleClick(item.section);
+                          setDropdownOpen(false);
+                        }}
+                        className={`block w-full text-left text-sm px-4 py-2 rounded-lg bg-blue-300 dark:bg-blue-600 ${
+                          activeSection === item.section
+                            ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
+                            : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
+                        }`}
+                      >
+                        {item.name}
+                      </button>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              )}
+            </AnimatePresence>
+          </li>
+
+          {/* Contact in Sidebar */}
+          <li>
+            <button
+              onClick={() => handleClick('contact')}
+              className={`
+                block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
+                ${
+                  activeSection === 'contact'
+                    ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
+                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
+                }
+                focus:outline-none
+                active:scale-95 active:shadow-inner
+                transition-all duration-300
+              `}
+            >
+              Contact
+            </button>
+          </li>
         </ul>
       </div>
     </nav>
