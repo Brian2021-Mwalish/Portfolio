@@ -7,38 +7,38 @@ const Testimonials = ({ onSectionChange }) => {
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
+      name: 'Wanjiku Kiprop',
       role: 'Project Manager',
       company: 'TechCorp Solutions',
       content: 'Brian delivered exceptional work on our e-commerce platform. His attention to detail and ability to solve complex problems was outstanding. The project was completed on time and exceeded our expectations.',
-      avatar: 'SJ',
+      avatar: 'WK',
       rating: 5,
       color: 'bg-blue-500'
     },
     {
-      name: 'Michael Chen',
+      name: 'Kipchoge Rotich',
       role: 'CTO',
       company: 'InnovateLabs',
       content: 'Working with Brian was a pleasure. His full-stack expertise and innovative approach helped us launch our AI-powered application successfully. Highly recommended for any tech project.',
-      avatar: 'MC',
+      avatar: 'KR',
       rating: 5,
       color: 'bg-emerald-500'
     },
     {
-      name: 'Emily Rodriguez',
+      name: 'Achieng Oduya',
       role: 'Startup Founder',
       company: 'GreenTech Ventures',
       content: 'Brian transformed our vision into reality. His code is clean, efficient, and scalable. He was proactive in suggesting improvements and always delivered high-quality work.',
-      avatar: 'ER',
+      avatar: 'AO',
       rating: 5,
       color: 'bg-purple-500'
     },
     {
-      name: 'David Kim',
+      name: 'Kiprop Kiprop',
       role: 'Senior Developer',
       company: 'CodeMasters Inc',
       content: 'As a fellow developer, I can attest to Brian\'s technical skills and collaborative nature. He writes maintainable code and is great at explaining complex concepts.',
-      avatar: 'DK',
+      avatar: 'KK',
       rating: 5,
       color: 'bg-orange-500'
     }

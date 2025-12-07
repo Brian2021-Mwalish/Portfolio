@@ -39,39 +39,8 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
           </span>
         </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          {links.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleClick(link.section)}
-              className={`
-                relative px-4 py-2 rounded-lg text-lg font-medium
-                transition-all duration-300
-                ${
-                  activeSection === link.section
-                    ? 'bg-primary-accent text-white dark:bg-primary-accent-dark dark:text-white shadow-md'
-                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
-                }
-                focus:outline-none
-                active:scale-95 active:shadow-inner
-              `}
-            >
-              {link.name}
-              {/* Optional animated underline */}
-              <span
-                className={`
-                  absolute left-0 -bottom-1 h-1 bg-primary-highlight dark:bg-primary-highlight-dark transition-all duration-300
-                  ${activeSection === link.section ? 'w-full' : 'w-0'}
-                `}
-              />
-            </button>
-          ))}
-          <ThemeToggle isDark={isDark} onToggle={onToggle} />
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden flex items-center space-x-4">
+        {/* Theme Toggle and Hamburger */}
+        <div className="flex items-center space-x-4">
           <ThemeToggle isDark={isDark} onToggle={onToggle} />
           <button
             onClick={() => setNavOpen(!navOpen)}
@@ -83,31 +52,50 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Sidebar Backdrop */}
+      {navOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setNavOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          navOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`fixed top-0 left-0 h-full w-64 bg-blue-100 dark:bg-blue-900 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
+          navOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <ul className="bg-blue-100 dark:bg-blue-900 px-6 pt-4 pb-6 space-y-4 border-t border-primary-secondary/20">
+        <div className="flex items-center justify-between p-6 border-b border-primary-secondary/20">
+          <span className="text-lg font-bold text-primary-text dark:text-primary-text-dark">Menu</span>
+          <button
+            onClick={() => setNavOpen(false)}
+            className="text-primary-text dark:text-primary-text-dark focus:outline-none"
+            aria-label="Close navigation"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        <ul className="px-6 py-6 space-y-4">
           {links.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleClick(link.section)}
-              className={`
-                block w-full text-left text-base font-medium px-4 py-2 rounded-lg
-                ${
-                  activeSection === link.section
-                    ? 'bg-primary-accent text-white dark:bg-primary-accent-dark dark:text-white shadow-md'
-                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
-                }
-                focus:outline-none
-                active:scale-95 active:shadow-inner
-                transition-all duration-300
-              `}
-            >
-              {link.name}
-            </button>
+            <li key={link.name}>
+              <button
+                onClick={() => handleClick(link.section)}
+                className={`
+                  block w-full text-left text-base font-medium px-4 py-2 rounded-lg
+                  ${
+                    activeSection === link.section
+                      ? 'bg-primary-accent text-white dark:bg-primary-accent-dark dark:text-white shadow-md'
+                      : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
+                  }
+                  focus:outline-none
+                  active:scale-95 active:shadow-inner
+                  transition-all duration-300
+                `}
+              >
+                {link.name}
+              </button>
+            </li>
           ))}
         </ul>
       </div>

@@ -1,10 +1,8 @@
-# TODO: Update About Page
+# Navbar Sidebar Implementation TODO
 
-- [ ] Update skills section to use solid colors instead of gradients (e.g., change 'from-blue-500 to-cyan-400' to 'bg-blue-500')
-- [ ] Update values section to use solid colors, avoiding purple (e.g., change 'from-purple-500 to-pink-500' to 'bg-blue-500')
-- [ ] Update background orbs and floating elements to solid colors
-- [ ] Update header text and other gradient text to solid colors
-- [ ] Update buttons and call-to-action elements to solid colors
-- [ ] Add Mission section after the story with solid styling and unique content
-- [ ] Add Vision section after Mission with solid styling and unique content
-- [ ] Ensure overall styling remains responsive and professional
+- [x] Remove desktop navigation links from header
+- [x] Always show hamburger button in header
+- [x] Add off-canvas sidebar that slides in from left
+- [x] Include backdrop to close menu on click
+- [x] Close menu on link click or backdrop click
+- [x] Keep theme toggle in header
