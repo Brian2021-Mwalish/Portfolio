@@ -28,14 +28,14 @@ const Projects = ({ onSectionChange }) => {
     },
     {
       title: 'Smart Reservation & Optimization System',
-      description: 'A comprehensive full-stack application featuring intelligent table booking, dynamic staff dashboards, customer loyalty rewards program, and real-time table status monitoring with live updates.',
+      description: 'A powerful full-stack platform designed to optimize restaurant operations with intelligent table reservation, automated workflows, and real-time monitoring. The system includes smart booking algorithms, dynamic staff dashboards, customer loyalty rewards, and live table status updates for seamless restaurant management.',
       tech: ['React', 'Django', 'PostgreSQL', 'Tailwind CSS'],
       live: 'https://restaurant-app-demo.vercel.app',
       github: 'https://github.com/Brian2021-Mwalish/Reservation-System.git',
       category: 'Full-Stack',
       solidColor: 'bg-emerald-500',
       bgSolid: 'bg-emerald-900/20',
-      features: ['Real-time Updates', 'Admin Dashboard', 'Loyalty System', 'Responsive Design']
+      features: ['Smart Real-Time Updates', 'Advanced Admin Dashboard', 'Customer Loyalty System', 'Fully Responsive Design']
     },
     {
       title: 'AI Chatbot Interface',
