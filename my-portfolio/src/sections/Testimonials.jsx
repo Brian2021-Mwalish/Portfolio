@@ -35,7 +35,7 @@ const Testimonials = ({ onSectionChange }) => {
       color: 'bg-purple-500'
     },
     {
-      name: 'Kiprop Kiprop',
+      name: 'Kiprop David',
       role: 'Senior Teacher',
       company: 'Njenga Karume sec School',
       content: 'As a fellow developer, I can attest to Brian\'s technical skills and collaborative nature. He writes maintainable code and is great at explaining complex concepts.',
