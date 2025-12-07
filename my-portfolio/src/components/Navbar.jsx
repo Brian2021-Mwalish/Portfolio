@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 import logoImage from "/Kraftrix Africa.png";
 
@@ -44,7 +44,7 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center justify-around flex-1 max-w-md">
           {links.map((link) => (
             <button
               key={link.name}
@@ -70,29 +70,45 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
               }`}
             >
               <span>About Me</span>
-              <ChevronDown size={16} className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+              <motion.div
+                animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown size={16} />
+              </motion.div>
             </button>
 
-            {dropdownOpen && (
-              <div className="absolute top-full mt-2 w-48 bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg border border-primary-secondary/20 py-2 z-50">
-                {aboutDropdown.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => {
-                      handleClick(item.section);
-                      setDropdownOpen(false);
-                    }}
-                    className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
-                      activeSection === item.section
-                        ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white'
-                        : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {dropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="absolute top-full mt-2 w-48 bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg border border-primary-secondary/20 py-2 z-50"
+                >
+                  {aboutDropdown.map((item, index) => (
+                    <motion.button
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
+                      onClick={() => {
+                        handleClick(item.section);
+                        setDropdownOpen(false);
+                      }}
+                      className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
+                        activeSection === item.section
+                          ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white'
+                          : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
+                      }`}
+                    >
+                      {item.name}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
