@@ -12,6 +12,8 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
     { name: 'About', section: 'about' },
     { name: 'Projects', section: 'projects' },
     { name: 'Experience', section: 'experience' },
+    { name: 'Testimonials', section: 'testimonials' },
+    { name: 'Fun Facts', section: 'funfacts' },
     { name: 'Contact', section: 'contact' },
   ];
 

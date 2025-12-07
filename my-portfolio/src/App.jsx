@@ -7,6 +7,8 @@ import About from './sections/About.jsx';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Experience from './sections/Experience';
+import Testimonials from './sections/Testimonials';
+import FunFacts from './sections/FunFacts';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
@@ -35,6 +37,8 @@ export default function App() {
       case 'projects': return <Projects key="projects" onSectionChange={setCurrentSection} />;
       case 'skills': return <Skills key="skills" />;
       case 'experience': return <Experience key="experience" onSectionChange={setCurrentSection} />;
+      case 'testimonials': return <Testimonials key="testimonials" onSectionChange={setCurrentSection} />;
+      case 'funfacts': return <FunFacts key="funfacts" onSectionChange={setCurrentSection} />;
       case 'contact': return <Contact key="contact" />;
       default: return <Hero key="hero" />;
     }
