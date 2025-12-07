@@ -82,7 +82,7 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
               <button
                 onClick={() => handleClick(link.section)}
                 className={`
-                  block w-full text-left text-base font-medium px-4 py-2 rounded-lg
+                  block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
                   ${
                     activeSection === link.section
                       ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
