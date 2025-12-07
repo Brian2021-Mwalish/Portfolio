@@ -1,8 +1,8 @@
-# Navbar Sidebar Implementation TODO
+# Portfolio Update Tasks
 
-- [x] Remove desktop navigation links from header
-- [x] Always show hamburger button in header
-- [x] Add off-canvas sidebar that slides in from left
-- [x] Include backdrop to close menu on click
-- [x] Close menu on link click or backdrop click
-- [x] Keep theme toggle in header
+## Tasks to Complete
+- [x] Replace coffee fan fact with coding-related fact in FunFacts.jsx
+- [x] Add dropdown menus to Navbar.jsx for better navigation (group About, Experience, Fun Facts, Testimonials under "About Me")
+- [x] Confirm solid colors are maintained in FunFacts and Testimonials sections
+- [ ] Run development server to test changes
+- [ ] Verify new fan fact and navbar dropdowns work as expected

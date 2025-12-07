@@ -14,10 +14,10 @@ const FunFacts = ({ onSectionChange }) => {
       color: 'bg-red-500'
     },
     {
-      icon: '☕',
-      title: 'Coffee Fueled',
-      fact: 'I drink approximately 5 cups of coffee daily. It\'s my secret weapon for staying productive!',
-      color: 'bg-brown-500'
+      icon: '💻',
+      title: 'Code Enthusiast',
+      fact: 'I love writing clean, efficient code and solving complex algorithms. Coding is my passion!',
+      color: 'bg-blue-500'
     },
     {
       icon: '🎵',

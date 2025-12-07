@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ThemeToggle from './ThemeToggle';
 import logoImage from "/Kraftrix Africa.png";
 
 const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
   const [navOpen, setNavOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const links = [
     { name: 'Home', section: 'hero' },
-    { name: 'About', section: 'about' },
     { name: 'Projects', section: 'projects' },
+    { name: 'Contact', section: 'contact' },
+  ];
+
+  const aboutDropdown = [
+    { name: 'About', section: 'about' },
     { name: 'Experience', section: 'experience' },
     { name: 'Testimonials', section: 'testimonials' },
     { name: 'Fun Facts', section: 'funfacts' },
-    { name: 'Contact', section: 'contact' },
   ];
 
   const handleClick = (section) => {
@@ -39,12 +43,65 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
           </span>
         </div>
 
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-8">
+          {links.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => handleClick(link.section)}
+              className={`text-base font-medium transition-colors duration-300 ${
+                activeSection === link.section
+                  ? 'text-primary-accent dark:text-primary-accent-dark'
+                  : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
+              }`}
+            >
+              {link.name}
+            </button>
+          ))}
+
+          {/* About Me Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`flex items-center space-x-1 text-base font-medium transition-colors duration-300 ${
+                aboutDropdown.some(item => item.section === activeSection)
+                  ? 'text-primary-accent dark:text-primary-accent-dark'
+                  : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
+              }`}
+            >
+              <span>About Me</span>
+              <ChevronDown size={16} className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute top-full mt-2 w-48 bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg border border-primary-secondary/20 py-2 z-50">
+                {aboutDropdown.map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      handleClick(item.section);
+                      setDropdownOpen(false);
+                    }}
+                    className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
+                      activeSection === item.section
+                        ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white'
+                        : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Theme Toggle and Hamburger */}
         <div className="flex items-center space-x-4">
           <ThemeToggle isDark={isDark} onToggle={onToggle} />
           <button
             onClick={() => setNavOpen(!navOpen)}
-            className="text-primary-text dark:text-primary-text-dark focus:outline-none"
+            className="md:hidden text-primary-text dark:text-primary-text-dark focus:outline-none"
             aria-label="Toggle navigation"
           >
             {navOpen ? <X size={26} /> : <Menu size={26} />}
