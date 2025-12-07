@@ -9,16 +9,16 @@ const Testimonials = ({ onSectionChange }) => {
     {
       name: 'Wanjiku Kiprop',
       role: 'Project Manager',
-      company: 'TechCorp Solutions',
+      company: 'Kariki Farm Molo',
       content: 'Brian delivered exceptional work on our e-commerce platform. His attention to detail and ability to solve complex problems was outstanding. The project was completed on time and exceeded our expectations.',
       avatar: 'WK',
       rating: 5,
       color: 'bg-blue-500'
     },
     {
-      name: 'Kipchoge Rotich',
+      name: 'Joe Karanja',
       role: 'CTO',
-      company: 'InnovateLabs',
+      company: 'Lish AI Labs',
       content: 'Working with Brian was a pleasure. His full-stack expertise and innovative approach helped us launch our AI-powered application successfully. Highly recommended for any tech project.',
       avatar: 'KR',
       rating: 5,
