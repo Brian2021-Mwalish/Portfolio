@@ -85,7 +85,7 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
                   block w-full text-left text-base font-medium px-4 py-2 rounded-lg
                   ${
                     activeSection === link.section
-                      ? 'bg-primary-accent text-white dark:bg-primary-accent-dark dark:text-white shadow-md'
+                      ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
                       : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
                   }
                   focus:outline-none
