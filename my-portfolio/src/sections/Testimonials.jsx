@@ -6,15 +6,16 @@ const Testimonials = ({ onSectionChange }) => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const testimonials = [
-    {
-      name: 'Wanjiku Kiprop',
-      role: 'Project Manager',
-      company: 'Kariki Farm Molo',
-      content: 'Brian delivered exceptional work on our e-commerce platform. His attention to detail and ability to solve complex problems was outstanding. The project was completed on time and exceeded our expectations.',
-      avatar: 'WK',
-      rating: 5,
-      color: 'bg-blue-500'
-    },
+   {
+  name: 'Joseph Juma',
+  role: 'Production Director',
+  company: 'Kariki Farm Molo',
+  content: 'Brian delivered outstanding graphic design work for our marketing materials. His creativity, attention to detail, and ability to bring our vision to life were exceptional. The designs were delivered on time and exceeded our expectations.',
+  avatar: 'WK',
+  rating: 5,
+  color: 'bg-blue-500'
+},
+
     {
       name: 'Joe Karanja',
       role: 'CTO',
