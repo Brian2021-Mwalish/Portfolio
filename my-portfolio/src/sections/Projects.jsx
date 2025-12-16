@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 const Projects = ({ onSectionChange }) => {
   const sectionRef = useRef(null);
 
+
   const projects = [
     {
       title: 'Liquidity-Funding',
@@ -14,6 +15,17 @@ const Projects = ({ onSectionChange }) => {
       solidColor: 'bg-purple-500',
       bgSolid: 'bg-purple-900/20',
       features: ['M-Pesa Payment Integration', 'Real-Time Dashboard', 'Investment Tracking', 'Referral Program', 'Modern UI']
+    },
+    {
+      title: 'Home-Map Hub',
+      description: 'A modern house leasing platform that connects tenants, landlords, and agents. It enables property discovery through interactive maps, online bookings, secure payments, messaging, and reviews for efficient rental management.',
+      tech: ['TypeScript', 'React', 'Leaflet.js', 'Django REST Framework', 'Tailwind CSS'],
+      live: 'https://home-leasing.vercel.app/',
+      github: 'https://github.com/Brian2021-Mwalish/HomeLeasing.git',
+      category: 'Full-stack',
+      solidColor: 'bg-green-500',
+      bgSolid: 'bg-green-900/20',
+      features: ['Interactive Map-Based Property Search', 'Property Listings & Management', 'Online Booking & Lease Requests', 'Secure Payments & Rent Tracking', 'In-App Messaging', 'Reviews & Ratings System', 'Role-Based Dashboards']
     },
     {
       title: 'Prime Trades',
