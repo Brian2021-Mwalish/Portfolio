@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-center space-x-6 text-sm">
+        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-x-6 text-sm">
           <a href="#about" className="hover:text-white">About</a>
           <a href="#projects" className="hover:text-white">Projects</a>
           <a href="#contact" className="hover:text-white">Contact</a>
