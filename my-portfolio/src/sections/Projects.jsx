@@ -71,6 +71,17 @@ const Projects = ({ onSectionChange }) => {
       bgSolid: 'bg-blue-900/20',
       features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization']
     },
+    {
+      title: 'Sokoni Kenya',
+      description: 'A responsive e-commerce website for local products, built with clean, user-friendly layouts and a focus on product discovery and conversion.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'PHP'],
+      live: 'https://www.sokonikenya.co.ke/',
+      github: '',
+      category: 'Web Development',
+      solidColor: 'bg-rose-500',
+      bgSolid: 'bg-rose-900/20',
+      features: ['Responsive UI', 'Product Catalog', 'Fast Navigation', 'Conversion-Focused Design']
+    }
   ];
 
 
