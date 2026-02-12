@@ -360,8 +360,8 @@ const Hero = () => {
               </motion.a>
 
               <motion.a
-                href="/ENG. Mwalish CV.pdf"
-                download
+                href="/Brian%20Mwalish%20Cv.pdf"
+                download="Brian Mwalish CV.pdf"
                 className="group px-6 py-3 sm:px-8 sm:py-4 border-2 border-primary/50 text-primary font-semibold rounded-xl backdrop-blur-sm hover:bg-primary/10 transition-all duration-300 text-center"
                 whileHover={{ scale: 1.05, borderColor: 'hsl(var(--primary))' }}
                 whileTap={{ scale: 0.95 }}
