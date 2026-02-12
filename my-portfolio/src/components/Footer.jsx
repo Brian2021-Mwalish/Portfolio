@@ -1,6 +1,14 @@
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-const Footer = () => {
+const Footer = ({ onSectionChange }) => {
+  const handleNavClick = (section) => {
+    if (onSectionChange) {
+      onSectionChange(section);
+    } else {
+      window.location.hash = `#${section}`;
+    }
+  };
+
   return (
     <footer className="bg-gray-900 text-gray-300 px-6 py-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
@@ -13,9 +21,9 @@ const Footer = () => {
 
         {/* Navigation */}
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-x-6 text-sm">
-          <a href="#about" className="hover:text-white">About</a>
-          <a href="#projects" className="hover:text-white">Projects</a>
-          <a href="#contact" className="hover:text-white">Contact</a>
+          <button type="button" onClick={() => handleNavClick('about')} className="hover:text-white">About</button>
+          <button type="button" onClick={() => handleNavClick('projects')} className="hover:text-white">Projects</button>
+          <button type="button" onClick={() => handleNavClick('contact')} className="hover:text-white">Contact</button>
         </div>
 
         {/* Socials */}

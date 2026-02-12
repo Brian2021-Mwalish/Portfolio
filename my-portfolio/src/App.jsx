@@ -84,7 +84,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onSectionChange={setCurrentSection} />
     </div>
   );
 }
