@@ -7,70 +7,90 @@ const Experience = ({ onSectionChange }) => {
 
   const experiences = [
     {
-      role: 'Fullstack Software Developer',
-      company: 'Lish AI Labs',
-      period: 'May 2025 – Aug 2025',
-      duration: '3 months',
+      role: 'Graphic Designer & Data Entry Clerk',
+      company: 'Kariki Farm – Molo',
+      period: '28 Jul 2020 – 25 Aug 2022',
+      duration: '2 years 1 month',
       type: 'Full-time',
-      location: 'Remote',
-      details: [
-        'Developed and maintained fullstack web applications with integrated AI-powered features',
-        'Collaborated with engineering team to enhance system performance and user experience',
-        'Implemented modern web technologies and best practices for scalable applications',
-        'Contributed to the development lifecycle from design to deployment'
-      ],
-      technologies: ['React', 'Django', 'PostgreSQL', 'AI Integration', 'REST APIs', 'Git'],
-      achievements: [
-        'Successfully developed AI-integrated web applications',
-        'Enhanced system performance and user experience',
-        'Full development lifecycle contribution'
-      ],
-      solidColor: 'bg-emerald-500',
-      bgSolid: 'bg-emerald-900/20'
-    },
-    {
-      role: 'Educational Outreach Mentor',
-      company: 'University of Eastern Africa Baraton Young Mentorship Program',
-      period: 'Oct 2024 – Apr 2025',
-      duration: '6 months',
-      type: 'Volunteering',
       location: 'On-site',
       details: [
-        'Taught children aged 6-10 years basic keyboarding skills, Windows accessories, and file exploration',
-        'Instructed children aged 11-16 years in simple programming using Scratch programming language',
-        'Developed engaging curriculum to make learning computer skills enjoyable and accessible',
-        'Mentored young students in digital literacy and basic programming concepts'
+        'Designed animations and visual materials for internal company advertisements',
+        'Performed data entry tasks including updating records and organizing digital files',
+        'Maintained accurate company information within internal databases',
+        'Coordinated with teams to ensure timely delivery of visual content'
       ],
-      technologies: ['Scratch Programming', 'Windows OS', 'Basic Computer Skills', 'Educational Tools'],
+      technologies: ['Graphic Design Tools', 'Animation Tools', 'Data Entry Systems', 'File Management'],
       achievements: [
-        'Successfully taught 20+ children computer skills',
-        'Developed comprehensive curriculum for different age groups',
-        'Improved digital literacy among young students'
+        'Improved consistency of internal marketing materials',
+        'Maintained accurate and organized company records',
+        'Delivered design work on schedule'
+      ],
+      solidColor: 'bg-pink-500',
+      bgSolid: 'bg-pink-900/20'
+    },
+    {
+      role: 'Freelance Web & Mobile Application Designer & Social Media Manager',
+      company: 'Self-Employed / Freelance Projects',
+      period: 'Freelance Projects',
+      duration: 'Project-based',
+      type: 'Freelance',
+      location: 'Remote',
+      details: [
+        'Designed posters, cards, and visual materials for advertisements and websites',
+        'Created user interfaces for web and mobile applications',
+        'Developed marketing materials for weddings and special events',
+        'Managed clients’ social media accounts to boost engagement and online presence'
+      ],
+      technologies: ['UI Design', 'Branding', 'Social Media Tools', 'Design Suites'],
+      achievements: [
+        'Delivered creative, client-focused solutions',
+        'Consistently met deadlines across multiple projects',
+        'Increased social media engagement for clients'
+      ],
+      solidColor: 'bg-amber-500',
+      bgSolid: 'bg-amber-900/20'
+    },
+    {
+      role: 'Educational Outreach',
+      company: 'University of Eastern Africa Baraton Young Mentorship Program',
+      period: '23 Oct 2023 – 30 Apr 2025',
+      duration: '1 year 6 months',
+      type: 'Casual',
+      location: 'On-site',
+      details: [
+        'Taught children aged 6–10 years basic keyboarding skills, Windows accessories, and file exploration',
+        'Taught children aged 11–16 years simple programming skills using Scratch and faster typing basics'
+      ],
+      technologies: ['Scratch', 'Windows OS', 'Basic Computer Skills', 'Educational Tools'],
+      achievements: [
+        'Introduced foundational computer skills to young learners',
+        'Delivered age-appropriate programming instruction',
+        'Built confidence and digital literacy in students'
       ],
       solidColor: 'bg-blue-500',
       bgSolid: 'bg-blue-900/20'
     },
     {
-      role: 'Graphic Designer',
-      company: 'Kariki Farm Molo',
-      period: 'Jul 2022 – Aug 2022',
-      duration: '1 month',
-      type: 'Freelance',
-      location: 'On-site',
+      role: 'Fullstack Software Developer',
+      company: 'Lish AI Labs',
+      period: '13 May 2025 – 1 Aug 2025',
+      duration: '3 months',
+      type: 'Full-time',
+      location: 'Remote',
       details: [
-        'Designed various animations and graphics for internal company advertisements',
-        'Created visually appealing content to enhance brand communication',
-        'Utilized design software to produce professional marketing materials',
-        'Collaborated with team to understand requirements and deliver creative solutions'
+        'Developed and maintained fullstack web applications',
+        'Integrated AI-powered features into existing systems',
+        'Collaborated with engineering team to improve performance and user experience',
+        'Supported end-to-end delivery from planning through deployment'
       ],
-      technologies: ['Adobe Creative Suite', 'Animation Software', 'Graphic Design Tools', 'Branding'],
+      technologies: ['React', 'Django', 'PostgreSQL', 'AI Integration', 'REST APIs', 'Git'],
       achievements: [
-        'Created multiple advertisement animations',
-        'Enhanced internal company branding',
-        'Delivered professional design solutions'
+        'Delivered AI-enhanced features on schedule',
+        'Contributed to performance improvements and UX updates',
+        'Supported full development lifecycle activities'
       ],
-      solidColor: 'bg-pink-500',
-      bgSolid: 'bg-pink-900/20'
+      solidColor: 'bg-emerald-500',
+      bgSolid: 'bg-emerald-900/20'
     }
   ];
 
