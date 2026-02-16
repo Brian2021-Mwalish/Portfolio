@@ -2,9 +2,19 @@ import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 
 const ThemeToggle = ({ isDark, onToggle }) => {
+  const handleToggle = () => {
+    onToggle();
+    // Fallback: toggle .dark class directly
+    const root = document.documentElement;
+    if (root.classList.contains('dark')) {
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+    }
+  };
   return (
     <button
-      onClick={onToggle}
+      onClick={handleToggle}
       aria-label="Toggle theme"
       className="
         p-2 rounded-full
