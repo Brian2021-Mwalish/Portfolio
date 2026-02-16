@@ -26,7 +26,7 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background text-text shadow-soft backdrop-blur-md transition-colors duration-500 border-b border-section">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background text-text shadow-soft backdrop-blur-md transition-colors duration-500 border-b border-yellow-400">
       <div className="max-w-[90rem] mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleClick('hero')}>
