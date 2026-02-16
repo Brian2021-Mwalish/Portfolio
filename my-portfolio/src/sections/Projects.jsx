@@ -90,7 +90,7 @@ const Projects = ({ onSectionChange }) => {
     return (
       <div className="relative h-full">
         <div
-          className={`relative h-full flex flex-col justify-between bg-white dark:bg-blue-900 border border-primary/10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 group cursor-pointer min-h-[420px]`}
+          className={`relative h-full flex flex-col justify-between bg-white dark:bg-blue-900 border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 group cursor-pointer min-h-[420px]`}
           style={{ borderRadius: '16px' }}
         >
           <div className="flex flex-col h-full">
@@ -131,7 +131,7 @@ const Projects = ({ onSectionChange }) => {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-accent text-white font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-blue-600 dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-accent/40 dark:border-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-cyan-400"
+                  className="flex-1 bg-accent text-white font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-blue-600 dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-yellow-400 dark:border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-300"
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
@@ -145,7 +145,7 @@ const Projects = ({ onSectionChange }) => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-blue-500 text-white dark:bg-section dark:text-accent font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-accent dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-blue-500/40 dark:border-accent/40 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-accent"
+                className="flex-1 bg-blue-500 text-white dark:bg-section dark:text-accent font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-accent dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-yellow-400 dark:border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-300"
               >
                 <span className="flex items-center justify-center gap-2">
                   GitHub

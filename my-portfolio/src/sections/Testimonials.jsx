@@ -118,7 +118,7 @@ const Testimonials = ({ onSectionChange }) => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:scale-105 transition-all duration-300 group"
+                className="bg-white dark:bg-blue-900 border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl shadow-xl p-8 flex flex-col h-full"
               whileHover={{ y: -5 }}
             >
               {/* Rating */}

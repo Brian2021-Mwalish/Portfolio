@@ -240,7 +240,7 @@ const About = ({ onSectionChange }) => {
               {values.map((value, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 sm:p-6 cursor-pointer group hover:scale-105 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-xl p-4 sm:p-6 cursor-pointer group hover:scale-105 transition-all duration-300"
                   whileHover={{ y: -5 }}
                   onHoverStart={() => setActiveCard(index)}
                   onHoverEnd={() => setActiveCard(null)}
@@ -265,7 +265,7 @@ const About = ({ onSectionChange }) => {
           <div className="space-y-6 sm:space-y-8">
             <motion.div
               variants={itemVariants}
-              className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 lg:p-8"
+              className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl p-4 sm:p-6 lg:p-8"
             >
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mr-3">

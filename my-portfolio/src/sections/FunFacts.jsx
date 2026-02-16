@@ -114,7 +114,7 @@ const FunFacts = ({ onSectionChange }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-2xl mx-auto"
+            className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl p-8 max-w-2xl mx-auto"
           >
             <div className={`w-20 h-20 ${funFacts[currentFact].color} rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6`}>
               {funFacts[currentFact].icon}

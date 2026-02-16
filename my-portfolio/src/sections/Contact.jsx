@@ -143,7 +143,7 @@ const Contact = () => {
 
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="space-y-8">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
+            <div className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-primary-text mb-6">Get In Touch</h3>
               <p className="text-primary-secondary leading-relaxed mb-8">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.

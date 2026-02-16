@@ -21,9 +21,9 @@ const Footer = ({ onSectionChange }) => {
 
         {/* Navigation */}
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-x-6 text-sm">
-          <button type="button" onClick={() => handleNavClick('about')} className="hover:text-white">About</button>
-          <button type="button" onClick={() => handleNavClick('projects')} className="hover:text-white">Projects</button>
-          <button type="button" onClick={() => handleNavClick('contact')} className="hover:text-white">Contact</button>
+          <button type="button" onClick={() => handleNavClick('about')} className="hover:text-white border-2 border-yellow-400 dark:border-yellow-300 rounded-lg px-3 py-1 transition-colors">About</button>
+          <button type="button" onClick={() => handleNavClick('projects')} className="hover:text-white border-2 border-yellow-400 dark:border-yellow-300 rounded-lg px-3 py-1 transition-colors">Projects</button>
+          <button type="button" onClick={() => handleNavClick('contact')} className="hover:text-white border-2 border-yellow-400 dark:border-yellow-300 rounded-lg px-3 py-1 transition-colors">Contact</button>
         </div>
 
         {/* Socials */}
