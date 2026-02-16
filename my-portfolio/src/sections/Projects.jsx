@@ -131,7 +131,7 @@ const Projects = ({ onSectionChange }) => {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-accent text-white font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-blue-600 dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-yellow-400 dark:border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-300"
+                  className="flex-1 bg-green-500 text-white font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-green-600 dark:hover:bg-green-400 transition-all duration-200 border-2 border-yellow-400 dark:border-yellow-300 focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-300"
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
