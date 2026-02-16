@@ -283,37 +283,22 @@ const Hero = () => {
               </motion.span>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-3 sm:space-y-4">
-
-
-              <motion.div
-                className="text-sm sm:text-base text-black font-medium tracking-wider uppercase"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                Full-Stack Developer
-              </motion.div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <span className="text-black">
-                  Brian
-                </span>
-                <br />
-                <motion.span
-                  className="text-black"
-                >
-                  Mwalish
-                </motion.span>
+            <motion.div variants={itemVariants} className="space-y-4 sm:space-y-6">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight text-primary" style={{letterSpacing: '-0.03em'}}>
+                Brian Mwalish
               </h1>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-base sm:text-lg lg:text-xl xl:text-2xl text-black">
-                <span>I craft digital experiences with</span>
+              <div className="text-lg sm:text-xl md:text-2xl font-semibold text-accent mt-2 mb-1">
+                Full-Stack Software Engineer
+              </div>
+              <p className="text-base sm:text-lg text-primary-secondary max-w-lg leading-relaxed mb-2">
+                Building modern, scalable web applications with a focus on clean code, reliability, and seamless user experience.
+              </p>
+              <div className="flex flex-wrap gap-2 items-center text-base sm:text-lg">
+                <span className="text-primary font-medium">Key Tech:</span>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentTech}
-                    className="text-primary font-bold"
+                    className="text-accent font-bold"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -323,21 +308,15 @@ const Hero = () => {
                   </motion.span>
                 </AnimatePresence>
               </div>
+              <div className="pt-4">
+                <a
+                  href="#projects"
+                  className="inline-block px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-accent transition-all duration-200 text-lg sm:text-xl"
+                >
+                  View Projects
+                </a>
+              </div>
             </motion.div>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-sm sm:text-base lg:text-lg text-black max-w-xl leading-relaxed"
-            >
-              Full-stack software engineer passionate about building scalable applications
-              and solving complex problems. I turn ideas into reality through clean code,
-              innovative solutions, and seamless user experiences.
-            </motion.p>
-
-            <motion.div 
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4"
-            >
               <motion.a
                 href="https://github.com/Brian2021-Mwalish"
                 target="_blank"
@@ -379,7 +358,6 @@ const Hero = () => {
                   </motion.svg>
                 </span>
               </motion.a>
-            </motion.div>
 
             {/* Tech Icons */}
             <motion.div 
@@ -401,7 +379,7 @@ const Hero = () => {
               </div>
             </motion.div>
           </div>
-
+          {/* End of Text Content */}
           {/* Image Section */}
           <motion.div
             variants={imageVariants}
@@ -417,7 +395,6 @@ const Hero = () => {
                 }}
                 transition={{ duration: 4, repeat: Infinity }}
               />
-              
               {/* Image Container */}
               <motion.div
                 className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[420px] lg:w-88 lg:h-[480px] xl:w-96 xl:h-[500px] rounded-2xl overflow-hidden border border-primary/20 backdrop-blur-sm shadow-2xl"
@@ -434,7 +411,6 @@ const Hero = () => {
                   alt="Brian Mwalish - Software Engineer"
                   className="w-full h-full object-contain object-center bg-gradient-to-b from-white to-brown-500"
                 />
-
                 {/* Floating Badge */}
                 <motion.div
                   className="absolute top-3 right-3 sm:top-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-1 bg-green-500/90 text-white text-xs sm:text-sm font-medium rounded-full backdrop-blur-sm"
@@ -443,12 +419,10 @@ const Hero = () => {
                 >
                   ✓ Available for hire
                 </motion.div>
-
                 {/* Decorative Corner Elements */}
                 <div className="absolute top-0 left-0 w-12 h-12 sm:w-16 sm:h-16 border-l-2 border-t-2 border-primary/50 rounded-tl-2xl" />
                 <div className="absolute bottom-0 right-0 w-12 h-12 sm:w-16 sm:h-16 border-r-2 border-b-2 border-accent/50 rounded-br-2xl" />
               </motion.div>
-
               {/* Additional Glow Ring */}
               <motion.div
                 className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-3xl blur-xl"
@@ -461,7 +435,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </motion.div>
-
       {/* Bottom Spacer */}
       <div className="h-16 sm:h-20 lg:h-24" />
     </section>

@@ -26,33 +26,33 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-blue-100 dark:bg-blue-900 text-primary-text dark:text-primary-text-dark shadow-lg backdrop-blur-md transition-colors duration-500">
-      <div className="max-w-[90rem] mx-auto px-6 py-4 flex items-center justify-between">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-background text-text shadow-soft backdrop-blur-md transition-colors duration-500 border-b border-section">
+      <div className="max-w-[90rem] mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleClick('hero')}>
           <motion.img
             src={logoImage}
             alt="Kraftrix Africa Logo"
-            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border border-primary/30 shadow-md"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-accent/40 shadow-soft"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
           />
-          <span className="text-lg sm:text-xl md:text-2xl font-bold text-primary-text dark:text-primary-text-dark">
+          <span className="text-xl md:text-2xl font-bold text-primary tracking-tight">
             Kraftrix Africa Technologies
           </span>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-around flex-1 max-w-md">
+        <div className="hidden md:flex items-center justify-around flex-1 max-w-md gap-2">
           {links.map((link) => (
             <button
               key={link.name}
               onClick={() => handleClick(link.section)}
-              className={`text-base font-medium transition-colors duration-300 ${
-                activeSection === link.section
-                  ? 'text-primary-accent dark:text-primary-accent-dark'
-                  : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
-              }`}
+              className={`px-4 py-2 rounded-lg font-semibold text-base transition-all duration-200
+                ${activeSection === link.section
+                  ? 'bg-primary text-background shadow-soft'
+                  : 'text-text hover:text-accent hover:bg-section/60'}
+              `}
             >
               {link.name}
             </button>
@@ -62,11 +62,11 @@ const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`flex items-center space-x-1 text-base font-medium transition-colors duration-300 ${
-                aboutDropdown.some(item => item.section === activeSection)
-                  ? 'text-primary-accent dark:text-primary-accent-dark'
-                  : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
-              }`}
+              className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-semibold text-base transition-all duration-200
+                ${aboutDropdown.some(item => item.section === activeSection)
+                  ? 'bg-primary text-background shadow-soft'
+                  : 'text-text hover:text-accent hover:bg-section/60'}
+              `}
             >
               <span>About Me</span>
               <motion.div

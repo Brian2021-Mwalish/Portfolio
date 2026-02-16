@@ -19,21 +19,20 @@ const Contact = () => {
     const form = e.target;
     const data = new FormData(form);
 
-    try {
-      const response = await fetch('https://formspree.io/f/xwpqqdqy', {
-        method: 'POST',
-        body: data,
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        setStatus('Message Sent!');
-        form.reset();
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        setStatus('Failed to Send');
+    return (
+      <section
+        ref={sectionRef}
+        id="contact"
+        className="relative min-h-[60vh] px-4 sm:px-8 flex items-center"
+      >
+        <div className="max-w-3xl mx-auto w-full bg-white dark:bg-blue-900 rounded-2xl shadow-lg border border-primary/10 p-8 md:p-12">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-primary mb-8 tracking-tight leading-tight">
+            Contact Me
+          </h2>
+          {/* ...existing code... */}
+        </div>
+      </section>
+    );
       }
     } catch (error) {
       setStatus('Network Error');

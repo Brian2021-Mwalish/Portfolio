@@ -88,74 +88,50 @@ const Projects = ({ onSectionChange }) => {
 
   const ProjectCard = ({ project, index }) => {
     return (
-      <div className="relative">
-        {/* Card Container */}
-        <div className={`relative ${project.bgSolid} backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full`}>
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col">
-            {/* Header */}
-            <div className="flex justify-between items-start mb-6">
+      <div className="relative h-full">
+        <div
+          className={`relative h-full flex flex-col justify-between bg-white dark:bg-blue-900 border border-primary/10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 group cursor-pointer min-h-[420px]`}
+          style={{ borderRadius: '16px' }}
+        >
+          <div className="flex flex-col h-full">
+            <div className="flex justify-between items-start mb-4">
               <div>
-                <span className={`inline-block px-3 py-1 ${project.solidColor} text-primary-text text-xs font-medium rounded-full mb-4`}>
-                  {project.category}
-                </span>
-                <h3 className="text-2xl lg:text-3xl font-bold text-primary-text mb-2">
-                  {project.title}
-                </h3>
+                <span className={`inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full mb-3`}>{project.category}</span>
+                <h3 className="text-xl lg:text-2xl font-bold text-primary mb-1 group-hover:text-accent transition-colors">{project.title}</h3>
               </div>
-              {/* Status Indicator */}
               <div className="flex items-center gap-2">
                 <div className={`w-3 h-3 rounded-full ${project.live ? 'bg-green-400' : 'bg-yellow-400'} shadow-lg`} />
-                <span className="text-xs text-primary-secondary">
-                  {project.live ? 'Live' : 'In Development'}
-                </span>
+                <span className="text-xs text-primary-secondary">{project.live ? 'Live' : 'In Development'}</span>
               </div>
             </div>
-            {/* Description */}
-            <p className="text-primary-secondary leading-relaxed mb-6 flex-grow text-base">
-              {project.description}
-            </p>
-            {/* Features */}
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
-                Key Features
-              </h4>
-              <div className="grid grid-cols-2 gap-2">
-                {project.features.map((feature, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center text-sm text-primary-secondary"
-                  >
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2 flex-shrink-0" />
-                    {feature}
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Tech Stack */}
-            <div className="mb-8">
-              <h4 className="text-sm font-semibold text-primary-secondary mb-3 uppercase tracking-wider">
-                Technologies
-              </h4>
-              <div className="flex flex-wrap gap-2">
+            <p className="text-primary-secondary leading-relaxed mb-4 text-base line-clamp-3">{project.description}</p>
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-2 mb-2">
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-white/10 text-primary-text text-sm px-3 py-1.5 rounded-lg border border-white/20 backdrop-blur-sm"
+                    className="bg-primary/10 text-primary font-medium text-xs px-3 py-1 rounded-full border border-primary/20"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
+              <div className="grid grid-cols-2 gap-2">
+                {project.features.map((feature, i) => (
+                  <div key={i} className="flex items-center text-xs text-primary-secondary">
+                    <div className="w-1.5 h-1.5 bg-accent rounded-full mr-2 flex-shrink-0" />
+                    {feature}
+                  </div>
+                ))}
+              </div>
             </div>
-            {/* Action Buttons */}
-            <div className="flex gap-4 mt-auto">
+            <div className="flex gap-3 mt-auto">
               {project.live && (
                 <a
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex-1 ${project.solidColor} text-primary-text font-semibold py-3 px-6 rounded-xl text-center shadow-lg`}
+                  className="flex-1 bg-primary text-white font-semibold py-3 px-6 rounded-xl text-center shadow-md hover:bg-accent transition-all duration-200"
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
@@ -169,7 +145,7 @@ const Projects = ({ onSectionChange }) => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-white/10 border-2 border-white/20 text-primary-text font-semibold py-3 px-6 rounded-xl text-center backdrop-blur-sm"
+                className="flex-1 bg-white border-2 border-primary/20 text-primary font-semibold py-3 px-6 rounded-xl text-center hover:bg-primary/10 transition-all duration-200"
               >
                 <span className="flex items-center justify-center gap-2">
                   GitHub

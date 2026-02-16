@@ -32,15 +32,15 @@ export default function App() {
 
   const renderSection = () => {
     switch (currentSection) {
-      case 'hero': return <Hero key="hero" />;
-      case 'about': return <About key="about" onSectionChange={setCurrentSection} />;
-      case 'projects': return <Projects key="projects" onSectionChange={setCurrentSection} />;
-      case 'skills': return <Skills key="skills" />;
-      case 'experience': return <Experience key="experience" onSectionChange={setCurrentSection} />;
-      case 'testimonials': return <Testimonials key="testimonials" onSectionChange={setCurrentSection} />;
-      case 'funfacts': return <FunFacts key="funfacts" onSectionChange={setCurrentSection} />;
-      case 'contact': return <Contact key="contact" />;
-      default: return <Hero key="hero" />;
+      case 'hero': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Hero key="hero" /></div>;
+      case 'about': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><About key="about" onSectionChange={setCurrentSection} /></div>;
+      case 'projects': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Projects key="projects" onSectionChange={setCurrentSection} /></div>;
+      case 'skills': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Skills key="skills" /></div>;
+      case 'experience': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Experience key="experience" onSectionChange={setCurrentSection} /></div>;
+      case 'testimonials': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Testimonials key="testimonials" onSectionChange={setCurrentSection} /></div>;
+      case 'funfacts': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><FunFacts key="funfacts" onSectionChange={setCurrentSection} /></div>;
+      case 'contact': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Contact key="contact" /></div>;
+      default: return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Hero key="hero" /></div>;
     }
   };
 
@@ -51,12 +51,13 @@ export default function App() {
 
   return (
     <div
-      className="
-        min-h-screen flex flex-col justify-between
-        bg-gradient-to-b from-white to-blue-50 text-primary-text
-        dark:bg-gradient-to-b from-blue-900 to-blue-800 dark:text-primary-text-dark
-        transition-colors duration-500 ease-in-out
-      "
+      className="min-h-screen flex flex-col justify-between font-sans text-primary-text dark:text-primary-text-dark transition-colors duration-500 ease-in-out bg-neutral-50 dark:bg-blue-950"
+      style={{
+        '--primary': '#2563eb',
+        '--accent': '#06b6d4',
+        '--radius': '16px',
+        fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+      }}
     >
       {/* Navbar stays fixed and unaffected by dark mode */}
       <Navbar
