@@ -19,25 +19,9 @@ const Contact = () => {
     const form = e.target;
     const data = new FormData(form);
 
-    return (
-      <section
-        ref={sectionRef}
-        id="contact"
-        className="relative min-h-[60vh] px-4 sm:px-8 flex items-center"
-      >
-        <div className="max-w-3xl mx-auto w-full bg-white dark:bg-blue-900 rounded-2xl shadow-lg border border-primary/10 p-8 md:p-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-primary mb-8 tracking-tight leading-tight">
-            Contact Me
-          </h2>
-          {/* ...existing code... */}
-        </div>
-      </section>
-    );
-      }
     } catch (error) {
       setStatus('Network Error');
     }
-
     setTimeout(() => setStatus('Send Message'), 4000);
   };
 
