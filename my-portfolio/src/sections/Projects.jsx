@@ -131,7 +131,7 @@ const Projects = ({ onSectionChange }) => {
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 bg-primary text-white font-semibold py-3 px-6 rounded-xl text-center shadow-md hover:bg-accent transition-all duration-200"
+                  className="flex-1 bg-accent text-white font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-blue-600 dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-accent/40 dark:border-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-cyan-400"
                 >
                   <span className="flex items-center justify-center gap-2">
                     View Live
@@ -145,7 +145,7 @@ const Projects = ({ onSectionChange }) => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-white border-2 border-primary/20 text-primary font-semibold py-3 px-6 rounded-xl text-center hover:bg-primary/10 transition-all duration-200"
+                className="flex-1 bg-blue-500 text-white dark:bg-section dark:text-accent font-semibold py-3 px-6 rounded-xl text-center shadow-lg hover:bg-accent dark:hover:bg-cyan-400 transition-all duration-200 border-2 border-blue-500/40 dark:border-accent/40 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-accent"
               >
                 <span className="flex items-center justify-center gap-2">
                   GitHub
@@ -176,8 +176,8 @@ const Projects = ({ onSectionChange }) => {
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Collaborative Development Experience Section */}
-        <div className="mb-16">
-          <div className="bg-blue-500 p-1 rounded-3xl shadow-xl">
+        <div className="mb-16 flex justify-center">
+          <div className="relative bg-blue-500 p-1 rounded-3xl shadow-2xl animate-float">
             <div className="bg-white dark:bg-section rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-cyan-500 shadow-lg mb-6 md:mb-0">
                 <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -185,8 +185,10 @@ const Projects = ({ onSectionChange }) => {
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Collaborative Development Experience</h3>
-                <p className="text-lg text-text-secondary mb-4">I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.</p>
+                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 drop-shadow-lg">Collaborative Development Experience</h3>
+                <p className="text-lg text-blue-700 dark:text-cyan-200 mb-4 font-medium drop-shadow-sm bg-white/80 dark:bg-section/80 rounded-xl px-4 py-2 inline-block">
+                  I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-text">
                   <ul className="list-disc list-inside space-y-1">
                     <li>Backend API development (Django / REST Framework)</li>
@@ -201,6 +203,17 @@ const Projects = ({ onSectionChange }) => {
                 </div>
               </div>
             </div>
+            {/* Floating animation style */}
+            <style>{`
+              .animate-float {
+                animation: floatCard 3s ease-in-out infinite;
+              }
+              @keyframes floatCard {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-16px); }
+                100% { transform: translateY(0px); }
+              }
+            `}</style>
           </div>
         </div>
 
