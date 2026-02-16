@@ -311,7 +311,7 @@ const Hero = () => {
               <div className="pt-4">
                 <a
                   href="#projects"
-                  className="inline-block px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-lg hover:bg-accent transition-all duration-200 text-lg sm:text-xl"
+                  className="inline-block px-8 py-4 bg-yellow-400 text-blue-900 font-bold rounded-2xl shadow-lg border-2 border-yellow-400 dark:border-yellow-300 hover:bg-yellow-500 transition-all duration-200 text-lg sm:text-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-300"
                 >
                   View Projects
                 </a>
@@ -341,7 +341,7 @@ const Hero = () => {
               <motion.a
                 href="/Brian%20Mwalish%20Cv.pdf"
                 download="Brian Mwalish CV.pdf"
-                className="group px-6 py-3 sm:px-8 sm:py-4 border-2 border-primary/50 text-primary font-semibold rounded-xl backdrop-blur-sm hover:bg-primary/10 transition-all duration-300 text-center"
+                className="group px-6 py-3 sm:px-8 sm:py-4 bg-green-500 text-white font-semibold rounded-xl border-2 border-green-500 dark:border-green-400 backdrop-blur-sm hover:bg-green-600 dark:hover:bg-green-400 transition-all duration-300 text-center focus:outline-none focus:ring-2 focus:ring-green-400 dark:focus:ring-green-300"
                 whileHover={{ scale: 1.05, borderColor: 'hsl(var(--primary))' }}
                 whileTap={{ scale: 0.95 }}
               >
