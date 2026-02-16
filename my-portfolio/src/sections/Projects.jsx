@@ -186,8 +186,15 @@ const Projects = ({ onSectionChange }) => {
               </div>
               <div className="flex-1">
                 <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 drop-shadow-lg">Collaborative Development Experience</h3>
-                <p className="text-lg text-blue-700 dark:text-cyan-200 mb-4 font-medium drop-shadow-sm bg-white/80 dark:bg-section/80 rounded-xl px-4 py-2 inline-block">
-                  I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.
+                <p className="text-lg text-gray-900 dark:text-white mb-4 font-semibold drop-shadow-sm bg-white/80 dark:bg-section/80 rounded-xl px-4 py-2 inline-block">
+                  I have collaborated with multiple engineers on the development of web applications and platforms across business, booking, institutional, and SME domains. Activities include:
+                  <ul className="list-disc list-inside mt-2 text-base font-normal">
+                    <li>Payment integration (M-Pesa, Stripe, etc.)</li>
+                    <li>Building SMS notification systems</li>
+                    <li>Backend design and prototyping using Figma</li>
+                    <li>Developing frontend interfaces</li>
+                    <li>System architecture planning</li>
+                  </ul>
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-text">
                   <ul className="list-disc list-inside space-y-1">
