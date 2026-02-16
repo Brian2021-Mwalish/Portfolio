@@ -177,26 +177,28 @@ const Projects = ({ onSectionChange }) => {
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Collaborative Development Experience Section */}
         <div className="mb-16 flex justify-center">
-          <div className="relative bg-blue-500 p-1 rounded-3xl shadow-2xl animate-float">
-            <div className="bg-white dark:bg-section rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-cyan-500 shadow-lg mb-6 md:mb-0">
-                <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="relative animate-float rounded-3xl shadow-2xl border-4 border-yellow-400 dark:border-yellow-300 bg-white dark:bg-blue-900/95 p-1 w-full max-w-4xl">
+            <div className="rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 bg-white dark:bg-blue-900/95">
+              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-yellow-400 dark:bg-yellow-300 shadow-lg mb-6 md:mb-0">
+                <svg className="w-10 h-10 text-black dark:text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4 drop-shadow-lg">Collaborative Development Experience</h3>
-                <p className="text-lg text-gray-900 dark:text-white mb-4 font-semibold drop-shadow-sm bg-white/80 dark:bg-section/80 rounded-xl px-4 py-2 inline-block">
-                  I have collaborated with multiple engineers on the development of web applications and platforms across business, booking, institutional, and SME domains. Activities include:
-                  <ul className="list-disc list-inside mt-2 text-base font-normal">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-yellow-300 mb-4 drop-shadow-lg">Collaborative Development Experience</h3>
+                <div className="bg-yellow-100 dark:bg-yellow-900/60 rounded-xl px-4 py-3 mb-4">
+                  <p className="text-lg font-semibold text-blue-900 dark:text-yellow-100 mb-2">
+                    I have collaborated with multiple engineers on the development of web applications and platforms across business, booking, institutional, and SME domains. Activities include:
+                  </p>
+                  <ul className="list-disc list-inside text-base font-normal text-blue-900 dark:text-yellow-100">
                     <li>Payment integration (M-Pesa, Stripe, etc.)</li>
                     <li>Building SMS notification systems</li>
                     <li>Backend design and prototyping using Figma</li>
                     <li>Developing frontend interfaces</li>
                     <li>System architecture planning</li>
                   </ul>
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-text">
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-blue-900 dark:text-yellow-100">
                   <ul className="list-disc list-inside space-y-1">
                     <li>Backend API development (Django / REST Framework)</li>
                     <li>Database design and optimization (PostgreSQL)</li>

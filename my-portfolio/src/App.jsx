@@ -16,19 +16,39 @@ export default function App() {
   const [currentSection, setCurrentSection] = useState('hero');
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return saved === 'dark';
+    if (saved) return saved === 'dark';
+    // Fallback: check .dark class on html
+    return document.documentElement.classList.contains('dark');
   });
 
-  // ✅ Toggle dark mode class on <html> only
+  // Sync .dark class and state on mount and theme change
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) root.classList.add('dark');
     else root.classList.remove('dark');
-
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
-  const toggleTheme = () => setIsDark((prev) => !prev);
+  // Listen for .dark class changes (in case toggled outside React)
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const hasDark = document.documentElement.classList.contains('dark');
+      setIsDark(hasDark);
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => !prev);
+    // Fallback: toggle .dark class directly
+    const root = document.documentElement;
+    if (root.classList.contains('dark')) {
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+    }
+  };
 
   const renderSection = () => {
     switch (currentSection) {
