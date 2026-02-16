@@ -52,7 +52,7 @@ export default function App() {
 
   const renderSection = () => {
     switch (currentSection) {
-      case 'hero': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Hero key="hero" /></div>;
+      case 'hero': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Hero key="hero" onSectionChange={setCurrentSection} /></div>;
       case 'about': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><About key="about" onSectionChange={setCurrentSection} /></div>;
       case 'projects': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Projects key="projects" onSectionChange={setCurrentSection} /></div>;
       case 'skills': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Skills key="skills" /></div>;
