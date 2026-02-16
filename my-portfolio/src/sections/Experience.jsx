@@ -1,3 +1,26 @@
+    {
+      role: 'Practicum Instructor – Networking & IT Skills',
+      company: 'University of Eastern Africa, Baraton – Department of Information Systems and Computing',
+      period: 'Sep 2024 – Apr 2025',
+      duration: 'Final year (part-time)',
+      type: 'Part-time',
+      location: 'On-site',
+      details: [
+        'Taught practicum sessions to students preparing for industrial attachment',
+        'Demonstrated essential networking skills including Ethernet cable crimping',
+        'Guided students in setting up WiFi networks and configuring MikroTik and Ubiquiti devices',
+        'Covered practical aspects of networking and IT infrastructure',
+        'Ensured students understood key requirements before going for attachment'
+      ],
+      technologies: ['Networking', 'Ethernet', 'WiFi', 'MikroTik', 'Ubiquiti', 'IT Infrastructure'],
+      achievements: [
+        'Prepared students for real-world networking tasks during attachment',
+        'Enhanced students’ hands-on skills in IT and networking',
+        'Received positive feedback for practical teaching approach'
+      ],
+      solidColor: 'bg-cyan-500',
+      bgSolid: 'bg-cyan-900/20'
+    },
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
