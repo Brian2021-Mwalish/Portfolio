@@ -32,7 +32,7 @@ const Testimonials = ({ onSectionChange }) => {
       content: 'Brian transformed our vision into reality. His code is clean, efficient, and scalable. He was proactive in suggesting improvements and always delivered high-quality work.',
       avatar: 'AO',
       rating: 5,
-      color: 'bg-purple-500'
+      color: 'bg-cyan-500'
     },
     {
       name: 'Kiprop David',

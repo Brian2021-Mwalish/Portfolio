@@ -23,7 +23,7 @@ const FunFacts = ({ onSectionChange }) => {
       icon: '🎵',
       title: 'Music Lover',
       fact: 'I code better with lo-fi hip hop beats playing in the background. Music helps me focus!',
-      color: 'bg-purple-500'
+      color: 'bg-cyan-500'
     },
     {
       icon: '🌍',

@@ -135,8 +135,8 @@ const Experience = ({ onSectionChange }) => {
         'Received positive feedback from students and faculty',
         'Contributed to the department’s practical learning initiatives'
       ],
-      solidColor: 'bg-violet-500',
-      bgSolid: 'bg-violet-900/20'
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20'
     }
   ];
 
