@@ -12,8 +12,8 @@ const Projects = ({ onSectionChange }) => {
       live: 'https://liquiinvestke.co.ke',
       github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
       category: 'Full-stack',
-      solidColor: 'bg-purple-500',
-      bgSolid: 'bg-purple-900/20',
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20',
       features: ['M-Pesa Payment Integration', 'Real-Time Dashboard', 'Investment Tracking', 'Referral Program', 'Modern UI']
     },
     {
@@ -56,8 +56,8 @@ const Projects = ({ onSectionChange }) => {
       live: 'https://mwalish-chatbot.vercel.app',
       github: 'https://github.com/Brian2021-Mwalish/ai-chatbot',
       category: 'AI/Frontend',
-      solidColor: 'bg-purple-500',
-      bgSolid: 'bg-purple-900/20',
+      solidColor: 'bg-blue-500',
+      bgSolid: 'bg-blue-900/20',
       features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
     },
     {
@@ -170,24 +170,24 @@ const Projects = ({ onSectionChange }) => {
       {/* Subtle background elements */}
       <div className="absolute inset-0">
         <div className="absolute w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl top-1/4 left-1/4" />
-        <div className="absolute w-80 h-80 bg-purple-500/5 rounded-full blur-3xl bottom-1/4 right-1/4" />
+        <div className="absolute w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl bottom-1/4 right-1/4" />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Collaborative Development Experience Section */}
         <div className="mb-16">
-          <div className="bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-500 p-1 rounded-3xl shadow-xl">
-            <div className="bg-white dark:bg-primary-bg rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 shadow-lg mb-6 md:mb-0">
+          <div className="bg-blue-500 p-1 rounded-3xl shadow-xl">
+            <div className="bg-white dark:bg-section rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-cyan-500 shadow-lg mb-6 md:mb-0">
                 <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-500 mb-4">Collaborative Development Experience</h3>
-                <p className="text-lg text-primary-secondary mb-4">I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-primary-text">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Collaborative Development Experience</h3>
+                <p className="text-lg text-text-secondary mb-4">I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-text">
                   <ul className="list-disc list-inside space-y-1">
                     <li>Backend API development (Django / REST Framework)</li>
                     <li>Database design and optimization (PostgreSQL)</li>
