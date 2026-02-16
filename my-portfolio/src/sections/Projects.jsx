@@ -199,6 +199,35 @@ const Projects = ({ onSectionChange }) => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Collaborative Development Experience Section */}
+        <div className="mb-16">
+          <div className="bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-500 p-1 rounded-3xl shadow-xl">
+            <div className="bg-white dark:bg-primary-bg rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
+              <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 shadow-lg mb-6 md:mb-0">
+                <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-500 mb-4">Collaborative Development Experience</h3>
+                <p className="text-lg text-primary-secondary mb-4">I have collaborated with multiple engineers on the development of various web applications and websites across different domains including business platforms, booking systems, institutional systems, and SME digital solutions.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-primary-text">
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Backend API development (Django / REST Framework)</li>
+                    <li>Database design and optimization (PostgreSQL)</li>
+                    <li>Frontend integration</li>
+                  </ul>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>System architecture planning</li>
+                    <li>Deployment and server configuration</li>
+                    <li>Git-based team collaboration</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">

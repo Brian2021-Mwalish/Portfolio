@@ -1,3 +1,34 @@
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+const Experience = ({ onSectionChange }) => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const experiences = [
+    {
+      role: 'Python Bootcamp Trainer',
+      company: 'University of Eastern Africa, Baraton – Department of Information Systems and Computing',
+      period: 'Sep 2024 – Apr 2025',
+      duration: '2 academic semesters (part-time)',
+      type: 'Part-time',
+      location: 'On-site',
+      details: [
+        'Trained and mentored students in Python programming and its frameworks',
+        'Conducted hands-on bootcamp sessions for undergraduate students',
+        'Developed and delivered curriculum for Python and related frameworks',
+        'Collaborated with faculty to enhance practical learning experiences',
+        'Balanced teaching responsibilities with final year academic workload'
+      ],
+      technologies: ['Python', 'Django', 'Flask', 'Jupyter Notebook', 'Educational Tools'],
+      achievements: [
+        'Successfully trained multiple cohorts in Python fundamentals and frameworks',
+        'Received positive feedback from students and faculty',
+        'Contributed to the department’s practical learning initiatives'
+      ],
+      solidColor: 'bg-violet-500',
+      bgSolid: 'bg-violet-900/20'
+    },
     {
       role: 'Practicum Instructor – Networking & IT Skills',
       company: 'University of Eastern Africa, Baraton – Department of Information Systems and Computing',
@@ -21,14 +52,6 @@
       solidColor: 'bg-cyan-500',
       bgSolid: 'bg-cyan-900/20'
     },
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-
-const Experience = ({ onSectionChange }) => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-
-  const experiences = [
     {
       role: 'Graphic Designer & Data Entry Clerk',
       company: 'Kariki Farm – Molo',
