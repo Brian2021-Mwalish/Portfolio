@@ -15,10 +15,10 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('Sending...');
-
-    const form = e.target;
-    const data = new FormData(form);
-
+    try {
+      const form = e.target;
+      const data = new FormData(form);
+      // ... (your form submission logic here)
     } catch (error) {
       setStatus('Network Error');
     }
