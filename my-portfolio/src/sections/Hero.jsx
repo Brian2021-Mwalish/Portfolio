@@ -309,12 +309,14 @@ const Hero = () => {
                 </AnimatePresence>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button
-                  onClick={() => typeof onSectionChange === 'function' && onSectionChange('projects')}
+                <a
+                  href="https://github.com/Brian2021-Mwalish"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-8 py-4 bg-yellow-400 text-blue-900 font-bold rounded-2xl shadow-lg border-2 border-yellow-400 dark:border-yellow-300 hover:bg-yellow-500 transition-all duration-200 text-lg sm:text-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-300"
                 >
                   View Projects
-                </button>
+                </a>
                 <a
                   href="/Brian%20Mwalish%20Cv.pdf"
                   download="Brian Mwalish CV.pdf"
