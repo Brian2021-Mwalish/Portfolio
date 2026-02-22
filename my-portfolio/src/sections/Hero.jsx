@@ -24,7 +24,7 @@ const AnimatedBlinkingRoles = () => {
   // Color-blind-friendly, high-contrast colors for brown background
   const slideColors = [
     "text-white",      // White: maximum contrast
-    "text-teal-500",  // Teal: good contrast, color-blind safe
+    "text-yellow-400", // Yellow: color-blind safe, visible
     "text-orange-300",// Orange: visible on brown
     "text-black"      // Black: maximum contrast
   ];
