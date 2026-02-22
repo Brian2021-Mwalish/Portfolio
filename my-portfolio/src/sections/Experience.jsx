@@ -60,7 +60,7 @@ const Experience = ({ onSectionChange }) => {
       location: 'Remote',
       details: [
         'Designed posters, cards, and visual materials for advertisements and websites',
-        'Created user interfaces for web and mobile applications',
+        'Created user interfaces for web and mobile appapplications',
         'Developed marketing materials for weddings and special events',
         'Managed clients’ social media accounts to boost engagement and online presence'
       ],
@@ -101,7 +101,7 @@ const Experience = ({ onSectionChange }) => {
       type: 'Full-time',
       location: 'Remote',
       details: [
-        'Developed and maintained fullstack applications',
+        'Developed and maintained fullstack appapplications',
         'Integrated AI-powered features into existing systems',
         'Collaborated with engineering team to improve performance and user experience',
         'Supported end-to-end delivery from planning through deployment'

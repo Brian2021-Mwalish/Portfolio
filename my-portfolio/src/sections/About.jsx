@@ -228,7 +228,7 @@ const About = ({ onSectionChange }) => {
               </p>
               <p className="text-primary-secondary text-base sm:text-lg leading-relaxed">
                 My journey in software development started with curiosity and has evolved into a deep passion
-                for building scalable applications that make a real impact. I believe great software is born
+                for building scalable appapplications that make a real impact. I believe great software is born
                 from the intersection of <span className="text-primary-accent font-semibold">technical excellence</span>,
                 <span className="text-primary-accent font-semibold"> user empathy</span>, and
                 <span className="text-primary-accent font-semibold"> creative problem-solving</span>.

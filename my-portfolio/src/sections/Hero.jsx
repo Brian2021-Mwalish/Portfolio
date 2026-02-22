@@ -342,7 +342,7 @@ const Hero = () => {
               </h1>
               <AnimatedBlinkingRoles />
               <p className="text-base sm:text-lg text-primary-secondary max-w-lg leading-relaxed mb-2">
-                Building modern, scalable lications with a focus on clean code, reliability, and seamless user experience.
+                Building modern, scalable applications with a focus on clean code, reliability, and seamless user experience.
               </p>
               <div className="flex flex-wrap gap-2 items-center text-base sm:text-lg">
                 <span className="text-primary font-medium">Key Tech:</span>
