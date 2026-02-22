@@ -22,10 +22,11 @@ const AnimatedBlinkingRoles = () => {
     return () => clearInterval(interval);
   }, []);
   // Color-blind-friendly, high-contrast colors for brown background
+  // No bright pink/magenta; use coral as a vibrant alternative
   const slideColors = [
     "text-white",      // White: maximum contrast
     "text-yellow-400", // Yellow: color-blind safe, visible
-    "text-orange-300",// Orange: visible on brown
+    "[color:#FF6F61]", // Coral: vibrant, accessible alternative to brown/pink
     "text-black"      // Black: maximum contrast
   ];
   return (
