@@ -7,10 +7,10 @@ const roles = [
 ];
 
 const roleColors = [
-  "text-pink-500",
-  "text-yellow-400",
-  "text-cyan-400",
-  "text-purple-400"
+  "text-primary",
+  "text-accent",
+  "text-section",
+  "text-background"
 ];
 
 const AnimatedBlinkingRoles = () => {
