@@ -18,13 +18,13 @@ const AnimatedBlinkingRoles = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % roles.length);
-    }, 1200);
+    }, 3000); // Increased interval for readability
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1">
+    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden" style={{width: '100%'}}>
       <span
-        className={`animate-blink font-bold ${roleColors[index]} transition-colors duration-500`}
+        className={`animate-blink animate-slide font-bold ${roleColors[index]} transition-colors duration-500 inline-block`}
         style={{
           textShadow: `0 0 8px var(--tw-color-${roleColors[index].split('-')[1]})`,
           filter: 'brightness(1.2)'
@@ -33,11 +33,11 @@ const AnimatedBlinkingRoles = () => {
         {roles[index]}
       </span>
       <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+1)%roles.length]}</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+1)%roles.length]}</span>
       <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+2)%roles.length]}</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+2)%roles.length]}</span>
       <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+3)%roles.length]}</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+3)%roles.length]}</span>
     </div>
   );
 };
