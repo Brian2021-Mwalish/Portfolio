@@ -43,8 +43,8 @@ const AnimatedBlinkingRoles = () => {
         </span>
         <span className="mx-2 text-yellow-400">|</span>
         <span className="text-lg sm:text-xl md:text-2xl font-semibold text-cyan-400 inline-block">{roles[(index+1)%roles.length]}</span>
-        <span className="mx-2 text-pink-500">|</span>
-        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-pink-500 inline-block">{roles[(index+2)%roles.length]}</span>
+        <span className="mx-2" style={{ color: '#FF6F61' }}>|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold inline-block" style={{ color: '#FF6F61' }}>{roles[(index+2)%roles.length]}</span>
         <span className="mx-2 text-green-400">|</span>
         <span className="text-lg sm:text-xl md:text-2xl font-semibold text-green-400 inline-block">{roles[(index+3)%roles.length]}</span>
       </div>
