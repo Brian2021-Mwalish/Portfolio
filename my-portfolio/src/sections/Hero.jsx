@@ -1,6 +1,6 @@
 // Animated blinking roles component
 const roles = [
-  "Full-stack Developer",
+  "Application Solutions Specialist",
   "AI Enthusiast",
   "UI/UX Designer",
   "Problem Solver"
