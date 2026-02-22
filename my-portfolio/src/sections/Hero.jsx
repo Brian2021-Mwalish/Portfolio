@@ -21,11 +21,12 @@ const AnimatedBlinkingRoles = () => {
     }, 3000); // Increased interval for readability
     return () => clearInterval(interval);
   }, []);
+  // Color-blind-friendly, high-contrast colors for brown background
   const slideColors = [
-    "text-yellow-400",
-    "text-cyan-400",
-    "text-pink-500",
-    "text-green-400"
+    "text-white",      // White: maximum contrast
+    "text-blue-700",  // Deep blue: strong contrast
+    "text-orange-300",// Orange: visible on brown
+    "text-black"      // Black: maximum contrast
   ];
   return (
     <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden w-full">
