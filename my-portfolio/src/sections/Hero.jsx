@@ -22,22 +22,24 @@ const AnimatedBlinkingRoles = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden" style={{width: '100%'}}>
-      <span
-        className={`animate-blink animate-slide font-bold ${roleColors[index]} transition-colors duration-500 inline-block`}
-        style={{
-          textShadow: `0 0 8px var(--tw-color-${roleColors[index].split('-')[1]})`,
-          filter: 'brightness(1.2)'
-        }}
-      >
-        {roles[index]}
-      </span>
-      <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+1)%roles.length]}</span>
-      <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+2)%roles.length]}</span>
-      <span className="mx-2 text-primary">|</span>
-      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary inline-block">{roles[(index+3)%roles.length]}</span>
+    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden w-full">
+      <div className="flex items-center bg-[#8B5C2B] rounded-xl px-4 py-2 gap-2">
+        <span
+          className={`animate-blink animate-slide font-bold text-white transition-colors duration-500 inline-block`}
+          style={{
+            textShadow: '0 0 8px #fff',
+            filter: 'brightness(1.2)'
+          }}
+        >
+          {roles[index]}
+        </span>
+        <span className="mx-2 text-white">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-white inline-block">{roles[(index+1)%roles.length]}</span>
+        <span className="mx-2 text-white">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-white inline-block">{roles[(index+2)%roles.length]}</span>
+        <span className="mx-2 text-white">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-white inline-block">{roles[(index+3)%roles.length]}</span>
+      </div>
     </div>
   );
 };
