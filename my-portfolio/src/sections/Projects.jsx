@@ -188,7 +188,7 @@ const Projects = ({ onSectionChange }) => {
                 <h3 className="text-3xl md:text-4xl font-extrabold text-blue-900 dark:text-yellow-300 mb-4 drop-shadow-lg">Collaborative Development Experience</h3>
                 <div className="bg-yellow-100 dark:bg-yellow-900/60 rounded-xl px-4 py-3 mb-4">
                   <p className="text-lg font-semibold text-blue-900 dark:text-yellow-100 mb-2">
-                    I have collaborated with multiple engineers on the development of web applications and platforms across business, booking, institutional, and SME domains. Activities include:
+                    I have collaborated with multiple engineers on the development of applications and platforms across business, booking, institutional, and SME domains. Activities include:
                   </p>
                   <ul className="list-disc list-inside text-base font-normal text-blue-900 dark:text-yellow-100">
                     <li>Payment integration (M-Pesa, Stripe, etc.)</li>

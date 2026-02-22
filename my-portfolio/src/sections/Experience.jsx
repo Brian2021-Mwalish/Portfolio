@@ -101,7 +101,7 @@ const Experience = ({ onSectionChange }) => {
       type: 'Full-time',
       location: 'Remote',
       details: [
-        'Developed and maintained fullstack web applications',
+        'Developed and maintained fullstack applications',
         'Integrated AI-powered features into existing systems',
         'Collaborated with engineering team to improve performance and user experience',
         'Supported end-to-end delivery from planning through deployment'
