@@ -1,3 +1,46 @@
+// Animated blinking roles component
+const roles = [
+  "Full-stack Developer",
+  "AI Enthusiast",
+  "UI/UX Designer",
+  "Problem Solver"
+];
+
+const roleColors = [
+  "text-pink-500",
+  "text-yellow-400",
+  "text-cyan-400",
+  "text-purple-400"
+];
+
+const AnimatedBlinkingRoles = () => {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % roles.length);
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1">
+      <span
+        className={`animate-blink font-bold ${roleColors[index]} transition-colors duration-500`}
+        style={{
+          textShadow: `0 0 8px var(--tw-color-${roleColors[index].split('-')[1]})`,
+          filter: 'brightness(1.2)'
+        }}
+      >
+        {roles[index]}
+      </span>
+      <span className="mx-2 text-primary">|</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+1)%roles.length]}</span>
+      <span className="mx-2 text-primary">|</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+2)%roles.length]}</span>
+      <span className="mx-2 text-primary">|</span>
+      <span className="text-lg sm:text-xl md:text-2xl font-semibold text-primary">{roles[(index+3)%roles.length]}</span>
+    </div>
+  );
+};
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ownerImage from '../assets/brian.png';
@@ -287,9 +330,7 @@ const Hero = () => {
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight text-primary" style={{letterSpacing: '-0.03em'}}>
                 Brian Mwalish
               </h1>
-              <div className="text-lg sm:text-xl md:text-2xl font-semibold text-accent mt-2 mb-1">
-                Full-Stack Software Engineer
-              </div>
+              <AnimatedBlinkingRoles />
               <p className="text-base sm:text-lg text-primary-secondary max-w-lg leading-relaxed mb-2">
                 Building modern, scalable web applications with a focus on clean code, reliability, and seamless user experience.
               </p>
