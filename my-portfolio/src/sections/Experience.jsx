@@ -202,7 +202,7 @@ const experiences = [
     technologies: ['Python', 'Django', 'Flask', 'Jupyter Notebook'],
     achievements: [
       'Successfully trained multiple cohorts in Python fundamentals',
-      'Contributed to the department's practical learning initiatives',
+      'Contributed to the department\'s practical learning initiatives',
     ],
   },
   {
@@ -256,7 +256,7 @@ const experiences = [
     details: [
       'Designed UI for web and mobile applications and marketing materials',
       'Developed visual content for weddings, events and social campaigns',
-      'Managed clients' social media accounts to boost engagement',
+      'Managed clients\' social media accounts to boost engagement',
     ],
     technologies: ['UI Design', 'Branding', 'Social Media Tools', 'Design Suites'],
     achievements: [
