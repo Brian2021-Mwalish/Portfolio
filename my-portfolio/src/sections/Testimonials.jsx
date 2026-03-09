@@ -82,13 +82,10 @@ const Testimonials = ({ onSectionChange }) => {
     <section
       ref={sectionRef}
       id="testimonials"
-      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative min-h-screen bg-yellow-50 py-20 px-4 sm:px-6 lg:px-8"
+      style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif', backgroundColor: '#fef9c3' }}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl top-1/4 right-1/4" />
-        <div className="absolute w-80 h-80 bg-pink-500/5 rounded-full blur-3xl bottom-1/4 left-1/4" />
-      </div>
+      {/* Removed overlays for solid color background */}
 
       <motion.div
         className="relative z-10 max-w-7xl mx-auto"

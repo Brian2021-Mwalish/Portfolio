@@ -17,7 +17,8 @@ const Skills = () => {
           {Object.entries(skills).map(([category, items], index) => (
             <div
               key={index}
-              className="bg-white dark:bg-blue-900 p-8 rounded-2xl shadow-lg border border-primary/10 flex flex-col items-center"
+              className="bg-white p-8 rounded-2xl shadow-lg border border-blue-200 flex flex-col items-center"
+              style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif', backgroundColor: '#fff' }}
             >
               <h3 className="text-2xl font-bold text-accent mb-4 tracking-tight">
                 {category}

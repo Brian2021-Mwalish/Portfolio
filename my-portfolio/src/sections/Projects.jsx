@@ -71,27 +71,17 @@ const Projects = ({ onSectionChange }) => {
       bgSolid: 'bg-blue-900/20',
       features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization']
     },
-    {
-      title: 'Sokoni Kenya',
-      description: 'A responsive e-commerce website for local products, built with clean, user-friendly layouts and a focus on product discovery and conversion.',
-      tech: ['HTML', 'CSS', 'JavaScript', 'PHP'],
-      live: 'https://www.sokonikenya.co.ke/',
-      github: '',
-      category: 'Web Development',
-      solidColor: 'bg-rose-500',
-      bgSolid: 'bg-rose-900/20',
-      features: ['Responsive UI', 'Product Catalog', 'Fast Navigation', 'Conversion-Focused Design']
-    }
+    
   ];
 
 
 
   const ProjectCard = ({ project, index }) => {
     return (
-      <div className="relative h-full">
+      <div className="relative h-full" style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif' }}>
         <div
-          className={`relative h-full flex flex-col justify-between bg-white dark:bg-blue-900 border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 group cursor-pointer min-h-[420px]`}
-          style={{ borderRadius: '16px' }}
+          className={`relative h-full flex flex-col justify-between bg-white border-2 border-blue-500 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-8 group cursor-pointer min-h-[420px]`}
+          style={{ borderRadius: '16px', backgroundColor: '#fff' }}
         >
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
@@ -165,13 +155,10 @@ const Projects = ({ onSectionChange }) => {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative min-h-screen bg-primary-bg py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative min-h-screen bg-blue-50 py-20 px-4 sm:px-6 lg:px-8"
+      style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif', backgroundColor: '#f3f4f6' }}
     >
-      {/* Subtle background elements */}
-      <div className="absolute inset-0">
-        <div className="absolute w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl top-1/4 left-1/4" />
-        <div className="absolute w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl bottom-1/4 right-1/4" />
-      </div>
+      {/* Removed overlays for solid color background */}
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto">

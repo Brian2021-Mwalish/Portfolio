@@ -21,32 +21,27 @@ const AnimatedBlinkingRoles = () => {
     }, 3000); // Increased interval for readability
     return () => clearInterval(interval);
   }, []);
-  // Color-blind-friendly, high-contrast colors for brown background
-  // No bright pink/magenta; use coral as a vibrant alternative
+  // Use solid, accessible colors
   const slideColors = [
-    "text-white",      // White: maximum contrast
-    "text-yellow-400", // Yellow: color-blind safe, visible
-    "[color:#FF6F61]", // Coral: vibrant, accessible alternative to brown/pink
-    "text-black"      // Black: maximum contrast
+    "text-blue-700",   // Blue
+    "text-green-600",  // Green
+    "text-red-500",    // Red
+    "text-black"       // Black
   ];
   return (
-    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden w-full">
-      <div className="flex items-center bg-[#8B5C2B] rounded-xl px-4 py-2 gap-2">
+    <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden w-full" style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif' }}>
+      <div className="flex items-center bg-blue-100 rounded-xl px-4 py-2 gap-2">
         <span
           className={`animate-slide font-bold ${slideColors[index]} transition-colors duration-500 inline-block`}
-          style={{
-            textShadow: `0 0 8px var(--tw-color-${slideColors[index].split('-')[1]})`,
-            filter: 'brightness(1.2)'
-          }}
         >
           {roles[index]}
         </span>
-        <span className="mx-2 text-yellow-400">|</span>
-        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-cyan-400 inline-block">{roles[(index+1)%roles.length]}</span>
-        <span className="mx-2" style={{ color: '#FF6F61' }}>|</span>
-        <span className="text-lg sm:text-xl md:text-2xl font-semibold inline-block" style={{ color: '#FF6F61' }}>{roles[(index+2)%roles.length]}</span>
-        <span className="mx-2 text-green-400">|</span>
-        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-green-400 inline-block">{roles[(index+3)%roles.length]}</span>
+        <span className="mx-2 text-blue-700">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-green-600 inline-block">{roles[(index+1)%roles.length]}</span>
+        <span className="mx-2 text-red-500">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-red-500 inline-block">{roles[(index+2)%roles.length]}</span>
+        <span className="mx-2 text-black">|</span>
+        <span className="text-lg sm:text-xl md:text-2xl font-semibold text-black inline-block">{roles[(index+3)%roles.length]}</span>
       </div>
     </div>
   );
