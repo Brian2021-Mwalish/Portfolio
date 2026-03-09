@@ -82,8 +82,8 @@ const Testimonials = ({ onSectionChange }) => {
     <section
       ref={sectionRef}
       id="testimonials"
-      className="relative min-h-screen bg-yellow-50 py-20 px-4 sm:px-6 lg:px-8"
-      style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif', backgroundColor: '#fef9c3' }}
+      className="relative min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8"
+      style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif' }}
     >
       {/* Removed overlays for solid color background */}
 

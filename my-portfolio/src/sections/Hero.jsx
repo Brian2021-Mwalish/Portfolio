@@ -30,7 +30,7 @@ const AnimatedBlinkingRoles = () => {
   ];
   return (
     <div className="text-lg sm:text-xl md:text-2xl font-semibold mt-2 mb-1 overflow-hidden w-full" style={{ fontFamily: 'Arial, Helvetica, ui-sans-serif, system-ui, sans-serif' }}>
-      <div className="flex items-center bg-blue-100 rounded-xl px-4 py-2 gap-2">
+      <div className="flex items-center bg-background rounded-xl px-4 py-2 gap-2">
         <span
           className={`animate-slide font-bold ${slideColors[index]} transition-colors duration-500 inline-block`}
         >

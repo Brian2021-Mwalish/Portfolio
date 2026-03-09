@@ -8,7 +8,7 @@ const skills = {
 
 const Skills = () => {
   return (
-    <section id="skills" className="w-full bg-neutral-50 dark:bg-blue-950 py-20 md:py-[80px] px-4 sm:px-8">
+    <section id="skills" className="w-full bg-background py-20 md:py-[80px] px-4 sm:px-8">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-extrabold text-center text-primary mb-12 tracking-tight leading-tight">
           Skills & Tools
