@@ -50,17 +50,6 @@ const Projects = ({ onSectionChange }) => {
       features: ['Smart Real-Time Updates', 'Advanced Admin Dashboard', 'Customer Loyalty System', 'Fully Responsive Design']
     },
     {
-      title: 'AI Chatbot Interface',
-      description: 'An sophisticated conversational AI assistant powered by OpenAI API, featuring intelligent typing indicators, enhanced user experience patterns, and support for multiple conversation flows with context awareness.',
-      tech: ['React', 'OpenAI API', 'Vite', 'JavaScript'],
-      live: 'https://mwalish-chatbot.vercel.app',
-      github: 'https://github.com/Brian2021-Mwalish/ai-chatbot',
-      category: 'AI/Frontend',
-      solidColor: 'bg-blue-500',
-      bgSolid: 'bg-blue-900/20',
-      features: ['OpenAI Integration', 'Context Awareness', 'Real-time Chat', 'Modern UI']
-    },
-    {
       title: 'Loyalty Dashboard',
       description: 'Advanced administrative control panel designed for managing customer loyalty tiers, comprehensive engagement analytics visualization, and automated loyalty action triggers with manual override capabilities.',
       tech: ['React', 'Django REST', 'Chart.js', 'Redux'],
