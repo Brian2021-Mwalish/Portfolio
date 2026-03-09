@@ -1,373 +1,556 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import reactLogo from "../assets/react.png";
 import pythonLogo from "../assets/python.png";
 import fastapiLogo from "../assets/fastapi.png";
 import dockerLogo from "../assets/docker.png";
 import awsLogo from "../assets/aws.png";
-// Add these imports if you have these logos in your assets
-// import nodejsLogo from "../assets/nodejs.png";
-// import postgresqlLogo from "../assets/postgresql.png";
-// import tailwindLogo from "../assets/tailwind.png";
 
-const About = ({ onSectionChange }) => {
-  const [activeCard, setActiveCard] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+/* ─── EDITORIAL COLOR SYSTEM ───────────────────────────────────────────────
+   #F7F5F0  — warm paper / page background
+   #1A1A2E  — deep navy-ink / primary text
+   #E63946  — red accent (headlines, highlights)
+   #22C55E  — green accent (skill bars, tags)
+   #C8C2B4  — muted ruled-line colour
+   Fonts   : Playfair Display (display) + DM Sans (body)
+──────────────────────────────────────────────────────────────────────────── */
 
-  // Mouse tracking for interactive effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
-      }
-    };
+const STYLES = `
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, []);
+  .about-root {
+    --paper:   #F7F5F0;
+    --ink:     #1A1A2E;
+    --red:     #E63946;
+    --green:   #22C55E;
+    --rule:    #C8C2B4;
+    --muted:   #6B6560;
+    --card-bg: #EEEAE2;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+  }
 
-  // Skills data with actual logos and descriptions
-  const skills = [
-    {
-      name: 'React',
-      logo: reactLogo,
-      level: 95,
-      color: 'bg-blue-500',
-      description: 'Building dynamic user interfaces'
-    },
-    {
-      name: 'Python',
-      logo: pythonLogo,
-      level: 90,
-      color: 'bg-green-500',
-      description: 'Backend development & automation'
-    },
-    {
-      name: 'FastAPI',
-      logo: fastapiLogo,
-      level: 88,
-      color: 'bg-teal-500',
-      description: 'High-performance API development'
-    },
-    {
-      name: 'Docker',
-      logo: dockerLogo,
-      level: 82,
-      color: 'bg-blue-600',
-      description: 'Containerization & deployment'
-    },
-    {
-      name: 'AWS',
-      logo: awsLogo,
-      level: 75,
-      color: 'bg-orange-500',
-      description: 'Cloud infrastructure & services'
-    },
-    {
-      name: 'PostgreSQL',
-      logo: null, // Use placeholder or add logo to assets
-      level: 85,
-      color: 'bg-blue-700',
-      description: 'Database design & optimization'
-    }
-  ];
+  .playfair { font-family: 'Playfair Display', serif; }
 
-  // Values/principles with professional icons
-  const values = [
-    {
-      title: 'Detail-Oriented',
-      description: 'Every pixel matters. I believe in crafting polished experiences that users love.',
-      color: 'bg-blue-500'
-    },
-    {
-      title: 'Collaborative',
-      description: 'Great software is built by great teams. I thrive in collaborative environments.',
-      color: 'bg-cyan-500'
-    },
-    {
-      title: 'Innovation-Driven',
-      description: 'Always exploring new technologies and methodologies to solve problems better.',
-      color: 'bg-emerald-500'
-    },
-    {
-      title: 'Growth Mindset',
-      description: 'Continuous learning is key. Every challenge is an opportunity to improve.',
-      color: 'bg-orange-500'
-    }
-  ];
+  /* ruled lines background */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 39px,
+      var(--rule) 39px,
+      var(--rule) 40px
+    );
+  }
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
-  };
+  /* red overline */
+  .overline-red::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--red);
+    margin-bottom: 10px;
+  }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
-    }
-  };
+  /* skill bar track */
+  .skill-track {
+    height: 6px;
+    background: rgba(26,26,46,0.1);
+    border-radius: 999px;
+    overflow: hidden;
+  }
 
-  const skillVariants = {
-    hidden: { width: 0 },
-    visible: (level) => ({
-      width: `${level}%`,
-      transition: { duration: 1.5, delay: 0.5, ease: "easeOut" }
-    })
-  };
+  .skill-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 999px;
+    transform-origin: left;
+  }
 
+  /* tag chip */
+  .tag {
+    display: inline-block;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .tag-red { border-color: var(--red); color: var(--red); }
+  .tag-green { border-color: var(--green); color: var(--green); }
+
+  /* editorial card */
+  .ed-card {
+    background: var(--card-bg);
+    border-top: 3px solid var(--ink);
+    position: relative;
+  }
+  .ed-card-red { border-top-color: var(--red); }
+  .ed-card-green { border-top-color: var(--green); }
+
+  /* big number index */
+  .index-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--rule);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* horizontal rule */
+  .h-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* column rule */
+  .col-rule {
+    width: 1px;
+    background: var(--rule);
+    align-self: stretch;
+  }
+
+  /* hover lift */
+  .hover-lift { transition: transform .25s ease, box-shadow .25s ease; }
+  .hover-lift:hover { transform: translateY(-4px); box-shadow: 6px 6px 0 var(--ink); }
+  .hover-lift-red:hover { box-shadow: 6px 6px 0 var(--red); }
+  .hover-lift-green:hover { box-shadow: 6px 6px 0 var(--green); }
+
+  /* masthead stripe */
+  .masthead-stripe {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* pull quote */
+  .pull-quote {
+    border-left: 4px solid var(--red);
+    padding-left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .about-root a { color: var(--red); }
+`;
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const skills = [
+  { name: 'React',      logo: reactLogo,   level: 95, tag: 'Frontend'  },
+  { name: 'Python',     logo: pythonLogo,  level: 90, tag: 'Backend'   },
+  { name: 'FastAPI',    logo: fastapiLogo, level: 88, tag: 'API'       },
+  { name: 'Docker',     logo: dockerLogo,  level: 82, tag: 'DevOps'    },
+  { name: 'AWS',        logo: awsLogo,     level: 75, tag: 'Cloud'     },
+  { name: 'PostgreSQL', logo: null,        level: 85, tag: 'Database'  },
+];
+
+const values = [
+  { num: '01', title: 'Detail-Oriented',     desc: 'Every pixel matters. I craft polished experiences that users genuinely love.',              accent: 'var(--red)'   },
+  { num: '02', title: 'Collaborative',        desc: 'Great software is built by great teams. I thrive in collaborative environments.',           accent: 'var(--green)' },
+  { num: '03', title: 'Innovation-Driven',    desc: 'Always exploring new technologies and methodologies to solve problems better.',             accent: 'var(--red)'   },
+  { num: '04', title: 'Growth Mindset',       desc: 'Continuous learning is key. Every challenge is an opportunity to improve and grow.',        accent: 'var(--green)' },
+];
+
+// ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
+
+function SkillRow({ skill, index, inView }) {
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="relative min-h-screen bg-primary-bg py-16 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
+      className="hover-lift"
+      style={{ background: 'var(--card-bg)', padding: '14px 18px', borderBottom: '1px solid var(--rule)', cursor: 'default' }}
     >
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0">
-        {/* Animated gradient orbs */}
-        <motion.div
-          className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-cyan-500/10 rounded-full blur-2xl sm:blur-3xl"
-          animate={{
-            x: mousePosition.x * 0.02,
-            y: mousePosition.y * 0.02,
-          }}
-          transition={{ type: "spring", damping: 50 }}
-          style={{ left: '10%', top: '20%' }}
-        />
-        <motion.div
-          className="absolute w-48 h-48 sm:w-80 sm:h-80 bg-emerald-500/8 rounded-full blur-2xl sm:blur-3xl"
-          animate={{
-            x: mousePosition.x * -0.015,
-            y: mousePosition.y * -0.015,
-          }}
-          transition={{ type: "spring", damping: 50 }}
-          style={{ right: '15%', bottom: '25%' }}
-        />
-
-        {/* Floating elements */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-cyan-400/30 rounded-full hidden sm:block"
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              delay: i * 0.8,
-            }}
-            style={{
-              left: `${15 + i * 12}%`,
-              top: '80%',
-            }}
-          />
-        ))}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {skill.logo
+            ? <img src={skill.logo} alt={skill.name} style={{ width: 24, height: 24, objectFit: 'contain' }} />
+            : <div style={{ width: 24, height: 24, background: 'var(--ink)', borderRadius: 4, opacity: 0.3 }} />
+          }
+          <span style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 15, color: 'var(--ink)' }}>{skill.name}</span>
+          <span className="tag" style={{ fontSize: 10 }}>{skill.tag}</span>
+        </div>
+        <span style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 18, color: 'var(--green)' }}>
+          {skill.level}
+          <span style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'DM Sans' }}>%</span>
+        </span>
       </div>
 
-      {/* Main Content */}
-      <motion.div
-        className="relative z-10 max-w-7xl mx-auto"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+      <div className="skill-track">
+        <motion.div
+          className="skill-fill"
+          initial={{ width: 0 }}
+          animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
+          transition={{ duration: 1.2, delay: 0.4 + index * 0.1, ease: 'easeOut' }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function ValueCard({ v, index, inView }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: 0.15 * index }}
+      className="ed-card hover-lift"
+      style={{
+        borderTopColor: v.accent,
+        padding: '20px 22px',
+        flex: '1 1 200px',
+        minWidth: 180
+      }}
+    >
+      <div style={{
+        fontFamily: 'Playfair Display, serif',
+        fontSize: 48,
+        fontWeight: 900,
+        color: 'transparent',
+        WebkitTextStroke: `1.5px ${v.accent}`,
+        lineHeight: 1,
+        marginBottom: 8
+      }}>
+        {v.num}
+      </div>
+      <h4 style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 16, color: 'var(--ink)', marginBottom: 8 }}>
+        {v.title}
+      </h4>
+      <p style={{ fontFamily: 'DM Sans', fontSize: 13, color: 'var(--muted)', lineHeight: 1.6, margin: 0 }}>
+        {v.desc}
+      </p>
+    </motion.div>
+  );
+}
+
+// ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
+
+const About = ({ onSectionChange }) => {
+  const sectionRef = useRef(null);
+  const isInView   = useInView(sectionRef, { once: true, margin: '-80px' });
+
+  return (
+    <>
+      <style>{STYLES}</style>
+
+      <section
+        ref={sectionRef}
+        id="about"
+        className="about-root"
+        style={{ minHeight: '100vh', padding: '0 0 80px' }}
       >
-        {/* Header */}
-        <motion.div variants={itemVariants} className="text-center mb-12 sm:mb-16">
-          <motion.h2 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
-            whileHover={{ scale: 1.02 }}
+
+        {/* ── MASTHEAD ─────────────────────────────────────────────────────── */}
+        <div className="masthead-stripe" style={{ padding: '10px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontFamily: 'DM Sans', fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', opacity: 0.6 }}>
+            Portfolio · Issue No. 01
+          </span>
+          <span style={{ fontFamily: 'DM Sans', fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', opacity: 0.6 }}>
+            Full-Stack Engineer
+          </span>
+        </div>
+
+        {/* ── HEADER SPREAD ────────────────────────────────────────────────── */}
+        <div style={{ padding: '40px 40px 0', maxWidth: 1280, margin: '0 auto' }}>
+          {/* Overline */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}
           >
-            <span className="text-slate-700">
+            <div style={{ height: 3, width: 40, background: 'var(--red)' }} />
+            <span style={{ fontFamily: 'DM Sans', fontSize: 11, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--red)' }}>
               About Me
             </span>
-          </motion.h2>
-          <motion.div
-            className="w-16 sm:w-24 h-1 bg-cyan-500 mx-auto rounded-full"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          />
-        </motion.div>
+          </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start">
-          
-          {/* Left Column - Story */}
-          <div className="space-y-6 sm:space-y-8">
-            <motion.div
-              variants={itemVariants}
-              className="bg-primary-secondary/5 backdrop-blur-xl border border-primary-secondary/10 rounded-2xl p-4 sm:p-6 lg:p-8 hover:bg-primary-secondary/[0.08] transition-all duration-500 group"
+          {/* Giant headline */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'end', gap: 24, marginBottom: 32 }}>
+            <motion.h1
+              className="playfair"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontSize: 'clamp(40px, 7vw, 96px)',
+                fontWeight: 900,
+                lineHeight: 0.95,
+                color: 'var(--ink)',
+                margin: 0
+              }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-3 sm:mb-4 group-hover:text-primary-accent transition-colors">
-                Hello, I'm Brian Mwalish
-              </h3>
-              <p className="text-primary-secondary text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
-                I'm a passionate <span className="text-primary-accent font-semibold">Full-Stack Software Engineer</span> who
-                loves turning complex problems into elegant solutions. With a strong foundation in both
-                frontend and backend technologies, I create digital experiences that are not just functional,
-                but delightful to use.
-              </p>
-              <p className="text-primary-secondary text-base sm:text-lg leading-relaxed">
-                My journey in software development started with curiosity and has evolved into a deep passion
-                for building scalable appapplications that make a real impact. I believe great software is born
-                from the intersection of <span className="text-primary-accent font-semibold">technical excellence</span>,
-                <span className="text-primary-accent font-semibold"> user empathy</span>, and
-                <span className="text-primary-accent font-semibold"> creative problem-solving</span>.
-              </p>
-            </motion.div>
+              Building<br />
+              <em style={{ color: 'var(--red)', fontStyle: 'italic' }}>elegant</em><br />
+              solutions.
+            </motion.h1>
 
-            {/* Values Cards */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              {values.map((value, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-xl p-4 sm:p-6 cursor-pointer group hover:scale-105 transition-all duration-300"
-                  whileHover={{ y: -5 }}
-                  onHoverStart={() => setActiveCard(index)}
-                  onHoverEnd={() => setActiveCard(null)}
-                >
-                  <div className="flex items-center mb-2 sm:mb-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-500/20 flex items-center justify-center mr-3">
-                      <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full ${value.color}`} />
-                    </div>
-                    <h4 className={`font-semibold text-base sm:text-lg text-${value.color.split('-')[1]}-500`}>
-                      {value.title}
-                    </h4>
-                  </div>
-                  <p className="text-primary-secondary text-xs sm:text-sm group-hover:text-primary-text transition-colors">
-                    {value.description}
-                  </p>
-                </motion.div>
-              ))}
+            {/* Issue-style right block */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              style={{
+                textAlign: 'right',
+                borderRight: '3px solid var(--green)',
+                paddingRight: 16,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4
+              }}
+            >
+              <span style={{ fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)', letterSpacing: '.1em', textTransform: 'uppercase' }}>Nairobi, Kenya</span>
+              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 28, fontWeight: 700, color: 'var(--green)', lineHeight: 1 }}>5+</span>
+              <span style={{ fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)', letterSpacing: '.05em' }}>Years Experience</span>
             </motion.div>
           </div>
 
-          {/* Right Column - Skills */}
-          <div className="space-y-6 sm:space-y-8">
+          <div className="h-rule" />
+        </div>
+
+        {/* ── TWO-COLUMN BODY ──────────────────────────────────────────────── */}
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: '0 auto',
+            padding: '40px 40px 0',
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0,1.1fr) 1px minmax(0,0.9fr)',
+            gap: '0 40px',
+            alignItems: 'start'
+          }}
+        >
+
+          {/* ── LEFT COLUMN ─────────────────────────────────────────── */}
+          <div>
+
+            {/* Byline */}
             <motion.div
-              variants={itemVariants}
-              className="bg-white/5 backdrop-blur-xl border-2 border-yellow-400 dark:border-yellow-300 rounded-2xl p-4 sm:p-6 lg:p-8"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 flex items-center">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center mr-3">
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded bg-cyan-500" />
-                </div>
-                Technical Skills
-              </h3>
-              
-              <div className="space-y-4 sm:space-y-6">
-                {skills.map((skill, index) => (
-                  <motion.div key={skill.name} className="group">
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="flex items-center">
-                        {skill.logo ? (
-                          <img 
-                            src={skill.logo} 
-                            alt={skill.name}
-                            className="w-6 h-6 sm:w-8 sm:h-8 mr-3 opacity-80 group-hover:opacity-100 transition-opacity"
-                          />
-                        ) : (
-                          <div className="w-6 h-6 sm:w-8 sm:h-8 mr-3 rounded bg-gray-500 opacity-80" />
-                        )}
-                        <div>
-                          <span className="text-primary-text font-medium text-sm sm:text-base block">{skill.name}</span>
-                          <span className="text-primary-secondary text-xs hidden sm:block">{skill.description}</span>
-                        </div>
-                      </div>
-                      <span className="text-cyan-400 font-semibold text-sm sm:text-base">{skill.level}%</span>
-                    </div>
-                    
-                    <div className="h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden">
-                      <motion.div
-                        className={`h-full ${skill.color} rounded-full relative`}
-                        variants={skillVariants}
-                        initial="hidden"
-                        animate={isInView ? "visible" : "hidden"}
-                        custom={skill.level}
-                      >
-                        <motion.div
-                          className="absolute inset-0 bg-white/20 rounded-full"
-                          initial={{ x: '-100%' }}
-                          animate={{ x: '100%' }}
-                          transition={{
-                            duration: 2,
-                            delay: index * 0.1 + 1,
-                            ease: "easeInOut"
-                          }}
-                        />
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                ))}
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ color: 'var(--paper)', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 16 }}>B</span>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: 'DM Sans', fontWeight: 600, fontSize: 13, color: 'var(--ink)' }}>Brian Mwalish</p>
+                <p style={{ margin: 0, fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)' }}>Full-Stack Software Engineer</p>
+              </div>
+              <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+                <span className="tag tag-red">Available</span>
               </div>
             </motion.div>
 
-            {/* Call to Action */}
+            {/* Body copy */}
             <motion.div
-              variants={itemVariants}
-              className="bg-cyan-500/10 backdrop-blur-xl border border-cyan-500/20 rounded-2xl p-4 sm:p-6 lg:p-8 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="ruled"
+              style={{ padding: '0 0 16px' }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-primary-text mb-3 sm:mb-4">
+              <p style={{ fontFamily: 'DM Sans', fontSize: 16, lineHeight: 2.5, color: 'var(--ink)', margin: '0 0 0' }}>
+                I'm a passionate <strong style={{ color: 'var(--red)' }}>Full-Stack Software Engineer</strong> who
+                turns complex problems into elegant solutions. With a strong foundation in both
+                frontend and backend technologies, I create digital experiences that are not
+                just functional — but delightful.
+              </p>
+            </motion.div>
+
+            {/* Pull quote */}
+            <motion.blockquote
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.45 }}
+              className="pull-quote"
+              style={{ margin: '32px 0' }}
+            >
+              "Great software lives at the intersection of technical excellence,
+              user empathy, and creative problem-solving."
+            </motion.blockquote>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="ruled"
+              style={{ padding: '0 0 16px' }}
+            >
+              <p style={{ fontFamily: 'DM Sans', fontSize: 16, lineHeight: 2.5, color: 'var(--ink)', margin: 0 }}>
+                My journey started with curiosity and has evolved into a deep passion for
+                building scalable applications that make a real impact. Every challenge
+                is an opportunity to learn, grow, and deliver something extraordinary.
+              </p>
+            </motion.div>
+
+            {/* Values grid */}
+            <div className="h-rule" style={{ margin: '32px 0 24px' }} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <p style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 16 }}>
+                Core Principles
+              </p>
+            </motion.div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+              {values.map((v, i) => (
+                <ValueCard key={v.num} v={v} index={i} inView={isInView} />
+              ))}
+            </div>
+          </div>
+
+          {/* ── COLUMN RULE ─────────────────────────────────────────── */}
+          <div className="col-rule" style={{ marginTop: 60 }} />
+
+          {/* ── RIGHT COLUMN ────────────────────────────────────────── */}
+          <div>
+
+            {/* Skills section label */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5 }}
+              className="overline-red"
+              style={{ marginBottom: 20 }}
+            >
+              <h3 className="playfair" style={{ fontWeight: 700, fontSize: 22, color: 'var(--ink)', margin: 0 }}>
+                Technical Expertise
+              </h3>
+            </motion.div>
+
+            {/* Skill rows */}
+            <div style={{ marginBottom: 40 }}>
+              {skills.map((skill, i) => (
+                <SkillRow key={skill.name} skill={skill} index={i} inView={isInView} />
+              ))}
+            </div>
+
+            {/* Stats row */}
+            <div className="h-rule" style={{ marginBottom: 28 }} />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1px 1fr 1px 1fr', gap: 0 }}
+            >
+              {[
+                { num: '20+',  label: 'Projects\nDelivered' },
+                { num: '|',    label: '' },
+                { num: '5+',   label: 'Years\nExperience' },
+                { num: '|',    label: '' },
+                { num: '100%', label: 'Client\nSatisfaction' },
+              ].map((s, i) =>
+                s.num === '|'
+                  ? <div key={i} style={{ width: 1, background: 'var(--rule)', margin: '0 auto' }} />
+                  : (
+                    <div key={i} style={{ textAlign: 'center', padding: '12px 8px' }}>
+                      <div className="playfair" style={{ fontWeight: 900, fontSize: 32, color: i === 0 ? 'var(--red)' : i === 2 ? 'var(--green)' : 'var(--ink)', lineHeight: 1 }}>
+                        {s.num}
+                      </div>
+                      <div style={{ fontFamily: 'DM Sans', fontSize: 10, color: 'var(--muted)', letterSpacing: '.08em', textTransform: 'uppercase', lineHeight: 1.4, marginTop: 4, whiteSpace: 'pre-line' }}>
+                        {s.label}
+                      </div>
+                    </div>
+                  )
+              )}
+            </motion.div>
+            <div className="h-rule" style={{ marginBottom: 32 }} />
+
+            {/* CTA card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="ed-card ed-card-red hover-lift hover-lift-red"
+              style={{ padding: '28px 28px 24px' }}
+            >
+              <p style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: 12 }}>
+                Open to Opportunities
+              </p>
+              <h3 className="playfair" style={{ fontWeight: 700, fontSize: 22, color: 'var(--ink)', marginBottom: 12, lineHeight: 1.2 }}>
                 Let's Build Something Amazing Together
               </h3>
-              <p className="text-primary-secondary mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                I'm always excited about new opportunities to create innovative solutions.
-                Whether it's a challenging project or an interesting collaboration, I'd love to hear from you.
+              <p style={{ fontFamily: 'DM Sans', fontSize: 14, color: 'var(--muted)', lineHeight: 1.7, marginBottom: 24 }}>
+                Whether it's a challenging project or an interesting collaboration, I'd love to hear from you and explore what we can create.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <motion.button
-                  onClick={() => onSectionChange('contact')}
-                  className="bg-cyan-500 text-white font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-sm sm:text-base"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    Get In Touch
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
-                </motion.button>
 
-                <motion.button
-                  onClick={() => onSectionChange('projects')}
-                  className="border-2 border-cyan-500/50 text-cyan-400 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl backdrop-blur-sm hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 text-sm sm:text-base"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+              <div style={{ display: 'flex', gap: 12 }}>
+                <button
+                  onClick={() => onSectionChange && onSectionChange('contact')}
+                  style={{
+                    background: 'var(--ink)',
+                    color: 'var(--paper)',
+                    border: 'none',
+                    padding: '12px 24px',
+                    fontFamily: 'DM Sans',
+                    fontWeight: 600,
+                    fontSize: 13,
+                    letterSpacing: '.05em',
+                    cursor: 'pointer',
+                    transition: 'background .2s',
+                    borderRadius: 2
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'var(--red)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'var(--ink)'}
                 >
-                  View My Work
-                </motion.button>
+                  Get In Touch →
+                </button>
+
+                <button
+                  onClick={() => onSectionChange && onSectionChange('projects')}
+                  style={{
+                    background: 'transparent',
+                    color: 'var(--ink)',
+                    border: '1.5px solid var(--ink)',
+                    padding: '12px 24px',
+                    fontFamily: 'DM Sans',
+                    fontWeight: 600,
+                    fontSize: 13,
+                    letterSpacing: '.05em',
+                    cursor: 'pointer',
+                    transition: 'all .2s',
+                    borderRadius: 2
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = 'var(--paper)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink)'; }}
+                >
+                  View Work
+                </button>
               </div>
             </motion.div>
+
           </div>
         </div>
 
+        {/* ── FOOTER RULE ──────────────────────────────────────────────────── */}
+        <div style={{ maxWidth: 1280, margin: '60px auto 0', padding: '0 40px' }}>
+          <div className="h-rule" />
+          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0 0', fontFamily: 'DM Sans', fontSize: 10, color: 'var(--muted)', letterSpacing: '.1em', textTransform: 'uppercase' }}>
+            <span>Brian Mwalish · Portfolio</span>
+            <span>Full-Stack Software Engineer</span>
+          </div>
+        </div>
 
-      </motion.div>
-    </section>
+      </section>
+    </>
   );
 };
 
