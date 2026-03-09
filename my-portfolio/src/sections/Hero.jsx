@@ -484,7 +484,7 @@ const Hero = () => {
               <motion.div variants={item}>
                 <span className="hero-badge">
                   <span className="hero-badge-dot" />
-                  Available for hire · Nairobi, KE
+                  Available for hire · Eldoret, KE
                 </span>
               </motion.div>
 

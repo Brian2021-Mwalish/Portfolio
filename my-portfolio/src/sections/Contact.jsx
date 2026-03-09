@@ -67,7 +67,7 @@ const Contact = () => {
         </svg>
       ),
       label: 'Location',
-      value: 'Nairobi, Kenya',
+      value: 'Eldoret, Kenya',
       link: null,
       color: 'bg-emerald-500'
     }
