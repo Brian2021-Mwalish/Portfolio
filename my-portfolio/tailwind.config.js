@@ -31,8 +31,7 @@ export default {
     extend: {
       fontFamily: {
         sans: [
-          'Arial',
-          'Helvetica',
+          'Inter',
           'ui-sans-serif',
           'system-ui',
           'sans-serif',

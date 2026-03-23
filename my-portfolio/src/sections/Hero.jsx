@@ -119,10 +119,10 @@ const Hero = () => {
     <>
       {/* Google Fonts */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&family=Fira+Code:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fira+Code:wght@400&display=swap');
 
         .hero-root {
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
           background-color: #F7F5F0;
           min-height: 100vh;
           position: relative;
@@ -267,7 +267,7 @@ const Hero = () => {
           justify-content: center;
           background-color: #1A1A2E;
           color: #F7F5F0;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
           font-size: 0.92rem;
           font-weight: 600;
           letter-spacing: 0.05em;
@@ -290,7 +290,7 @@ const Hero = () => {
           gap: 8px;
           background-color: transparent;
           color: #1A1A2E;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
           font-size: 0.92rem;
           font-weight: 600;
           letter-spacing: 0.05em;

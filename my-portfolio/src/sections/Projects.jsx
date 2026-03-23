@@ -168,7 +168,7 @@ const CopyLinkBtn = ({ url }) => {
         color: state !== 'idle' ? '#fff' : '#1A1A2E',
         transition: 'background 0.2s, color 0.2s',
         flexShrink: 0,
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
       }}
     >
       {state === 'copied' ? (
@@ -227,7 +227,7 @@ const DetailDrawer = ({ project, onClose }) => {
           padding: '40px 48px 48px',
           position: 'relative',
           animation: 'slideUp 0.35s cubic-bezier(.22,1,.36,1)',
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
           boxShadow: '0 -8px 40px rgba(26,26,46,0.18)',
         }}
       >
