@@ -76,7 +76,7 @@ export default function App() {
         '--primary': '#2563eb',
         '--accent': '#06b6d4',
         '--radius': '16px',
-        fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        fontFamily: 'Inter',
       }}
     >
       {/* Navbar stays fixed and unaffected by dark mode */}

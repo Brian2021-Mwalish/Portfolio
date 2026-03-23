@@ -387,7 +387,7 @@ const Projects = ({ onSectionChange }) => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600&display=swap');
+/* Fonts standardized to Inter */
 
         @keyframes slideUp {
           from { transform: translateY(60px); opacity: 0; }

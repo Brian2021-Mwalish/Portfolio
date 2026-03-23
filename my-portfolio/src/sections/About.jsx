@@ -16,8 +16,6 @@ import awsLogo from "../assets/aws.png";
 ──────────────────────────────────────────────────────────────────────────── */
 
 const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
-
   .about-root {
     --paper:   #F7F5F0;
     --ink:     #1A1A2E;
@@ -26,12 +24,12 @@ const STYLES = `
     --rule:    #C8C2B4;
     --muted:   #6B6560;
     --card-bg: #EEEAE2;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--paper);
     color: var(--ink);
   }
 
-  .playfair { font-family: 'Playfair Display', serif; }
+  .playfair { font-family: 'Inter', sans-serif; }
 
   /* ruled lines background */
   .ruled {
@@ -95,7 +93,7 @@ const STYLES = `
 
   /* big number index */
   .index-num {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter';
     font-size: clamp(48px, 8vw, 96px);
     font-weight: 900;
     line-height: 1;
@@ -135,7 +133,7 @@ const STYLES = `
   .pull-quote {
     border-left: 4px solid var(--red);
     padding-left: 20px;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter';
     font-style: italic;
     font-size: clamp(18px, 2.5vw, 24px);
     line-height: 1.5;
@@ -180,12 +178,12 @@ function SkillRow({ skill, index, inView }) {
             ? <img src={skill.logo} alt={skill.name} style={{ width: 24, height: 24, objectFit: 'contain' }} />
             : <div style={{ width: 24, height: 24, background: 'var(--ink)', borderRadius: 4, opacity: 0.3 }} />
           }
-          <span style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 15, color: 'var(--ink)' }}>{skill.name}</span>
+          <span style={{ fontFamily: 'Inter', fontWeight: 600, fontSize: 15, color: 'var(--ink)' }}>{skill.name}</span>
           <span className="tag" style={{ fontSize: 10 }}>{skill.tag}</span>
         </div>
-        <span style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 18, color: 'var(--green)' }}>
+        <span style={{ fontFamily: 'Inter', fontWeight: 700, fontSize: 18, color: 'var(--green)' }}>
           {skill.level}
-          <span style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'DM Sans' }}>%</span>
+          <span style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'Inter' }}>%</span>
         </span>
       </div>
 
@@ -216,7 +214,7 @@ function ValueCard({ v, index, inView }) {
       }}
     >
       <div style={{
-        fontFamily: 'Playfair Display, serif',
+        fontFamily: 'Inter',
         fontSize: 48,
         fontWeight: 900,
         color: 'transparent',
@@ -273,7 +271,7 @@ const About = ({ onSectionChange }) => {
             style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}
           >
             <div style={{ height: 3, width: 40, background: 'var(--red)' }} />
-            <span style={{ fontFamily: 'DM Sans', fontSize: 11, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--red)' }}>
+              <span style={{ fontFamily: 'Inter', fontSize: 11, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--red)' }}>
               About Me
             </span>
           </motion.div>
@@ -345,7 +343,7 @@ const About = ({ onSectionChange }) => {
               style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}
             >
               <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ color: 'var(--paper)', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 16 }}>B</span>
+                <span style={{ color: 'var(--paper)', fontFamily: 'Inter', fontWeight: 700, fontSize: 16 }}>B</span>
               </div>
               <div>
                 <p style={{ margin: 0, fontFamily: 'DM Sans', fontWeight: 600, fontSize: 13, color: 'var(--ink)' }}>Brian Mwalish</p>

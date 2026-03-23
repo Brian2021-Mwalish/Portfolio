@@ -14,12 +14,29 @@
 .animate-blink {
   animation: blink 1s infinite;
 }
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-html, body {
+/* Preload Inter font for better performance */
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900" rel="stylesheet">
+</noscript>
+
+/* Import Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+html { 
+  font-size: 18px; 
+}
+body {
   background-color: #fff;
   margin: 0;
   padding: 0;
   min-height: 100%;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
 }

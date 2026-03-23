@@ -1,17 +1,45 @@
-# Fix White Page Issue - Steps
+# Font Standardization to Inter Only - TODO
 
-## Plan Breakdown
-1. ✅ [Complete] Identify JS error: stray 'ss' in Skills.jsx line 597+  
-2. ✅ Edit Skills.jsx: removed 'ss'  
-3. ✅ Fixed tailwind.config.js: complete valid config
-4. [Pending] Run dev server: `cd "Portfolio/my-portfolio" & npm run dev` (PowerShell syntax)  
-5. [Pending] Verify in browser: check F12 console, confirm Hero renders  
-6. [Pending] Test navigation/sections, dark mode  
-### [ ] 6. Update main.jsx: Remove StrictMode temporarily
-### [ ] 7. Update Hero.jsx: Remove Google Fonts @import
-### [ ] 8. Run `npm install`
-### [ ] 9. Run `npm run build` and check for errors
-### [ ] 10. Run `npm run preview` and verify
-### [ ] 11. Git commit/push for Vercel redeploy
+## Steps (3/9 complete)
 
-**Next step: 2-7 (file edits)**
+### 1. ✅ Add Google Fonts Inter import to src/index.css
+### 2. ✅ Update tailwind.config.js: fontFamily.sans = ['Inter']
+### 3. ✅ Update src/index.css: html/body font-family: 'Inter', sans-serif
+### 4. Edit src/App.jsx: Remove/replace root div fontFamily inline
+### 5. Edit src/sections/About.jsx: Remove @import DM/Playfair, replace all fontFamily
+### 6. Edit src/sections/Experience.jsx: Remove @import, replace all fontFamily
+### 7. Edit src/sections/Projects.jsx: Remove @import, replace all fontFamily
+### 8. Edit src/sections/Skills.jsx: Remove @import, replace all fontFamily
+### 9. Edit src/sections/Testimonials.jsx: Replace section fontFamily='Inter'
+
+**Progress: 3/9**
+### 4. Edit src/App.jsx: Remove/replace root div fontFamily inline
+### 5. Edit src/sections/About.jsx: Remove @import DM/Playfair, replace all fontFamily
+### 6. Edit src/sections/Experience.jsx: Remove @import, replace all fontFamily
+### 7. Edit src/sections/Projects.jsx: Remove @import, replace all fontFamily
+### 8. Edit src/sections/Skills.jsx: Remove @import, replace all fontFamily
+### 9. Edit src/sections/Testimonials.jsx: Replace section fontFamily='Inter'
+
+## Post-edit
+- Restart dev server: cd Portfolio/my-portfolio && npm run dev
+- Verify in browser: DevTools → Elements → Computed → font-family shows only Inter
+- Test dark/light mode, responsive
+- npm run build
+
+**Progress: 1/9**
+### 2. Update tailwind.config.js: fontFamily.sans = ['Inter']
+### 3. Update src/index.css: html/body font-family: 'Inter', sans-serif
+### 4. Edit src/App.jsx: Remove/replace root div fontFamily inline
+### 5. Edit src/sections/About.jsx: Remove @import DM/Playfair, replace all fontFamily
+### 6. Edit src/sections/Experience.jsx: Remove @import, replace all fontFamily
+### 7. Edit src/sections/Projects.jsx: Remove @import, replace all fontFamily
+### 8. Edit src/sections/Skills.jsx: Remove @import, replace all fontFamily
+### 9. Edit src/sections/Testimonials.jsx: Replace section fontFamily='Inter'
+
+## Post-edit
+- Restart dev server: cd Portfolio/my-portfolio && npm run dev
+- Verify in browser: DevTools → Elements → Computed → font-family shows only Inter
+- Test dark/light mode, responsive
+- npm run build
+
+**Progress: 0/9**
