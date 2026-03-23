@@ -594,4 +594,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;ss
+export default Skills;
