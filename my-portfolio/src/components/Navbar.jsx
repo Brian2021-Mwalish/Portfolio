@@ -318,18 +318,18 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               <motion.img
                 src={logoImage}
                 alt="Kraftrix Africa"
-                className="w-5 h-5 min-w-5 min-h-5 max-w-5 max-h-5 rounded-full object-cover border-2 border-yellow-400 shadow-lg kx-logo-unique"
-                style={{ filter: 'grayscale(0.15) brightness(1.08) contrast(1.15)', background: 'linear-gradient(135deg, #fffbe6 0%, #f5c842 100%)', border: '2.5px solid var(--kx-gold)', boxShadow: '0 0 10px 2px rgba(245,200,66,0.25), 0 0 0 3px rgba(0,0,0,0.07)', display: 'block', margin: '0 auto', verticalAlign: 'middle' }}
-                animate={{ boxShadow: ['0 0 8px 2px #f5c84255', '0 0 18px 4px #f5c84299', '0 0 8px 2px #f5c84255'] }}
+                className="w-4 h-4 min-w-4 min-h-4 max-w-4 max-h-4 rounded-full object-cover border border-yellow-400 shadow kx-logo-unique"
+                style={{ filter: 'grayscale(0.15) brightness(1.08) contrast(1.15)', background: 'linear-gradient(135deg, #fffbe6 0%, #f5c842 100%)', border: '1.5px solid var(--kx-gold)', boxShadow: '0 0 4px 1px rgba(245,200,66,0.18), 0 0 0 1.5px rgba(0,0,0,0.04)', display: 'block', margin: '0 auto', verticalAlign: 'middle' }}
+                animate={{ boxShadow: ['0 0 4px 1px #f5c84233', '0 0 8px 2px #f5c84266', '0 0 4px 1px #f5c84233'] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
               />
               {/* Removed status indicator to prevent overlap */}
             </div>
             <div className="flex flex-col leading-none">
-              <span className="text-base font-bold tracking-tight" style={{ color: 'var(--kx-pearl)', fontFamily: 'Syne, sans-serif' }}>
+              <span className="text-xs font-bold tracking-tight" style={{ color: 'var(--kx-pearl)', fontFamily: 'Syne, sans-serif', lineHeight: 1 }}>
                 Kraftrix <span style={{ color: 'var(--kx-gold)' }}>Africa</span>
               </span>
-              <span className="kx-mono text-[9px] tracking-widest uppercase" style={{ color: 'var(--kx-ember)' }}>Technologies</span>
+              <span className="kx-mono text-[7px] tracking-widest uppercase" style={{ color: 'var(--kx-ember)', lineHeight: 1 }}>Technologies</span>
             </div>
             <Ticker />
           </motion.div>
