@@ -31,7 +31,7 @@ const Ticker = () => {
 };
 
 /* ── Magnetic button ── */
-const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaLabel, 'aria-haspopup': ariaHaspopup, 'aria-expanded': ariaExpanded }) => {
+const MagneticBtn = ({ children, className, onClick, active, style, 'aria-label': ariaLabel, 'aria-haspopup': ariaHaspopup, 'aria-expanded': ariaExpanded }) => {
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const isTouchRef = useRef(false);
@@ -55,6 +55,7 @@ const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaL
       transition={{ type: 'spring', stiffness: 400, damping: 22 }}
       onClick={onClick}
       className={className}
+      style={style}
       data-active={active}
       aria-pressed={active}
       aria-label={ariaLabel}
@@ -87,10 +88,10 @@ const ShinyLogo = ({ onClick }) => {
       tabIndex={0}
       aria-label="Go to home"
       onKeyDown={e => e.key === 'Enter' && onClick()}
-      style={{ cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', gap: 10 }}
+      style={{ cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}
     >
       {/* Logo orb container */}
-      <div style={{ position: 'relative', width: 46, height: 46, flexShrink: 0 }}>
+      <div style={{ position: 'relative', width: 40, height: 40, flexShrink: 0 }}>
         {/* Outer glow ring */}
         <motion.div
           animate={{
@@ -99,99 +100,66 @@ const ShinyLogo = ({ onClick }) => {
               : '0 0 0 1.5px rgba(200,200,240,0.35), 0 0 14px rgba(160,160,220,0.25), 0 0 28px rgba(180,140,255,0.15)',
           }}
           transition={{ duration: 0.4 }}
-          style={{
-            position: 'absolute', inset: -3,
-            borderRadius: '50%',
-            pointerEvents: 'none',
-            zIndex: 3,
-          }}
+          style={{ position: 'absolute', inset: -3, borderRadius: '50%', pointerEvents: 'none', zIndex: 3 }}
         />
-
         {/* Rotating beam ring */}
         <div style={{
-          position: 'absolute', inset: -6,
-          borderRadius: '50%',
+          position: 'absolute', inset: -6, borderRadius: '50%',
           background: `conic-gradient(from ${beamAngle}deg, transparent 0deg, rgba(200,180,255,0.7) 20deg, rgba(255,240,200,0.9) 40deg, rgba(200,220,255,0.7) 60deg, transparent 80deg, transparent 360deg)`,
           WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 52%, black 100%)',
           maskImage: 'radial-gradient(circle, transparent 48%, black 52%, black 100%)',
-          zIndex: 2,
-          pointerEvents: 'none',
+          zIndex: 2, pointerEvents: 'none',
         }} />
-
         {/* Silver sheen overlay */}
         <motion.div
           animate={{ opacity: hovered ? 0.7 : 0.35 }}
           style={{
-            position: 'absolute', inset: 0,
-            borderRadius: '50%',
+            position: 'absolute', inset: 0, borderRadius: '50%',
             background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, transparent 40%, rgba(180,200,255,0.3) 70%, rgba(255,220,150,0.2) 100%)',
-            zIndex: 4,
-            pointerEvents: 'none',
-            mixBlendMode: 'overlay',
+            zIndex: 4, pointerEvents: 'none', mixBlendMode: 'overlay',
           }}
         />
-
-        {/* Light sweep animation */}
+        {/* Light sweep */}
         <motion.div
           animate={{ x: hovered ? ['-120%', '120%'] : '-120%' }}
           transition={{ duration: 0.65, ease: 'easeInOut' }}
           style={{
-            position: 'absolute', inset: 0,
-            borderRadius: '50%',
+            position: 'absolute', inset: 0, borderRadius: '50%',
             background: 'linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.85) 50%, transparent 80%)',
-            zIndex: 5,
-            pointerEvents: 'none',
-            overflow: 'hidden',
+            zIndex: 5, pointerEvents: 'none', overflow: 'hidden',
           }}
         />
-
         {/* Logo image */}
         <img
           src={logoImage}
           alt="Kraftrix Africa logo"
-          width={46} height={46}
-          style={{
-            width: 46, height: 46,
-            borderRadius: '50%',
-            objectFit: 'cover',
-            position: 'relative',
-            zIndex: 1,
-            display: 'block',
-          }}
+          width={40} height={40}
+          style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', position: 'relative', zIndex: 1, display: 'block' }}
         />
       </div>
 
       {/* Brand text */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 1, lineHeight: 1 }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15, color: '#fff', letterSpacing: '-0.01em' }}>
+          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 14, color: '#fff', letterSpacing: '-0.01em' }}>
             Kraftrix
           </span>
-          {/* Shiny gold text */}
           <span style={{
-            fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15,
+            fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 14,
             background: 'linear-gradient(90deg, #C8A840 0%, #F5D060 30%, #FFF0A0 50%, #F5D060 70%, #C8A840 100%)',
             backgroundSize: '200% auto',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
             animation: 'kx-gold-shine 3s linear infinite',
-          }}>
-            Africa
-          </span>
+          }}>Africa</span>
         </div>
         <span style={{
-          fontFamily: "'Space Mono', monospace", fontSize: 9,
+          fontFamily: "'Space Mono', monospace", fontSize: 8,
           letterSpacing: '0.18em', textTransform: 'uppercase',
           background: 'linear-gradient(90deg, #FF6B35, #FF9A6C, #FF6B35)',
           backgroundSize: '200% auto',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           animation: 'kx-ember-shine 2.5s linear infinite',
-        }}>
-          Technologies
-        </span>
+        }}>Technologies</span>
       </div>
 
       <Ticker />
@@ -206,7 +174,15 @@ const Navbar = ({ onSectionChange, activeSection }) => {
   const [navOpen, setNavOpen]           = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled]         = useState(false);
+  const [isMobile, setIsMobile]         = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 28);
@@ -224,10 +200,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
   }, []);
 
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth >= 768) setNavOpen(false); };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+    if (!isMobile) setNavOpen(false);
+  }, [isMobile]);
 
   useEffect(() => {
     document.body.style.overflow = navOpen ? 'hidden' : '';
@@ -255,12 +229,10 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           --kx-slate:   #14142A;
           --kx-pearl:   #F0EDE8;
           --kx-mist:    #C8C4BC;
-          --kx-glass:   rgba(10,10,18,0.88);
+          --kx-glass:   rgba(10,10,18,0.92);
           --kx-border:  rgba(245,200,66,0.28);
-          --kx-silver:  rgba(200,210,255,0.18);
           --kx-focus:   #60C8FF;
         }
-
         *, *::before, *::after { box-sizing: border-box; }
         .kx-nav  { font-family: 'Syne', sans-serif; }
         .kx-mono { font-family: 'Space Mono', monospace; }
@@ -271,7 +243,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           border-radius: 6px;
         }
 
-        /* ── Shine animations ── */
         @keyframes kx-gold-shine {
           0%   { background-position: 0% center; }
           100% { background-position: 200% center; }
@@ -280,63 +251,58 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           0%   { background-position: 0% center; }
           100% { background-position: 200% center; }
         }
-        @keyframes kx-silver-pulse {
-          0%, 100% { opacity: 0.5; }
-          50%       { opacity: 1; }
-        }
-        @keyframes kx-beam-rotate {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
 
-        /* ── Top bar — FULL WIDTH, no centering, no border-radius ── */
+        /* ── Top bar ── */
         .kx-bar {
           position: fixed; top: 0; left: 0; right: 0; z-index: 50;
           display: flex; align-items: center;
           height: 64px;
-          padding: 0 2rem;
+          padding: 0 1.25rem;
           background: var(--kx-ink);
           border-bottom: 1px solid transparent;
           transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-          will-change: transform;
         }
-        /* Scrolled: still full-width, just gets glass + silver shimmer border */
         .kx-bar.scrolled {
           background: var(--kx-glass);
           backdrop-filter: blur(22px) saturate(1.7);
           -webkit-backdrop-filter: blur(22px) saturate(1.7);
-          border-bottom: 1px solid rgba(200, 210, 255, 0.22);
-          box-shadow:
-            0 4px 32px rgba(0,0,0,0.5),
-            0 1px 0 rgba(255,255,255,0.06) inset,
-            0 0 80px rgba(150,130,255,0.06);
+          border-bottom: 1px solid rgba(200,210,255,0.22);
+          box-shadow: 0 4px 32px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.06) inset;
         }
-        /* Animated silver shimmer line at bottom when scrolled */
         .kx-bar.scrolled::after {
           content: '';
-          position: absolute; bottom: 0; left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(200,210,255,0.5) 20%,
-            rgba(255,240,200,0.8) 40%,
-            rgba(200,220,255,0.9) 50%,
-            rgba(255,240,200,0.8) 60%,
-            rgba(200,210,255,0.5) 80%,
-            transparent 100%
-          );
+          position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+          background: linear-gradient(90deg, transparent 0%, rgba(200,210,255,0.5) 20%, rgba(255,240,200,0.8) 40%, rgba(200,220,255,0.9) 50%, rgba(255,240,200,0.8) 60%, rgba(200,210,255,0.5) 80%, transparent 100%);
           background-size: 200% auto;
           animation: kx-gold-shine 3s linear infinite;
+        }
+
+        /* ── Desktop nav inner wrapper ── */
+        .kx-nav-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          height: 100%;
+          gap: 8px;
+        }
+
+        /* ── Desktop links container ── */
+        .kx-desktop-links {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          flex-shrink: 0;
         }
 
         /* ── Pill nav ── */
         .kx-pill {
           position: relative;
-          padding: 7px 18px;
+          padding: 7px 14px;
           border-radius: 999px;
           font-family: 'Syne', sans-serif;
-          font-size: 13px; font-weight: 700;
-          letter-spacing: 0.05em; text-transform: uppercase;
+          font-size: 12px; font-weight: 700;
+          letter-spacing: 0.04em; text-transform: uppercase;
           color: var(--kx-mist);
           background: transparent; border: none;
           cursor: pointer; overflow: hidden;
@@ -347,12 +313,11 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         .kx-pill::after {
           content: '';
           position: absolute;
-          bottom: 4px; left: 18px; right: 18px;
+          bottom: 4px; left: 14px; right: 14px;
           height: 2px;
           background: linear-gradient(90deg, var(--kx-gold-dk), var(--kx-gold), #FFF0A0, var(--kx-gold));
           border-radius: 1px;
-          transform: scaleX(0);
-          transform-origin: center;
+          transform: scaleX(0); transform-origin: center;
           transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
         }
         .kx-pill::before {
@@ -360,8 +325,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           position: absolute; inset: 0;
           background: rgba(245,200,66,0.1);
           border-radius: 999px;
-          transform: scaleX(0);
-          transform-origin: left;
+          transform: scaleX(0); transform-origin: left;
           transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
         }
         .kx-pill:hover::before, .kx-pill[data-active='true']::before { transform: scaleX(1); }
@@ -371,21 +335,21 @@ const Navbar = ({ onSectionChange, activeSection }) => {
 
         /* ── Contact CTA ── */
         .kx-contact {
-          padding: 7px 22px;
+          padding: 7px 18px;
           border-radius: 999px;
           font-family: 'Syne', sans-serif;
-          font-size: 13px; font-weight: 700;
-          letter-spacing: 0.06em; text-transform: uppercase;
+          font-size: 12px; font-weight: 700;
+          letter-spacing: 0.05em; text-transform: uppercase;
           border: 2px solid var(--kx-ember);
           color: var(--kx-pearl);
           background: transparent;
           cursor: pointer; white-space: nowrap;
+          display: inline-flex; align-items: center; gap: 5px;
           transition: background 0.25s, color 0.25s, box-shadow 0.25s;
         }
         .kx-contact:hover, .kx-contact[data-active='true'] {
-          background: var(--kx-ember);
-          color: #fff;
-          box-shadow: 0 0 24px rgba(255,107,53,0.45), 0 2px 8px rgba(0,0,0,0.3);
+          background: var(--kx-ember); color: #fff;
+          box-shadow: 0 0 24px rgba(255,107,53,0.45);
         }
 
         /* ── Dropdown ── */
@@ -393,52 +357,48 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           position: absolute;
           top: calc(100% + 10px);
           left: 50%; transform: translateX(-50%);
-          width: 210px;
+          width: 200px;
           background: var(--kx-slate);
           border: 1px solid var(--kx-border);
-          border-radius: 18px;
-          overflow: hidden;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+          border-radius: 16px; overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
           z-index: 60;
         }
         .kx-dd-arrow {
           position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
           width: 0; height: 0;
-          border-left: 7px solid transparent;
-          border-right: 7px solid transparent;
+          border-left: 7px solid transparent; border-right: 7px solid transparent;
           border-bottom: 7px solid var(--kx-slate);
         }
         .kx-dd-item {
-          display: flex; align-items: center; gap: 12px;
-          padding: 11px 16px;
+          display: flex; align-items: center; gap: 10px;
+          padding: 10px 14px;
           font-family: 'Syne', sans-serif;
-          font-size: 12px; font-weight: 700;
-          letter-spacing: 0.05em; text-transform: uppercase;
+          font-size: 11px; font-weight: 700;
+          letter-spacing: 0.04em; text-transform: uppercase;
           color: var(--kx-mist);
           background: transparent; border: none;
           width: 100%; text-align: left; cursor: pointer;
           transition: background 0.18s, color 0.18s;
         }
         .kx-dd-item .dd-icon-wrap {
-          width: 26px; height: 26px;
+          width: 24px; height: 24px;
           display: flex; align-items: center; justify-content: center;
-          border-radius: 7px;
-          background: rgba(245,200,66,0.1);
+          border-radius: 6px; background: rgba(245,200,66,0.1);
           color: var(--kx-gold); flex-shrink: 0;
           transition: background 0.18s;
         }
         .kx-dd-item:hover, .kx-dd-item.active { background: rgba(245,200,66,0.1); color: var(--kx-pearl); }
-        .kx-dd-item:hover .dd-icon-wrap, .kx-dd-item.active .dd-icon-wrap {
-          background: var(--kx-gold); color: var(--kx-ink);
-        }
+        .kx-dd-item:hover .dd-icon-wrap, .kx-dd-item.active .dd-icon-wrap { background: var(--kx-gold); color: var(--kx-ink); }
         .kx-dd-sep { height: 1px; background: var(--kx-border); margin: 0 12px; }
 
         /* ── Hamburger ── */
         .kx-ham {
-          display: flex; flex-direction: column; justify-content: center;
+          display: none;
+          flex-direction: column; justify-content: center;
           gap: 5px; background: none; border: none;
           cursor: pointer; padding: 8px 6px; border-radius: 8px;
-          transition: background 0.2s;
+          transition: background 0.2s; flex-shrink: 0;
         }
         .kx-ham:hover { background: rgba(245,200,66,0.08); }
 
@@ -507,6 +467,36 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           box-shadow: 0 0 24px rgba(255,107,53,0.35);
         }
 
+        /* ── RESPONSIVE BREAKPOINTS ── */
+        /* Large desktop: full labels + icons */
+        @media (min-width: 1024px) {
+          .kx-bar { padding: 0 2rem; }
+          .kx-pill { font-size: 13px; padding: 7px 18px; }
+          .kx-contact { font-size: 13px; padding: 7px 22px; }
+        }
+
+        /* Tablet (768–1023): icons only pills to save space */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .kx-bar { padding: 0 1rem; }
+          .kx-desktop-links { gap: 1px; }
+          .kx-pill { padding: 7px 10px; font-size: 11px; letter-spacing: 0.02em; }
+          .kx-contact { padding: 7px 12px; font-size: 11px; }
+          .kx-pill-label { display: none; }
+          .kx-pill-label-short { display: inline !important; }
+        }
+
+        /* Mobile: hide desktop links, show hamburger */
+        @media (max-width: 767px) {
+          .kx-desktop-links { display: none !important; }
+          .kx-ham { display: flex !important; }
+          .kx-bar { padding: 0 1rem; height: 60px; }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 380px) {
+          .kx-bar { padding: 0 0.75rem; }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .kx-bar, .kx-pill::before, .kx-pill::after, .kx-contact { transition: none !important; }
           @keyframes kx-gold-shine { from, to { background-position: 0% center; } }
@@ -519,13 +509,13 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between w-full h-full">
+        <div className="kx-nav-inner">
 
           {/* ── Shiny Logo ── */}
           <ShinyLogo onClick={() => go('hero')} />
 
           {/* ── Desktop links ── */}
-          <div className="hidden md:flex items-center gap-1" role="menubar">
+          <div className="kx-desktop-links" role="menubar">
             {NAV_LINKS.map(({ name, section, Icon }) => (
               <MagneticBtn
                 key={section}
@@ -535,12 +525,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                 aria-label={name}
               >
                 <Icon size={13} aria-hidden="true" />
-                <span>{name}</span>
+                <span className="kx-pill-label">{name}</span>
               </MagneticBtn>
             ))}
 
             {/* About dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            <div style={{ position: 'relative' }} ref={dropdownRef}>
               <MagneticBtn
                 className="kx-pill kx-focus-ring"
                 active={isAboutActive}
@@ -550,11 +540,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                 aria-expanded={dropdownOpen}
               >
                 <User size={13} aria-hidden="true" />
-                <span>About Me</span>
+                <span className="kx-pill-label">About Me</span>
                 <motion.span
                   animate={{ rotate: dropdownOpen ? 180 : 0 }}
                   transition={{ duration: 0.25 }}
                   aria-hidden="true"
+                  style={{ display: 'flex', alignItems: 'center' }}
                 >
                   <ChevronDown size={12} />
                 </motion.span>
@@ -601,8 +592,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               onClick={() => go('contact')}
               aria-label="Contact us"
             >
-              <Mail size={13} style={{ marginRight: 4 }} aria-hidden="true" />
-              Contact
+              <Mail size={13} aria-hidden="true" />
+              <span className="kx-pill-label">Contact</span>
             </MagneticBtn>
           </div>
 
@@ -613,8 +604,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
             aria-label={navOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={navOpen}
             aria-controls="kx-mobile-menu"
-            style={{ display: 'none' }}
-            id="kx-mobile-ham"
           >
             <motion.span
               animate={{ rotate: navOpen ? 45 : 0, y: navOpen ? 7 : 0 }}
@@ -632,7 +621,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               style={{ display: 'block', width: 22, height: 2, background: 'var(--kx-pearl)', borderRadius: 99 }}
             />
           </motion.button>
-          <style>{`@media (max-width: 767px) { #kx-mobile-ham { display: flex !important; } }`}</style>
         </div>
       </nav>
 
@@ -700,7 +688,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               </div>
 
               {/* Nav links */}
-              <nav className="kx-sb-scroll flex flex-col gap-1.5 px-3 py-5 flex-1 overflow-y-auto">
+              <nav className="kx-sb-scroll" style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '20px 12px', flex: 1, overflowY: 'auto' }}>
                 {NAV_LINKS.map(({ name, section, Icon }, i) => (
                   <motion.button
                     key={section}
