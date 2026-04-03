@@ -1,9 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 
 const FunFacts = ({ onSectionChange }) => {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const [currentFact, setCurrentFact] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -59,16 +56,6 @@ const FunFacts = ({ onSectionChange }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.1 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  };
-
   return (
     <>
       <style>{`
@@ -85,6 +72,10 @@ const FunFacts = ({ onSectionChange }) => {
         @keyframes ff-pulse-dot {
           0%, 100% { opacity: 1; transform: scale(1); }
           50%       { opacity: 0.6; transform: scale(1.4); }
+        }
+        @keyframes ff-slideIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
         .ff-root {
@@ -119,6 +110,7 @@ const FunFacts = ({ onSectionChange }) => {
           position: relative; z-index: 10;
           max-width: 1280px; margin: 0 auto;
           padding: 80px 48px 80px 72px;
+          animation: ff-fadeInUp 0.6s ease both;
         }
 
         /* ── HEADER ── */
@@ -126,6 +118,7 @@ const FunFacts = ({ onSectionChange }) => {
           display: flex; align-items: flex-start;
           justify-content: space-between; gap: 32px;
           margin-bottom: 56px; flex-wrap: wrap;
+          animation: ff-fadeInUp 0.6s ease 0.1s both;
         }
         .ff-label {
           display: inline-flex; align-items: center; gap: 8px;
@@ -147,6 +140,7 @@ const FunFacts = ({ onSectionChange }) => {
         }
         .ff-divider {
           display: flex; align-items: center; gap: 12px; margin-bottom: 48px;
+          animation: ff-fadeInUp 0.6s ease 0.2s both;
         }
         .ff-divider-line { height: 2px; background: #1A1A2E; flex: 0 0 48px; }
         .ff-divider-dot  { width: 8px; height: 8px; border-radius: 50%; background: #E63946; }
@@ -163,6 +157,7 @@ const FunFacts = ({ onSectionChange }) => {
           background: #1A1A2E;
           margin-bottom: 56px;
           padding: 12px 0;
+          animation: ff-fadeInUp 0.6s ease 0.25s both;
         }
         .ff-ticker-track {
           display: flex;
@@ -184,6 +179,7 @@ const FunFacts = ({ onSectionChange }) => {
         /* ── FEATURED FACT ── */
         .ff-featured-wrap {
           margin-bottom: 56px;
+          animation: ff-fadeInUp 0.6s ease 0.3s both;
         }
         .ff-featured-card {
           background: #1A1A2E;
@@ -230,6 +226,10 @@ const FunFacts = ({ onSectionChange }) => {
           font-size: 0.96rem; color: #A8A4A0;
           line-height: 1.75; margin: 0;
         }
+        .ff-featured-inner {
+          display: flex; align-items: center; gap: 40px; flex-wrap: wrap; width: 100%;
+          animation: ff-slideIn 0.45s ease both;
+        }
 
         /* Dots */
         .ff-dots {
@@ -255,6 +255,7 @@ const FunFacts = ({ onSectionChange }) => {
           grid-template-columns: repeat(3, 1fr);
           gap: 24px;
           margin-bottom: 64px;
+          animation: ff-fadeInUp 0.6s ease 0.35s both;
         }
 
         /* ── FACT CARD ── */
@@ -322,6 +323,7 @@ const FunFacts = ({ onSectionChange }) => {
           display: flex; align-items: center;
           justify-content: space-between; gap: 40px; flex-wrap: wrap;
           position: relative; overflow: hidden;
+          animation: ff-fadeInUp 0.6s ease 0.45s both;
         }
         .ff-cta::after {
           content: '✦';
@@ -383,21 +385,16 @@ const FunFacts = ({ onSectionChange }) => {
       `}</style>
 
       <section
-        ref={sectionRef}
         id="funfacts"
         className="ff-root"
       >
         <div className="ff-accent-bar" />
         <div className="ff-corner-num" aria-hidden="true">03</div>
 
-        <motion.div
-          className="ff-inner"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
+        <div className="ff-inner">
+
           {/* ── HEADER ── */}
-          <motion.div variants={itemVariants} className="ff-header">
+          <div className="ff-header">
             <div>
               <div className="ff-label">
                 <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#E63946', display: 'inline-block' }} />
@@ -411,16 +408,16 @@ const FunFacts = ({ onSectionChange }) => {
             <p className="ff-subtext">
               Beyond the code and coffee, here are some interesting tidbits that make me who I am.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div variants={itemVariants} className="ff-divider">
+          <div className="ff-divider">
             <div className="ff-divider-line" />
             <div className="ff-divider-dot" />
             <span className="ff-divider-text">Personal Facts</span>
-          </motion.div>
+          </div>
 
           {/* ── TICKER ── */}
-          <motion.div variants={itemVariants} className="ff-ticker-wrap">
+          <div className="ff-ticker-wrap">
             <div className="ff-ticker-track">
               {[...Array(2)].map((_, ri) =>
                 ['Hackathon Veteran', 'Lo-Fi Coder', '4 Languages Spoken', 'Clean Code Advocate', '3 Countries Lived', 'Strategy Gamer', '2 Books / Month', 'Night Owl', 'Bug Slayer'].map((t, i) => (
@@ -431,29 +428,27 @@ const FunFacts = ({ onSectionChange }) => {
                 ))
               )}
             </div>
-          </motion.div>
+          </div>
 
           {/* ── FEATURED FACT ── */}
-          <motion.div variants={itemVariants} className="ff-featured-wrap">
-            <motion.div
-              key={currentFact}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
+          <div className="ff-featured-wrap">
+            <div
               className="ff-featured-card"
               data-icon={funFacts[currentFact].icon}
             >
-              <div className="ff-featured-icon-wrap">
-                {funFacts[currentFact].icon}
+              <div key={currentFact} className="ff-featured-inner">
+                <div className="ff-featured-icon-wrap">
+                  {funFacts[currentFact].icon}
+                </div>
+                <div className="ff-featured-body">
+                  <span className="ff-featured-label">
+                    Fact {funFacts[currentFact].num} of {String(funFacts.length).padStart(2, '0')}
+                  </span>
+                  <div className="ff-featured-title">{funFacts[currentFact].title}</div>
+                  <p className="ff-featured-fact">{funFacts[currentFact].fact}</p>
+                </div>
               </div>
-              <div className="ff-featured-body">
-                <span className="ff-featured-label">
-                  Fact {funFacts[currentFact].num} of {String(funFacts.length).padStart(2, '0')}
-                </span>
-                <div className="ff-featured-title">{funFacts[currentFact].title}</div>
-                <p className="ff-featured-fact">{funFacts[currentFact].fact}</p>
-              </div>
-            </motion.div>
+            </div>
 
             {/* Dots */}
             <div className="ff-dots">
@@ -466,14 +461,13 @@ const FunFacts = ({ onSectionChange }) => {
                 />
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* ── FACTS GRID ── */}
-          <motion.div className="ff-grid" variants={containerVariants}>
+          <div className="ff-grid">
             {funFacts.map((fact, index) => (
-              <motion.div
+              <div
                 key={index}
-                variants={itemVariants}
                 className="ff-card"
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -482,7 +476,7 @@ const FunFacts = ({ onSectionChange }) => {
                   boxShadow: hoveredCard === index
                     ? `6px 6px 0 ${fact.accent}`
                     : '4px 4px 0 #D1CDC4',
-                  animationDelay: `${index * 0.08}s`,
+                  animationDelay: `${0.35 + index * 0.08}s`,
                 }}
               >
                 <div className="ff-card-num">{fact.num}</div>
@@ -506,12 +500,12 @@ const FunFacts = ({ onSectionChange }) => {
                   <span className="ff-badge-dot" />
                   Fun Fact
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* ── CTA ── */}
-          <motion.div variants={itemVariants} className="ff-cta">
+          <div className="ff-cta">
             <div>
               <h3 className="ff-cta-heading">Want to Know More?</h3>
               <p className="ff-cta-sub">
@@ -535,8 +529,9 @@ const FunFacts = ({ onSectionChange }) => {
                 View My Work ↗
               </button>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+
+        </div>
       </section>
     </>
   );
