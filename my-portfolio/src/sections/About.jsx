@@ -39,12 +39,12 @@ const STYLES = `
       transparent 39px,
       var(--rule) 39px,
       var(--rule) 40px
-              [
-                { num: '6',  label: 'Projects\nDelivered' },
-                { num: '|',    label: '' },
-                { num: '3+',   label: 'Years\nExperience' },
-                { num: '|',    label: '' },
-                { num: '7',    label: 'Core\nServices' },
+    );
+  }
+
+  /* red overline */
+  .overline-red::before {
+    content: '';
     display: block;
     width: 40px;
     height: 3px;
@@ -382,7 +382,7 @@ const About = ({ onSectionChange }) => {
               }}
             >
               <span style={{ fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)', letterSpacing: '.1em', textTransform: 'uppercase' }}>Nairobi, Kenya</span>
-              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 28, fontWeight: 700, color: 'var(--green)', lineHeight: 1 }}>5+</span>
+              <span style={{ fontFamily: 'Playfair Display, serif', fontSize: 28, fontWeight: 700, color: 'var(--green)', lineHeight: 1 }}>3+</span>
               <span style={{ fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)', letterSpacing: '.05em' }}>Years Experience</span>
             </motion.div>
           </div>
@@ -515,9 +515,9 @@ const About = ({ onSectionChange }) => {
               style={{ display: 'grid', gridTemplateColumns: '1fr 1px 1fr 1px 1fr', gap: 0 }}
             >
               {[
-                { num: '20+',  label: 'Projects\nDelivered' },
+                { num: '6+',  label: 'Projects\nDelivered' },
                 { num: '|',    label: '' },
-                { num: '5+',   label: 'Years\nExperience' },
+                { num: '3+',   label: 'Years\nExperience' },
                 { num: '|',    label: '' },
                 { num: '7',    label: 'Core\nServices' },
               ].map((s, i) =>

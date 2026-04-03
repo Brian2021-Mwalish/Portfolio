@@ -422,7 +422,7 @@ const Testimonials = ({ onSectionChange }) => {
             {[
               { label: 'Happy Clients', val: '10+', accent: '#E63946' },
               { label: 'Five-Star Reviews', val: '100%', accent: '#1A1A2E' },
-              { label: 'Projects Delivered', val: '5+', accent: '#1A1A2E' },
+              { label: 'Projects Delivered', val: '3+', accent: '#1A1A2E' },
               { label: 'Repeat Clients', val: '80%', accent: '#1A1A2E' },
             ].map((s, i) => (
               <div className="tst-stat-cell" key={i}>
