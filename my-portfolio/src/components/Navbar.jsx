@@ -120,19 +120,19 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           filter: brightness(1.05);
         }
 
-        /* Compact navbar */
+        /* Enhanced sizeable navbar */
         .kx-bar {
           transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-          height: 40px !important;
-          padding: 0.25rem 1rem !important;
+          height: 64px !important;
+          padding: 0.75rem 1.5rem !important;
         }
         .kx-bar.scrolled {
-          margin-top: 2px;
+          margin-top: 4px;
           border-radius: 999px;
-          max-width: 1100px;
+          max-width: 1400px;
           left: 50%;
           transform: translateX(-50%);
-          box-shadow: 0 4px 24px rgba(0,0,0,0.25), 0 0 0 1px var(--kx-border);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px var(--kx-border);
         }
 
         /* Rest unchanged - pill buttons, dropdowns, etc. */
@@ -203,13 +203,13 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           <motion.div className="flex items-center gap-1.5 cursor-pointer select-none" onClick={() => go('hero')}
                       whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <img src={logoImage} alt="Kraftrix Africa"
-                 className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-4.5 lg:h-4.5 !max-w-[14px] !max-h-[14px] rounded-full object-contain kx-logo-minimal border border-yellow-300/50"
+                 className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 !max-w-[56px] !max-h-[56px] rounded-full object-contain kx-logo-minimal border border-yellow-300/50"
                  style={{ background: '#fffbe644', borderWidth: '1px' }} />
-            <div className="flex flex-col leading-none">
-              <span className="text-[10px] md:text-xs font-bold tracking-tight text-pearl font-syne" style={{ lineHeight: 1 }}>
+<div className="flex flex-col leading-none">
+              <span className="text-sm md:text-base font-bold tracking-tight text-white font-syne [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]" style={{ lineHeight: 1 }}>
                 Kraftrix <span style={{ color: 'var(--kx-gold)' }}>Africa</span>
               </span>
-              <span className="kx-mono text-[4px] md:text-[5px] tracking-widest uppercase" style={{ color: 'var(--kx-ember)', lineHeight: 1 }}>Technologies</span>
+              <span className="kx-mono text-xs md:text-sm tracking-widest uppercase" style={{ color: 'var(--kx-ember)', lineHeight: 1 }}>Technologies</span>
             </div>
             <Ticker />
           </motion.div>
@@ -241,7 +241,11 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                         {i > 0 && <div className="kx-dd-sep" />}
                         <motion.button className={`kx-dd-item ${activeSection === item.section ? 'active' : ''}`}
                                       initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
-                                      onClick={() => go(item.section)}>
+                                      onClick={() => {
+                                        onSectionChange(item.section);
+                                        setNavOpen(false);
+                                        setDropdownOpen(false);
+                                      }}>
                           <span className="dd-icon">{item.icon}</span>
                           {item.name}
                         </motion.button>
@@ -308,7 +312,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                         <div className="ml-4 flex flex-col gap-1 mt-1 border-l-2 pl-3" style={{ borderColor: 'var(--kx-border)' }}>
                           {ABOUT_ITEMS.map((item, i) => (
                             <motion.button key={item.section} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: i * 0.05 }} onClick={() => go(item.section)}
+                                          transition={{ delay: i * 0.05 }}
+                                          onClick={() => {
+                                            onSectionChange(item.section);
+                                            setNavOpen(false);
+                                            setDropdownOpen(false);
+                                          }}
                                           className={`kx-sb-sub ${activeSection === item.section ? 'active' : ''}`}>
                               <span style={{ fontSize: 9, color: 'var(--kx-gold)' }}>{item.icon}</span>
                               {item.name}

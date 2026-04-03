@@ -88,7 +88,7 @@ export default function App() {
       />
 
       {/* Page sections — updated padding for new navbar height */}
-      <main className="flex-grow flex items-center justify-center pt-[68px]">
+      <main className="flex-grow flex items-center justify-center pt-[92px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSection}
