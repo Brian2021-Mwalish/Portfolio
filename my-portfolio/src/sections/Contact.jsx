@@ -845,7 +845,7 @@ const Contact = () => {
                 Email Me
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
-              <a href="/Brian%20Mwalish%20Cv.pdf" download="BRIAN CV.pdf" className="cta-btn-secondary">
+              <a href="/BRIAN%20CV.pdf" download="BRIAN CV.pdf" className="cta-btn-secondary">
                 Download CV ↓
               </a>
             </div>

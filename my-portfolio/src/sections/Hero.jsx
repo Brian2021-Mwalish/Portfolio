@@ -538,7 +538,7 @@ const Hero = () => {
                   Github
                 </a>
                 <a
-                  href="/Brian%20Mwalish%20Cv.pdf"
+                  href="/BRIAN%20CV.pdf"
                   download="BRIAN CV.pdf"
                   className="hero-btn-secondary"
                 >
