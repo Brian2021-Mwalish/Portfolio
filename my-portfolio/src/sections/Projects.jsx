@@ -4,6 +4,21 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 const projects = [
   {
+    title: 'Peepal MTC',
+    description: 'A comprehensive college management platform for Peepal Management & Technology College. Features student enrollment, course management, academic records, fee tracking, and an institutional portal for staff, students, and administration.',
+    longDesc: 'Built as a full institutional web platform for Peepal Management & Technology College (peepalmtc.ac.ke). The system handles the complete student lifecycle — from enrollment and course registration through academic progress tracking and fee management. A FastAPI backend powers a robust REST layer over a SQL database, while the TypeScript-React frontend delivers a responsive, role-aware portal for students, lecturers, and administrators.',
+    tech: ['TypeScript', 'React', 'FastAPI', 'SQL', 'Tailwind CSS'],
+    live: 'https://peepalmtc.ac.ke/',
+    github: 'https://github.com/Brian2021-Mwalish',
+    category: 'Full-Stack',
+    num: '00',
+    accent: '#E63946',
+    year: '2024',
+    status: 'live',
+    features: ['Student Enrollment', 'Course Management', 'Academic Records', 'Fee Tracking', 'Admin Portal', 'Staff Dashboard'],
+    metrics: [{ label: 'User Roles', val: 4 }, { label: 'Modules', val: 12 }, { label: 'Uptime', val: 99 }],
+  },
+  {
     title: 'Liquidity-Funding',
     description: 'A modern investment platform enabling seamless funding and investment management. Features include real-time dashboards, M-Pesa integration, context-aware tracking, and a referral rewards system for enhanced user engagement.',
     longDesc: 'Built from scratch as a solo full-stack effort, Liquidity-Funding tackles the real challenge of digitising community-based investment (chama) management in Kenya. The M-Pesa STK push integration allows instant mobile payments, while the referral engine drives organic growth. The admin dashboard surfaces real-time fund flows, member contributions, and ROI metrics at a glance.',
@@ -96,9 +111,10 @@ const collabItems = [
 const techUsage = [
   { name: 'React', count: 4 },
   { name: 'Django', count: 4 },
-  { name: 'TypeScript', count: 2 },
+  { name: 'TypeScript', count: 3 },
   { name: 'Tailwind CSS', count: 3 },
   { name: 'PostgreSQL', count: 2 },
+  { name: 'FastAPI', count: 1 },
   { name: 'Chart.js', count: 2 },
   { name: 'Redux', count: 2 },
 ];
@@ -135,7 +151,7 @@ const Counter = ({ target, suffix = '' }) => {
 
 // Copy-to-clipboard micro interaction
 const CopyLinkBtn = ({ url }) => {
-  const [state, setState] = useState('idle'); // idle | copied | error
+  const [state, setState] = useState('idle');
 
   const handleCopy = useCallback((e) => {
     e.preventDefault();
@@ -208,7 +224,6 @@ const DetailDrawer = ({ project, onClose }) => {
         background: 'rgba(26,26,46,0.55)',
         backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-        padding: '0 0 0 0',
         animation: 'fadeInOverlay 0.25s ease',
       }}
     >
@@ -231,7 +246,6 @@ const DetailDrawer = ({ project, onClose }) => {
           boxShadow: '0 -8px 40px rgba(26,26,46,0.18)',
         }}
       >
-        {/* Close */}
         <button
           onClick={onClose}
           style={{
@@ -244,7 +258,6 @@ const DetailDrawer = ({ project, onClose }) => {
           }}
         >×</button>
 
-        {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <div style={{ width: 4, height: 32, background: project.accent, borderRadius: 2 }} />
           <span style={{
@@ -266,7 +279,6 @@ const DetailDrawer = ({ project, onClose }) => {
           {project.longDesc}
         </p>
 
-        {/* Metrics bar chart */}
         <div style={{ marginBottom: 32 }}>
           <div style={{
             fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em',
@@ -293,7 +305,6 @@ const DetailDrawer = ({ project, onClose }) => {
           </div>
         </div>
 
-        {/* Features */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9590', marginBottom: 12 }}>Key Features</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -309,7 +320,6 @@ const DetailDrawer = ({ project, onClose }) => {
           </div>
         </div>
 
-        {/* Tech stack */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9590', marginBottom: 12 }}>Tech Stack</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -324,7 +334,6 @@ const DetailDrawer = ({ project, onClose }) => {
           </div>
         </div>
 
-        {/* Action buttons */}
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           {project.live && (
             <a href={project.live} target="_blank" rel="noopener noreferrer" style={{
@@ -373,7 +382,6 @@ const Projects = ({ onSectionChange }) => {
     ? projects
     : projects.filter(p => p.category === activeCategory);
 
-  // Animate tech bars on intersection
   useEffect(() => {
     const observer = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) setTechBarReady(true);
@@ -387,8 +395,6 @@ const Projects = ({ onSectionChange }) => {
   return (
     <>
       <style>{`
-/* Fonts standardized to Inter */
-
         @keyframes slideUp {
           from { transform: translateY(60px); opacity: 0; }
           to   { transform: translateY(0);    opacity: 1; }
@@ -424,7 +430,7 @@ const Projects = ({ onSectionChange }) => {
         }
         .proj-inner {
           position: relative; z-index: 10;
-          max-width: 1280px; margin: 0 auto;
+          max-width: 1440px; margin: 0 auto;
           padding: 80px 48px 80px 72px;
         }
 
@@ -566,11 +572,13 @@ const Projects = ({ onSectionChange }) => {
         }
         .collab-arrow { color: #E63946; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
 
-        /* GRID */
+        /* GRID — 3 equal columns that fill full width */
         .proj-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-          gap: 28px; margin-bottom: 64px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          margin-bottom: 64px;
+          width: 100%;
         }
 
         /* CARD */
@@ -580,8 +588,10 @@ const Projects = ({ onSectionChange }) => {
           display: flex; flex-direction: column;
           position: relative; overflow: hidden;
           transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
-          cursor: pointer; min-height: 460px;
+          cursor: pointer;
           animation: fadeInCard 0.5s ease both;
+          width: 100%;
+          box-sizing: border-box;
         }
         .proj-card:hover { transform: translateY(-6px); }
         .card-num {
@@ -762,9 +772,13 @@ const Projects = ({ onSectionChange }) => {
           font-size: 1.4rem; color: #4B4A56; margin-bottom: 8px;
         }
 
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+          .proj-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        }
         @media (max-width: 900px) {
           .proj-inner { padding: 60px 24px 60px 40px; }
-          .proj-grid { grid-template-columns: 1fr; }
+          .proj-grid { grid-template-columns: repeat(2, 1fr); }
           .collab-card { padding: 32px 24px; }
           .proj-cta { padding: 40px 32px; }
           .stats-row { flex-wrap: wrap; }
@@ -776,6 +790,7 @@ const Projects = ({ onSectionChange }) => {
           .card-features { grid-template-columns: 1fr; }
           .proj-cta::after { display: none; }
           .stat-cell { flex: 0 0 100%; }
+          .proj-grid { grid-template-columns: 1fr; }
         }
       `}</style>
 
