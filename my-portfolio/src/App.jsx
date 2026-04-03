@@ -87,8 +87,8 @@ export default function App() {
         onToggle={toggleTheme}
       />
 
-      {/* Page sections — structure and spacing stable */}
-      <main className="flex-grow flex items-center justify-center pt-[52px]">
+      {/* Page sections — updated padding for new navbar height */}
+      <main className="flex-grow flex items-center justify-center pt-[68px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSection}
@@ -109,3 +109,4 @@ export default function App() {
     </div>
   );
 }
+
