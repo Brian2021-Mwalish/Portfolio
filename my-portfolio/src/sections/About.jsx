@@ -91,6 +91,24 @@ const STYLES = `
   .ed-card-red { border-top-color: var(--red); }
   .ed-card-green { border-top-color: var(--green); }
 
+  /* service card */
+  .service-card {
+    background: var(--card-bg);
+    border-left: 3px solid var(--rule);
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    transition: border-color .2s, box-shadow .2s;
+    cursor: default;
+  }
+  .service-card:hover {
+    border-left-color: var(--red);
+    box-shadow: 4px 0 0 var(--red);
+  }
+  .service-card.green:hover {
+    border-left-color: var(--green);
+    box-shadow: 4px 0 0 var(--green);
+  }
+
   /* big number index */
   .index-num {
     font-family: 'Inter';
@@ -145,20 +163,65 @@ const STYLES = `
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
-const skills = [
-  { name: 'React',      logo: reactLogo,   level: 95, tag: 'Frontend'  },
-  { name: 'Python',     logo: pythonLogo,  level: 90, tag: 'Backend'   },
-  { name: 'FastAPI',    logo: fastapiLogo, level: 88, tag: 'API'       },
-  { name: 'Docker',     logo: dockerLogo,  level: 82, tag: 'DevOps'    },
-  { name: 'AWS',        logo: awsLogo,     level: 75, tag: 'Cloud'     },
-  { name: 'PostgreSQL', logo: null,        level: 85, tag: 'Database'  },
+const services = [
+  {
+    num: '01',
+    title: 'Full-Stack Software Development',
+    desc: 'End-to-end web applications — from database architecture to pixel-perfect UIs — built with modern stacks like React, Python, FastAPI, and Docker.',
+    tag: 'Development',
+    accent: 'var(--red)',
+  },
+  {
+    num: '02',
+    title: 'Graphic Design',
+    desc: 'Visual identities, UI/UX mockups, marketing collateral, and brand systems that communicate clearly and leave a lasting impression.',
+    tag: 'Design',
+    accent: 'var(--green)',
+  },
+  {
+    num: '03',
+    title: 'Wireless Network Installation & Optimization',
+    desc: 'Planning, deploying, and fine-tuning wireless infrastructure for homes, offices, and enterprise environments — maximizing coverage and performance.',
+    tag: 'Networking',
+    accent: 'var(--red)',
+  },
+  {
+    num: '04',
+    title: 'Digital Marketing Strategy & Campaign Execution',
+    desc: 'Data-driven campaigns across search, social, and display channels — from strategy through execution and ROI reporting.',
+    tag: 'Marketing',
+    accent: 'var(--green)',
+  },
+  {
+    num: '05',
+    title: 'SEO & Website Optimization',
+    desc: 'Technical SEO audits, on-page optimization, Core Web Vitals improvements, and content strategy to drive organic growth and faster load times.',
+    tag: 'SEO',
+    accent: 'var(--red)',
+  },
+  {
+    num: '06',
+    title: 'Social Media Management & Content Creation',
+    desc: 'Platform strategy, content calendars, copywriting, graphic production, and community engagement that grows audiences and builds brand loyalty.',
+    tag: 'Social',
+    accent: 'var(--green)',
+  },
+  {
+    num: '07',
+    title: 'Data Communication & Network Protocols',
+    desc: 'Deep knowledge of TCP/IP, OSI model, VLANs, routing protocols, and data-link technologies — bridging hardware and software communication layers.',
+    tag: 'Protocols',
+    accent: 'var(--red)',
+  },
 ];
 
-const values = [
-  { num: '01', title: 'Detail-Oriented',     desc: 'Every pixel matters. I craft polished experiences that users genuinely love.',              accent: 'var(--red)'   },
-  { num: '02', title: 'Collaborative',        desc: 'Great software is built by great teams. I thrive in collaborative environments.',           accent: 'var(--green)' },
-  { num: '03', title: 'Innovation-Driven',    desc: 'Always exploring new technologies and methodologies to solve problems better.',             accent: 'var(--red)'   },
-  { num: '04', title: 'Growth Mindset',       desc: 'Continuous learning is key. Every challenge is an opportunity to improve and grow.',        accent: 'var(--green)' },
+const skills = [
+  { name: 'React',            logo: reactLogo,   level: 95, tag: 'Frontend'  },
+  { name: 'Python / FastAPI', logo: pythonLogo,  level: 90, tag: 'Backend'   },
+  { name: 'Docker / AWS',     logo: dockerLogo,  level: 82, tag: 'DevOps'    },
+  { name: 'SEO & Analytics',  logo: null,        level: 88, tag: 'Marketing' },
+  { name: 'Network Config',   logo: null,        level: 85, tag: 'Networks'  },
+  { name: 'Graphic Design',   logo: null,        level: 80, tag: 'Design'    },
 ];
 
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
@@ -199,37 +262,45 @@ function SkillRow({ skill, index, inView }) {
   );
 }
 
-function ValueCard({ v, index, inView }) {
+function ServiceCard({ s, index, inView }) {
+  const isGreen = s.accent === 'var(--green)';
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: 0.15 * index }}
-      className="ed-card hover-lift"
-      style={{
-        borderTopColor: v.accent,
-        padding: '20px 22px',
-        flex: '1 1 200px',
-        minWidth: 180
-      }}
+      initial={{ opacity: 0, x: -16 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.45, delay: 0.08 * index }}
+      className={`service-card${isGreen ? ' green' : ''}`}
     >
-      <div style={{
-        fontFamily: 'Inter',
-        fontSize: 48,
-        fontWeight: 900,
-        color: 'transparent',
-        WebkitTextStroke: `1.5px ${v.accent}`,
-        lineHeight: 1,
-        marginBottom: 8
-      }}>
-        {v.num}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+        <span style={{
+          fontFamily: 'Inter',
+          fontWeight: 900,
+          fontSize: 13,
+          color: 'transparent',
+          WebkitTextStroke: `1px ${s.accent}`,
+          lineHeight: 1,
+          flexShrink: 0,
+          marginTop: 2,
+        }}>
+          {s.num}
+        </span>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5, flexWrap: 'wrap' }}>
+            <h4 style={{ fontFamily: 'Inter', fontWeight: 700, fontSize: 14, color: 'var(--ink)', margin: 0 }}>
+              {s.title}
+            </h4>
+            <span
+              className="tag"
+              style={{ fontSize: 9, borderColor: s.accent, color: s.accent }}
+            >
+              {s.tag}
+            </span>
+          </div>
+          <p style={{ fontFamily: 'DM Sans', fontSize: 12, color: 'var(--muted)', lineHeight: 1.6, margin: 0 }}>
+            {s.desc}
+          </p>
+        </div>
       </div>
-      <h4 style={{ fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: 16, color: 'var(--ink)', marginBottom: 8 }}>
-        {v.title}
-      </h4>
-      <p style={{ fontFamily: 'DM Sans', fontSize: 13, color: 'var(--muted)', lineHeight: 1.6, margin: 0 }}>
-        {v.desc}
-      </p>
     </motion.div>
   );
 }
@@ -257,7 +328,7 @@ const About = ({ onSectionChange }) => {
             Portfolio · Issue No. 01
           </span>
           <span style={{ fontFamily: 'DM Sans', fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', opacity: 0.6 }}>
-            Full-Stack Engineer
+            Full-Stack Engineer · Designer · Digital Strategist
           </span>
         </div>
 
@@ -292,7 +363,7 @@ const About = ({ onSectionChange }) => {
               }}
             >
               Building<br />
-              <em style={{ color: 'var(--red)', fontStyle: 'italic' }}>elegant</em><br />
+              <em style={{ color: 'var(--red)', fontStyle: 'italic' }}>versatile</em><br />
               solutions.
             </motion.h1>
 
@@ -347,7 +418,7 @@ const About = ({ onSectionChange }) => {
               </div>
               <div>
                 <p style={{ margin: 0, fontFamily: 'DM Sans', fontWeight: 600, fontSize: 13, color: 'var(--ink)' }}>Brian Mwalish</p>
-                <p style={{ margin: 0, fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)' }}>Full-Stack Software Engineer</p>
+                <p style={{ margin: 0, fontFamily: 'DM Sans', fontSize: 11, color: 'var(--muted)' }}>Full-Stack Engineer · Designer · Digital Strategist</p>
               </div>
               <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
                 <span className="tag tag-red">Available</span>
@@ -363,10 +434,7 @@ const About = ({ onSectionChange }) => {
               style={{ padding: '0 0 16px' }}
             >
               <p style={{ fontFamily: 'DM Sans', fontSize: 16, lineHeight: 2.5, color: 'var(--ink)', margin: '0 0 0' }}>
-                I'm a passionate <strong style={{ color: 'var(--red)' }}>Full-Stack Software Engineer</strong> who
-                turns complex problems into elegant solutions. With a strong foundation in both
-                frontend and backend technologies, I create digital experiences that are not
-                just functional — but delightful.
+                I'm a multi-disciplinary professional spanning <strong style={{ color: 'var(--red)' }}>software engineering, design, networking, and digital strategy</strong>. I bring a rare combination of technical depth and creative breadth — capable of building the product, designing the brand, connecting the infrastructure, and marketing the result.
               </p>
             </motion.div>
 
@@ -378,8 +446,7 @@ const About = ({ onSectionChange }) => {
               className="pull-quote"
               style={{ margin: '32px 0' }}
             >
-              "Great software lives at the intersection of technical excellence,
-              user empathy, and creative problem-solving."
+              "From codebase to campaign — I build, design, connect, and grow digital ecosystems end to end."
             </motion.blockquote>
 
             <motion.div
@@ -390,13 +457,11 @@ const About = ({ onSectionChange }) => {
               style={{ padding: '0 0 16px' }}
             >
               <p style={{ fontFamily: 'DM Sans', fontSize: 16, lineHeight: 2.5, color: 'var(--ink)', margin: 0 }}>
-                My journey started with curiosity and has evolved into a deep passion for
-                building scalable applications that make a real impact. Every challenge
-                is an opportunity to learn, grow, and deliver something extraordinary.
+                Whether architecting a full-stack application, crafting a brand identity, optimising a wireless network, or driving organic traffic through SEO — I approach every challenge with the same commitment: deliver work that is excellent, purposeful, and built to last.
               </p>
             </motion.div>
 
-            {/* Values grid */}
+            {/* Services list */}
             <div className="h-rule" style={{ margin: '32px 0 24px' }} />
             <motion.div
               initial={{ opacity: 0 }}
@@ -404,13 +469,13 @@ const About = ({ onSectionChange }) => {
               transition={{ duration: 0.4, delay: 0.3 }}
             >
               <p style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 16 }}>
-                Core Principles
+                What I Do
               </p>
             </motion.div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-              {values.map((v, i) => (
-                <ValueCard key={v.num} v={v} index={i} inView={isInView} />
+            <div>
+              {services.map((s, i) => (
+                <ServiceCard key={s.num} s={s} index={i} inView={isInView} />
               ))}
             </div>
           </div>
@@ -454,7 +519,7 @@ const About = ({ onSectionChange }) => {
                 { num: '|',    label: '' },
                 { num: '5+',   label: 'Years\nExperience' },
                 { num: '|',    label: '' },
-                { num: '100%', label: 'Client\nSatisfaction' },
+                { num: '7',    label: 'Core\nServices' },
               ].map((s, i) =>
                 s.num === '|'
                   ? <div key={i} style={{ width: 1, background: 'var(--rule)', margin: '0 auto' }} />
@@ -472,6 +537,39 @@ const About = ({ onSectionChange }) => {
             </motion.div>
             <div className="h-rule" style={{ marginBottom: 32 }} />
 
+            {/* Disciplines tag cloud */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              style={{ marginBottom: 32 }}
+            >
+              <p style={{ fontFamily: 'DM Sans', fontWeight: 600, fontSize: 11, letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 14 }}>
+                Disciplines
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                {[
+                  { label: 'Software Dev',    red: true  },
+                  { label: 'Graphic Design',  red: false },
+                  { label: 'Networking',      red: true  },
+                  { label: 'Digital Mktg',    red: false },
+                  { label: 'SEO',             red: true  },
+                  { label: 'Social Media',    red: false },
+                  { label: 'Data Comms',      red: true  },
+                ].map((t, i) => (
+                  <motion.span
+                    key={t.label}
+                    className={`tag ${t.red ? 'tag-red' : 'tag-green'}`}
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: 0.5 + i * 0.05 }}
+                  >
+                    {t.label}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+
             {/* CTA card */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -487,7 +585,7 @@ const About = ({ onSectionChange }) => {
                 Let's Build Something Amazing Together
               </h3>
               <p style={{ fontFamily: 'DM Sans', fontSize: 14, color: 'var(--muted)', lineHeight: 1.7, marginBottom: 24 }}>
-                Whether it's a challenging project or an interesting collaboration, I'd love to hear from you and explore what we can create.
+                Whether it's a challenging project, a campaign to run, a network to set up, or an interesting collaboration — I'd love to hear from you.
               </p>
 
               <div style={{ display: 'flex', gap: 12 }}>
@@ -543,7 +641,7 @@ const About = ({ onSectionChange }) => {
           <div className="h-rule" />
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0 0', fontFamily: 'DM Sans', fontSize: 10, color: 'var(--muted)', letterSpacing: '.1em', textTransform: 'uppercase' }}>
             <span>Brian Mwalish · Portfolio</span>
-            <span>Full-Stack Software Engineer</span>
+            <span>Engineer · Designer · Digital Strategist</span>
           </div>
         </div>
 
