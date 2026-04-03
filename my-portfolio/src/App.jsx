@@ -57,8 +57,8 @@ export default function App() {
       case 'projects': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Projects key="projects" onSectionChange={setCurrentSection} /></div>;
       case 'skills': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Skills key="skills" /></div>;
       case 'experience': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Experience key="experience" onSectionChange={setCurrentSection} /></div>;
-      case 'testimonials': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Testimonials key="testimonials" onSectionChange={setCurrentSection} /></div>;
-      case 'funfacts': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><FunFacts key="funfacts" onSectionChange={setCurrentSection} /></div>;
+      case 'testimonials': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Testimonials key="testimonials" /></div>;
+      case 'funfacts': return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><FunFacts key="funfacts" /></div>;
       case 'contact': return <div className="py-20 md:py-[80px] bg-neutral-50 dark:bg-blue-950"><Contact key="contact" /></div>;
       default: return <div className="py-20 md:py-[80px] bg-white dark:bg-blue-900"><Hero key="hero" /></div>;
     }

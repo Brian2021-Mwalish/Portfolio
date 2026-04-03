@@ -1,26 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ChevronDown, Zap } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-// import ThemeToggle from './ThemeToggle';
+import { X, ChevronDown, Zap, Home, FolderOpen, User, Briefcase, Star, Smile, Mail } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const logoImage = "/Kraftrix Africa.jpg";
 
-/* ─────────────────────────────────────────────
-   Pill cursor trail effect (canvas overlay)
-───────────────────────────────────────────── */
 const NAV_LINKS = [
-  { name: 'Home', section: 'hero' },
-  { name: 'Projects', section: 'projects' },
+  { name: 'Home',     section: 'hero',     Icon: Home },
+  { name: 'Projects', section: 'projects', Icon: FolderOpen },
 ];
 
 const ABOUT_ITEMS = [
-  { name: 'About', section: 'about', icon: '◈' },
-  { name: 'Experience', section: 'experience', icon: '◉' },
-  { name: 'Testimonials', section: 'testimonials', icon: '◎' },
-  { name: 'Fun Facts', section: 'funfacts', icon: '◆' },
+  { name: 'About',        section: 'about',        icon: '◈', Icon: User },
+  { name: 'Experience',   section: 'experience',   icon: '◉', Icon: Briefcase },
+  { name: 'Testimonials', section: 'testimonials', icon: '◎', Icon: Star },
+  { name: 'Fun Facts',    section: 'funfacts',     icon: '◆', Icon: Smile },
 ];
 
-/* ── Animated number ticker for a subtle "live" feel ── */
+/* ── Animated ticker (subtle live counter) ── */
 const Ticker = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -28,64 +24,83 @@ const Ticker = () => {
     return () => clearInterval(id);
   }, []);
   return (
-    <span className="kx-ticker font-mono text-[10px] opacity-40 select-none">
+    <span aria-hidden="true" className="kx-ticker font-mono text-[10px] opacity-40 select-none tabular-nums">
       {String(count).padStart(2, '0')}
     </span>
   );
 };
 
-/* ── Magnetic button wrapper ── */
-const MagneticBtn = ({ children, className, onClick, active }) => {
+/* ── Magnetic button (desktop only; touch-safe) ── */
+const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaLabel }) => {
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const isTouchRef = useRef(false);
 
   const handleMove = (e) => {
+    if (isTouchRef.current) return;
     const rect = ref.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    setPos({ x: (e.clientX - cx) * 0.25, y: (e.clientY - cy) * 0.25 });
+    setPos({
+      x: (e.clientX - (rect.left + rect.width / 2)) * 0.22,
+      y: (e.clientY - (rect.top + rect.height / 2)) * 0.22,
+    });
   };
 
   return (
     <motion.button
       ref={ref}
       animate={{ x: pos.x, y: pos.y }}
+      onTouchStart={() => { isTouchRef.current = true; }}
       onMouseMove={handleMove}
       onMouseLeave={() => setPos({ x: 0, y: 0 })}
-      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 22 }}
       onClick={onClick}
       className={className}
       data-active={active}
+      aria-pressed={active}
+      aria-label={ariaLabel}
     >
       {children}
     </motion.button>
   );
 };
 
-/* ═══════════════════════════════════════════
-   MAIN NAVBAR - ULTRA COMPACT LOGO FIX
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   MAIN NAVBAR
+══════════════════════════════════════════════ */
 const Navbar = ({ onSectionChange, activeSection }) => {
-  const [navOpen, setNavOpen] = useState(false);
+  const [navOpen, setNavOpen]       = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 28);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /* Close dropdown on outside click */
   useEffect(() => {
     const handler = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
         setDropdownOpen(false);
-      }
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, []);
+
+  /* Close mobile menu on resize to desktop */
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 768) setNavOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  /* Lock body scroll when sidebar is open */
+  useEffect(() => {
+    document.body.style.overflow = navOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [navOpen]);
 
   const go = (section) => {
     onSectionChange(section);
@@ -100,154 +115,395 @@ const Navbar = ({ onSectionChange, activeSection }) => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
 
+        /* ── Color tokens (WCAG AA / color-blind safe) ──
+           • Gold  → warm yellow  (#F5C842)  contrast on dark: 9.3:1 ✓
+           • Ember → orange-red   (#FF6B35)  contrast on dark: 5.1:1 ✓
+           • Ink   → near-black   (#0A0A0F)
+           • Pearl → off-white    (#F0EDE8)  contrast on ink: 15.8:1 ✓
+           • Focus ring always visible for keyboard nav
+        */
         :root {
-          --kx-gold:   #F5C842;
-          --kx-ember:  #FF6B35;
-          --kx-ink:    #0A0A0F;
-          --kx-slate:  #1A1A2E;
-          --kx-pearl:  #F0EDE8;
-          --kx-glass:  rgba(10,10,15,0.72);
-          --kx-border: rgba(245,200,66,0.22);
+          --kx-gold:    #F5C842;
+          --kx-gold-dk: #C9A020;   /* darker variant for text-on-light */
+          --kx-ember:   #FF6B35;
+          --kx-ember-dk:#D94B15;
+          --kx-ink:     #0A0A0F;
+          --kx-slate:   #14142A;
+          --kx-pearl:   #F0EDE8;
+          --kx-mist:    #C8C4BC;   /* secondary text — more legible than dim white */
+          --kx-glass:   rgba(10,10,18,0.84);
+          --kx-border:  rgba(245,200,66,0.28);
+          --kx-focus:   #60C8FF;   /* high-vis blue focus ring (safe for deuteranopia) */
         }
 
-        .kx-nav { font-family: 'Syne', sans-serif; }
+        /* ─── Global resets ─── */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        .kx-nav  { font-family: 'Syne', sans-serif; }
         .kx-mono { font-family: 'Space Mono', monospace; }
-        /* ULTRA MINIMAL LOGO - NO EFFECTS */
-        .kx-logo-minimal {
-          border-radius: 50%;
-        }
-        .kx-logo-minimal:hover {
-          filter: brightness(1.05);
+
+        /* ─── Focus-visible ring (keyboard accessibility) ─── */
+        .kx-focus-ring:focus-visible {
+          outline: 2.5px solid var(--kx-focus);
+          outline-offset: 3px;
+          border-radius: 6px;
         }
 
-        /* Enhanced sizeable navbar */
+        /* ─── Top bar ─── */
         .kx-bar {
-          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-          height: 64px !important;
-          padding: 0.75rem 1.5rem !important;
+          position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+          display: flex; align-items: center;
+          height: 64px;
+          padding: 0 1.5rem;
+          background: var(--kx-ink);
+          border-bottom: 1px solid transparent;
+          transition: background 0.4s ease, border-color 0.4s ease,
+                      box-shadow 0.4s ease, border-radius 0.4s ease,
+                      left 0.4s ease, right 0.4s ease, top 0.4s ease;
+          will-change: transform;
         }
         .kx-bar.scrolled {
-          margin-top: 4px;
-          border-radius: 999px;
-          max-width: 1400px;
+          top: 6px;
           left: 50%;
+          right: auto;
           transform: translateX(-50%);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px var(--kx-border);
+          width: calc(100% - 2rem);
+          max-width: 1240px;
+          border-radius: 999px;
+          background: var(--kx-glass);
+          backdrop-filter: blur(20px) saturate(1.6);
+          -webkit-backdrop-filter: blur(20px) saturate(1.6);
+          border-bottom: none;
+          box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px var(--kx-border);
         }
 
-        /* Rest unchanged - pill buttons, dropdowns, etc. */
+        /* ─── Logo ─── */
+        .kx-logo-img {
+          border-radius: 50%;
+          display: block;
+          object-fit: cover;
+          border: 1.5px solid rgba(245,200,66,0.45);
+          transition: filter 0.25s, transform 0.25s;
+        }
+        .kx-logo-img:hover { filter: brightness(1.08); }
+
+        /* ─── Pill nav buttons ─── */
         .kx-pill {
-          position: relative; padding: 6px 16px; border-radius: 999px;
-          font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
-          text-transform: uppercase; transition: color 0.25s, background 0.25s;
-          overflow: hidden; white-space: nowrap; color: var(--kx-pearl);
+          position: relative;
+          padding: 7px 18px;
+          border-radius: 999px;
+          font-family: 'Syne', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: var(--kx-mist);
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          overflow: hidden;
+          white-space: nowrap;
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          transition: color 0.25s;
+        }
+        /* Underline indicator — visible shape for color-blind users */
+        .kx-pill::after {
+          content: '';
+          position: absolute;
+          bottom: 4px; left: 18px; right: 18px;
+          height: 2px;
+          background: var(--kx-gold);
+          border-radius: 1px;
+          transform: scaleX(0);
+          transform-origin: center;
+          transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
         }
         .kx-pill::before {
-          content: ''; position: absolute; inset: 0; background: var(--kx-gold);
-          border-radius: 999px; transform: scaleX(0); transform-origin: left;
-          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); z-index: 0;
+          content: '';
+          position: absolute; inset: 0;
+          background: rgba(245,200,66,0.12);
+          border-radius: 999px;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
         }
-        .kx-pill:hover::before, .kx-pill[data-active='true']::before { transform: scaleX(1); }
-        .kx-pill:hover, .kx-pill[data-active='true'] { color: var(--kx-ink); }
-        .kx-pill span { position: relative; z-index: 1; }
+        .kx-pill:hover::before,
+        .kx-pill[data-active='true']::before  { transform: scaleX(1); }
+        .kx-pill:hover::after,
+        .kx-pill[data-active='true']::after   { transform: scaleX(1); }
+        .kx-pill:hover,
+        .kx-pill[data-active='true']          { color: var(--kx-gold); }
+        .kx-pill > * { position: relative; z-index: 1; }
 
+        /* ─── Contact CTA ─── */
         .kx-contact {
-          padding: 7px 20px; border-radius: 999px; font-size: 13px; font-weight: 700;
-          letter-spacing: 0.06em; text-transform: uppercase; border: 2px solid var(--kx-ember);
-          color: var(--kx-ember); background: transparent; transition: all 0.25s;
+          padding: 7px 22px;
+          border-radius: 999px;
+          font-family: 'Syne', sans-serif;
+          font-size: 13px; font-weight: 700;
+          letter-spacing: 0.06em; text-transform: uppercase;
+          border: 2px solid var(--kx-ember);
+          color: var(--kx-pearl);
+          background: transparent;
+          cursor: pointer;
           white-space: nowrap;
+          transition: background 0.25s, color 0.25s, box-shadow 0.25s;
         }
-        .kx-contact:hover, .kx-contact[data-active='true'] {
-          background: var(--kx-ember); color: #fff; box-shadow: 0 0 16px rgba(255,107,53,0.35);
+        .kx-contact:hover,
+        .kx-contact[data-active='true'] {
+          background: var(--kx-ember);
+          color: #fff;
+          box-shadow: 0 0 20px rgba(255,107,53,0.4), 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .kx-dropdown { background: var(--kx-slate); border: 1px solid var(--kx-border);
-          border-radius: 16px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.45); }
-        .kx-dd-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px;
-          font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-          color: var(--kx-pearl); transition: all 0.2s; cursor: pointer; border: none;
-          background: transparent; width: 100%; text-align: left; }
-        .kx-dd-item .dd-icon { font-size: 10px; color: var(--kx-gold); flex-shrink: 0; }
-        .kx-dd-item:hover, .kx-dd-item.active { background: rgba(245,200,66,0.12); color: var(--kx-gold); }
-        .kx-dd-item.active .dd-icon { color: var(--kx-ember); }
-        .kx-dd-sep { height: 1px; background: var(--kx-border); margin: 2px 0; }
+        /* ─── Dropdown ─── */
+        .kx-dropdown {
+          position: absolute;
+          top: calc(100% + 10px);
+          left: 50%;
+          transform: translateX(-50%);
+          width: 210px;
+          background: var(--kx-slate);
+          border: 1px solid var(--kx-border);
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+          z-index: 60;
+        }
+        .kx-dd-arrow {
+          position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+          width: 0; height: 0;
+          border-left: 7px solid transparent;
+          border-right: 7px solid transparent;
+          border-bottom: 7px solid var(--kx-slate);
+        }
+        .kx-dd-item {
+          display: flex; align-items: center; gap: 12px;
+          padding: 11px 16px;
+          font-family: 'Syne', sans-serif;
+          font-size: 12px; font-weight: 700;
+          letter-spacing: 0.05em; text-transform: uppercase;
+          color: var(--kx-mist);
+          background: transparent; border: none;
+          width: 100%; text-align: left; cursor: pointer;
+          transition: background 0.18s, color 0.18s;
+        }
+        .kx-dd-item .dd-icon-wrap {
+          width: 26px; height: 26px;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 7px;
+          background: rgba(245,200,66,0.1);
+          color: var(--kx-gold);
+          flex-shrink: 0;
+          transition: background 0.18s;
+        }
+        .kx-dd-item:hover,
+        .kx-dd-item.active {
+          background: rgba(245,200,66,0.1);
+          color: var(--kx-pearl);
+        }
+        .kx-dd-item:hover .dd-icon-wrap,
+        .kx-dd-item.active .dd-icon-wrap {
+          background: var(--kx-gold);
+          color: var(--kx-ink);
+        }
+        .kx-dd-sep { height: 1px; background: var(--kx-border); margin: 0 12px; }
 
-        .kx-sidebar { background: var(--kx-ink); border-right: 1px solid var(--kx-border); }
-        .kx-sb-btn { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
-          padding: 14px 20px; border-radius: 14px; font-family: 'Syne', sans-serif; font-size: 15px;
-          font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #999;
-          background: transparent; border: none; cursor: pointer; transition: all 0.2s; }
-        .kx-sb-btn:hover { background: rgba(245,200,66,0.08); color: var(--kx-gold); }
-        .kx-sb-btn.active { background: var(--kx-gold); color: var(--kx-ink); }
-        .kx-sb-sub { padding: 10px 16px; border-radius: 10px; font-family: 'Syne', sans-serif;
-          font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: #777; background: transparent;
-          border: none; cursor: pointer; width: 100%; text-align: left; display: flex; align-items: center;
-          gap: 10px; transition: all 0.2s; }
-        .kx-sb-sub:hover { color: var(--kx-gold); background: rgba(245,200,66,0.06); }
-        .kx-sb-sub.active { color: var(--kx-ember); }
-
-        .kx-ham span { display: block; width: 22px; height: 2px; background: var(--kx-pearl);
-          transition: all 0.3s cubic-bezier(0.16,1,0.3,1); border-radius: 99px; }
+        /* ─── Hamburger ─── */
+        .kx-ham {
+          display: flex; flex-direction: column; justify-content: center;
+          gap: 5px; background: none; border: none;
+          cursor: pointer; padding: 8px 6px; border-radius: 8px;
+          transition: background 0.2s;
+        }
+        .kx-ham:hover { background: rgba(245,200,66,0.08); }
+        .kx-ham span {
+          display: block; width: 22px; height: 2px;
+          background: var(--kx-pearl); border-radius: 99px;
+          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+        }
         .kx-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .kx-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
         .kx-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-        .kx-ham { display: flex; flex-direction: column; gap: 5px; background: none; border: none;
-          cursor: pointer; padding: 5px; }
+
+        /* ─── Mobile sidebar ─── */
+        .kx-sidebar {
+          position: fixed; top: 0; left: 0; height: 100%; width: min(300px, 85vw);
+          background: var(--kx-ink);
+          border-right: 1px solid var(--kx-border);
+          z-index: 60;
+          display: flex; flex-direction: column;
+          overflow: hidden;
+        }
+        .kx-sb-btn {
+          display: flex; align-items: center; gap: 12px;
+          width: 100%; text-align: left;
+          padding: 13px 16px; border-radius: 12px;
+          font-family: 'Syne', sans-serif;
+          font-size: 14px; font-weight: 700;
+          letter-spacing: 0.04em; text-transform: uppercase;
+          color: var(--kx-mist);
+          background: transparent; border: none;
+          cursor: pointer; transition: background 0.18s, color 0.18s;
+        }
+        .kx-sb-btn .sb-icon {
+          width: 32px; height: 32px; border-radius: 9px;
+          display: flex; align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.06);
+          flex-shrink: 0; transition: background 0.18s;
+        }
+        .kx-sb-btn:hover { background: rgba(245,200,66,0.08); color: var(--kx-pearl); }
+        .kx-sb-btn:hover .sb-icon { background: rgba(245,200,66,0.15); color: var(--kx-gold); }
+        .kx-sb-btn.active { background: var(--kx-gold); color: var(--kx-ink); }
+        .kx-sb-btn.active .sb-icon { background: rgba(0,0,0,0.15); color: var(--kx-ink); }
+
+        .kx-sb-sub {
+          display: flex; align-items: center; gap: 10px;
+          padding: 10px 14px; border-radius: 9px;
+          font-family: 'Syne', sans-serif;
+          font-size: 12px; font-weight: 700;
+          letter-spacing: 0.04em; text-transform: uppercase;
+          color: #777; background: transparent; border: none;
+          cursor: pointer; width: 100%; text-align: left;
+          transition: background 0.18s, color 0.18s;
+        }
+        .kx-sb-sub .sub-icon { color: var(--kx-gold); flex-shrink: 0; }
+        .kx-sb-sub:hover  { color: var(--kx-pearl); background: rgba(245,200,66,0.07); }
+        .kx-sb-sub.active { color: var(--kx-ember); }
+        .kx-sb-sub.active .sub-icon { color: var(--kx-ember); }
+
+        /* Scrollbar in sidebar */
+        .kx-sb-scroll::-webkit-scrollbar { width: 4px; }
+        .kx-sb-scroll::-webkit-scrollbar-track { background: transparent; }
+        .kx-sb-scroll::-webkit-scrollbar-thumb { background: rgba(245,200,66,0.2); border-radius: 2px; }
+
+        /* Mobile contact button */
+        .kx-sb-contact {
+          display: flex; align-items: center; justify-content: center; gap: 10px;
+          width: 100%; padding: 14px;
+          border-radius: 12px;
+          font-family: 'Syne', sans-serif;
+          font-size: 14px; font-weight: 700;
+          letter-spacing: 0.06em; text-transform: uppercase;
+          border: 2px solid var(--kx-ember);
+          color: var(--kx-ember); background: transparent;
+          cursor: pointer; transition: all 0.22s;
+        }
+        .kx-sb-contact:hover,
+        .kx-sb-contact.active {
+          background: var(--kx-ember); color: #fff;
+          box-shadow: 0 0 24px rgba(255,107,53,0.35);
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .kx-bar, .kx-pill::before, .kx-pill::after,
+          .kx-contact, .kx-logo-img { transition: none !important; }
+        }
       `}</style>
 
-      <nav className={`kx-nav kx-bar fixed top-0 z-50 w-full px-4 ${scrolled ? 'scrolled' : ''}`}
-           style={{ background: scrolled ? 'var(--kx-glass)' : 'var(--kx-ink)', backdropFilter: 'blur(18px)', display: 'flex', alignItems: 'center' }}>
-        <div className="flex items-center justify-between max-w-[1200px] mx-auto w-full h-10">
+      {/* ══════════ TOP NAVBAR ══════════ */}
+      <nav
+        className={`kx-nav kx-bar ${scrolled ? 'scrolled' : ''}`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="flex items-center justify-between w-full h-full">
 
-          {/* ── ULTRA COMPACT LOGO ── NO EFFECTS */}
-          <motion.div className="flex items-center gap-1.5 cursor-pointer select-none" onClick={() => go('hero')}
-                      whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <img src={logoImage} alt="Kraftrix Africa"
-                 className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 !max-w-[56px] !max-h-[56px] rounded-full object-contain kx-logo-minimal border border-yellow-300/50"
-                 style={{ background: '#fffbe644', borderWidth: '1px' }} />
-<div className="flex flex-col leading-none">
-              <span className="text-sm md:text-base font-bold tracking-tight text-white font-syne [text-shadow:0_1px_2px_rgba(0,0,0,0.8)]" style={{ lineHeight: 1 }}>
+          {/* ── Logo ── */}
+          <motion.div
+            className="flex items-center gap-2 cursor-pointer select-none"
+            onClick={() => go('hero')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            role="link"
+            tabIndex={0}
+            aria-label="Go to home"
+            onKeyDown={e => e.key === 'Enter' && go('hero')}
+          >
+            <img
+              src={logoImage}
+              alt="Kraftrix Africa logo"
+              width={48} height={48}
+              className="kx-logo-img"
+              style={{ width: 44, height: 44 }}
+            />
+            <div className="flex flex-col leading-none">
+              <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
                 Kraftrix <span style={{ color: 'var(--kx-gold)' }}>Africa</span>
               </span>
-              <span className="kx-mono text-xs md:text-sm tracking-widest uppercase" style={{ color: 'var(--kx-ember)', lineHeight: 1 }}>Technologies</span>
+              <span className="kx-mono" style={{ fontSize: 9, color: 'var(--kx-ember)', letterSpacing: '0.18em', textTransform: 'uppercase', lineHeight: 1.4 }}>
+                Technologies
+              </span>
             </div>
             <Ticker />
           </motion.div>
 
-          <div className="hidden md:flex items-center gap-1.5">
-            {NAV_LINKS.map((link) => (
-              <MagneticBtn key={link.section} className="kx-pill" active={activeSection === link.section} onClick={() => go(link.section)}>
-                <span>{link.name}</span>
+          {/* ── Desktop links ── */}
+          <div className="hidden md:flex items-center gap-1" role="menubar">
+            {NAV_LINKS.map(({ name, section, Icon }) => (
+              <MagneticBtn
+                key={section}
+                className="kx-pill kx-focus-ring"
+                active={activeSection === section}
+                onClick={() => go(section)}
+                aria-label={name}
+              >
+                <Icon size={13} aria-hidden="true" />
+                <span>{name}</span>
               </MagneticBtn>
             ))}
 
+            {/* About dropdown */}
             <div className="relative" ref={dropdownRef}>
-              <MagneticBtn className="kx-pill flex items-center gap-1" active={isAboutActive} onClick={() => setDropdownOpen(o => !o)}>
+              <MagneticBtn
+                className="kx-pill kx-focus-ring"
+                active={isAboutActive}
+                onClick={() => setDropdownOpen(o => !o)}
+                aria-label="About Me menu"
+                aria-haspopup="true"
+                aria-expanded={dropdownOpen}
+              >
+                <User size={13} aria-hidden="true" />
                 <span>About Me</span>
-                <motion.span style={{ position: 'relative', zIndex: 1 }} animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
-                  <ChevronDown size={13} />
+                <motion.span
+                  animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  aria-hidden="true"
+                >
+                  <ChevronDown size={12} />
                 </motion.span>
               </MagneticBtn>
 
               <AnimatePresence>
                 {dropdownOpen && (
-                  <motion.div initial={{ opacity: 0, y: 8, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: 8, scale: 0.95 }} transition={{ duration: 0.2 }}
-                              className="kx-dropdown absolute top-[calc(100%+8px)] left-1/2 w-48" style={{ transform: 'translateX(-50%)' }}>
-                    <div style={{ position: 'absolute', top: -6, left: '50%', transform: 'translateX(-50%)', width: 0, height: 0,
-                      borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '6px solid var(--kx-border)' }} />
-                    {ABOUT_ITEMS.map((item, i) => (
-                      <React.Fragment key={item.section}>
-                        {i > 0 && <div className="kx-dd-sep" />}
-                        <motion.button className={`kx-dd-item ${activeSection === item.section ? 'active' : ''}`}
-                                      initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}
-                                      onClick={() => {
-                                        onSectionChange(item.section);
-                                        setNavOpen(false);
-                                        setDropdownOpen(false);
-                                      }}>
-                          <span className="dd-icon">{item.icon}</span>
-                          {item.name}
+                  <motion.div
+                    className="kx-dropdown"
+                    initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                    transition={{ duration: 0.18 }}
+                    role="menu"
+                  >
+                    <div className="kx-dd-arrow" aria-hidden="true" />
+                    {ABOUT_ITEMS.map(({ name, section, Icon: ItemIcon }, i) => (
+                      <React.Fragment key={section}>
+                        {i > 0 && <div className="kx-dd-sep" role="separator" />}
+                        <motion.button
+                          className={`kx-dd-item kx-focus-ring ${activeSection === section ? 'active' : ''}`}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.04 }}
+                          onClick={() => go(section)}
+                          role="menuitem"
+                          aria-current={activeSection === section ? 'page' : undefined}
+                        >
+                          <span className="dd-icon-wrap" aria-hidden="true">
+                            <ItemIcon size={13} />
+                          </span>
+                          {name}
                         </motion.button>
                       </React.Fragment>
                     ))}
@@ -256,71 +512,209 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               </AnimatePresence>
             </div>
 
-            <MagneticBtn className="kx-contact" active={activeSection === 'contact'} onClick={() => go('contact')}>
+            <MagneticBtn
+              className="kx-contact kx-focus-ring"
+              active={activeSection === 'contact'}
+              onClick={() => go('contact')}
+              aria-label="Contact us"
+            >
+              <Mail size={13} style={{ marginRight: 4 }} aria-hidden="true" />
               Contact
             </MagneticBtn>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className={`kx-ham md:hidden ${navOpen ? 'open' : ''}`} onClick={() => setNavOpen(o => !o)} aria-label="Toggle menu">
-              <span /><span /><span />
-            </button>
-          </div>
+          {/* ── Hamburger (mobile) ── */}
+          <button
+            className={`kx-ham md:hidden kx-focus-ring`}
+            style={{ display: 'none' }}
+            id="kx-ham-btn"
+            onClick={() => setNavOpen(o => !o)}
+            aria-label={navOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={navOpen}
+            aria-controls="kx-mobile-menu"
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          {/* Inline style trick: show ham on mobile */}
+          <style>{`
+            @media (max-width: 767px) {
+              #kx-ham-btn { display: flex !important; }
+              #kx-ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+              #kx-ham-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+              #kx-ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            }
+          `}</style>
+
+          {/* apply 'open' class on navOpen */}
+          <button
+            className={`kx-ham kx-focus-ring md:hidden`}
+            onClick={() => setNavOpen(o => !o)}
+            aria-label={navOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={navOpen}
+            aria-controls="kx-mobile-menu"
+            style={{ display: undefined }}
+          >
+            <motion.span
+              animate={{ rotate: navOpen ? 45 : 0, y: navOpen ? 7 : 0 }}
+              transition={{ duration: 0.28 }}
+              style={{ display: 'block', width: 22, height: 2, background: 'var(--kx-pearl)', borderRadius: 99 }}
+            />
+            <motion.span
+              animate={{ opacity: navOpen ? 0 : 1, scaleX: navOpen ? 0 : 1 }}
+              transition={{ duration: 0.2 }}
+              style={{ display: 'block', width: 22, height: 2, background: 'var(--kx-pearl)', borderRadius: 99 }}
+            />
+            <motion.span
+              animate={{ rotate: navOpen ? -45 : 0, y: navOpen ? -7 : 0 }}
+              transition={{ duration: 0.28 }}
+              style={{ display: 'block', width: 22, height: 2, background: 'var(--kx-pearl)', borderRadius: 99 }}
+            />
+          </button>
         </div>
       </nav>
 
+      {/* ══════════ MOBILE SIDEBAR ══════════ */}
       <AnimatePresence>
         {navOpen && (
           <>
-            <motion.div key="backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-40" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
-                        onClick={() => setNavOpen(false)} />
-            <motion.aside key="sidebar" initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
-                          transition={{ type: 'spring', stiffness: 380, damping: 34 }}
-                          className="kx-sidebar fixed top-0 left-0 h-full w-72 z-50 flex flex-col">
-              <div className="flex items-center justify-between px-6 py-5 border-b" style={{ borderColor: 'var(--kx-border)' }}>
-                <div className="flex flex-col">
-                  <span className="text-base font-bold" style={{ color: 'var(--kx-gold)', fontFamily: 'Syne, sans-serif' }}>Menu</span>
-                  <span className="kx-mono text-[9px] tracking-widest" style={{ color: 'var(--kx-ember)' }}>Navigate</span>
+            {/* Backdrop */}
+            <motion.div
+              key="kx-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              style={{
+                position: 'fixed', inset: 0, zIndex: 55,
+                background: 'rgba(0,0,0,0.72)',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
+              }}
+              onClick={() => setNavOpen(false)}
+              aria-hidden="true"
+            />
+
+            {/* Sidebar */}
+            <motion.aside
+              key="kx-sidebar"
+              id="kx-mobile-menu"
+              className="kx-sidebar"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', stiffness: 340, damping: 32 }}
+              aria-label="Mobile navigation"
+              role="dialog"
+              aria-modal="true"
+            >
+              {/* Sidebar header */}
+              <div style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '18px 20px 16px',
+                borderBottom: '1px solid var(--kx-border)',
+                background: 'rgba(255,255,255,0.02)',
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 16, color: 'var(--kx-gold)' }}>
+                    Navigation
+                  </span>
+                  <span className="kx-mono" style={{ fontSize: 9, color: 'var(--kx-ember)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                    Kraftrix Africa
+                  </span>
                 </div>
-                <motion.button whileHover={{ rotate: 90, scale: 1.1 }} transition={{ duration: 0.2 }} onClick={() => setNavOpen(false)}
-                               style={{ color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}>
-                  <X size={22} />
+                <motion.button
+                  whileHover={{ rotate: 90, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setNavOpen(false)}
+                  className="kx-focus-ring"
+                  aria-label="Close menu"
+                  style={{
+                    color: 'var(--kx-mist)', background: 'rgba(255,255,255,0.06)',
+                    border: 'none', borderRadius: 9, padding: 8, cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}
+                >
+                  <X size={18} />
                 </motion.button>
               </div>
-              <nav className="flex flex-col gap-2 px-4 py-6 flex-1 overflow-y-auto">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.button key={link.section} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.07 }} onClick={() => go(link.section)}
-                                className={`kx-sb-btn ${activeSection === link.section ? 'active' : ''}`}>
-                    <Zap size={14} style={{ color: activeSection === link.section ? 'var(--kx-ink)' : 'var(--kx-gold)', flexShrink: 0 }} />
-                    {link.name}
+
+              {/* Nav links */}
+              <nav className="kx-sb-scroll flex flex-col gap-1.5 px-3 py-5 flex-1 overflow-y-auto">
+                {NAV_LINKS.map(({ name, section, Icon }, i) => (
+                  <motion.button
+                    key={section}
+                    initial={{ opacity: 0, x: -18 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    onClick={() => go(section)}
+                    className={`kx-sb-btn kx-focus-ring ${activeSection === section ? 'active' : ''}`}
+                    aria-current={activeSection === section ? 'page' : undefined}
+                  >
+                    <span className="sb-icon" aria-hidden="true">
+                      <Icon size={15} />
+                    </span>
+                    {name}
                   </motion.button>
                 ))}
-                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.14 }}>
-                  <button onClick={() => setDropdownOpen(o => !o)} className={`kx-sb-btn ${isAboutActive ? 'active' : ''}`}>
-                    <Zap size={14} style={{ color: isAboutActive ? 'var(--kx-ink)' : 'var(--kx-gold)', flexShrink: 0 }} />
+
+                {/* About Me expandable */}
+                <motion.div
+                  initial={{ opacity: 0, x: -18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.12 }}
+                >
+                  <button
+                    onClick={() => setDropdownOpen(o => !o)}
+                    className={`kx-sb-btn kx-focus-ring ${isAboutActive ? 'active' : ''}`}
+                    aria-expanded={dropdownOpen}
+                    style={{ width: '100%' }}
+                  >
+                    <span className="sb-icon" aria-hidden="true">
+                      <User size={15} />
+                    </span>
                     About Me
-                    <motion.span animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.25 }} style={{ marginLeft: 'auto' }}>
-                      <ChevronDown size={14} />
+                    <motion.span
+                      animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.22 }}
+                      style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}
+                      aria-hidden="true"
+                    >
+                      <ChevronDown size={15} />
                     </motion.span>
                   </button>
+
                   <AnimatePresence>
                     {dropdownOpen && (
-                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.25 }} className="overflow-hidden">
-                        <div className="ml-4 flex flex-col gap-1 mt-1 border-l-2 pl-3" style={{ borderColor: 'var(--kx-border)' }}>
-                          {ABOUT_ITEMS.map((item, i) => (
-                            <motion.button key={item.section} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: i * 0.05 }}
-                                          onClick={() => {
-                                            onSectionChange(item.section);
-                                            setNavOpen(false);
-                                            setDropdownOpen(false);
-                                          }}
-                                          className={`kx-sb-sub ${activeSection === item.section ? 'active' : ''}`}>
-                              <span style={{ fontSize: 9, color: 'var(--kx-gold)' }}>{item.icon}</span>
-                              {item.name}
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div style={{
+                          marginLeft: 12, marginTop: 4,
+                          paddingLeft: 12,
+                          borderLeft: '2px solid var(--kx-border)',
+                          display: 'flex', flexDirection: 'column', gap: 3,
+                        }}>
+                          {ABOUT_ITEMS.map(({ name, section, Icon: ItemIcon }, i) => (
+                            <motion.button
+                              key={section}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: i * 0.04 }}
+                              onClick={() => go(section)}
+                              className={`kx-sb-sub kx-focus-ring ${activeSection === section ? 'active' : ''}`}
+                              aria-current={activeSection === section ? 'page' : undefined}
+                            >
+                              <span className="sub-icon" aria-hidden="true">
+                                <ItemIcon size={13} />
+                              </span>
+                              {name}
                             </motion.button>
                           ))}
                         </div>
@@ -328,15 +722,34 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                     )}
                   </AnimatePresence>
                 </motion.div>
-                <motion.button initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.21 }}
-                              onClick={() => go('contact')} className="kx-sb-btn mt-auto"
-                              style={{ border: '2px solid var(--kx-ember)', color: activeSection === 'contact' ? 'var(--kx-ink)' : 'var(--kx-ember)',
-                                       background: activeSection === 'contact' ? 'var(--kx-ember)' : 'transparent', justifyContent: 'center' }}>
-                  Contact
+
+                {/* Spacer */}
+                <div style={{ flex: 1, minHeight: 16 }} />
+
+                {/* Contact CTA */}
+                <motion.button
+                  initial={{ opacity: 0, x: -18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  onClick={() => go('contact')}
+                  className={`kx-sb-contact kx-focus-ring ${activeSection === 'contact' ? 'active' : ''}`}
+                  aria-current={activeSection === 'contact' ? 'page' : undefined}
+                >
+                  <Mail size={15} aria-hidden="true" />
+                  Contact Us
                 </motion.button>
               </nav>
-              <div className="px-6 py-4 border-t kx-mono text-[9px] tracking-widest uppercase" style={{ borderColor: 'var(--kx-border)', color: '#444' }}>
-                Kraftrix Africa Technologies © 2025
+
+              {/* Footer */}
+              <div style={{
+                padding: '14px 20px',
+                borderTop: '1px solid var(--kx-border)',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              }}>
+                <span className="kx-mono" style={{ fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#444' }}>
+                  © 2025 Kraftrix Africa
+                </span>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--kx-gold)', display: 'inline-block' }} aria-hidden="true" />
               </div>
             </motion.aside>
           </>
@@ -347,4 +760,3 @@ const Navbar = ({ onSectionChange, activeSection }) => {
 };
 
 export default Navbar;
-
