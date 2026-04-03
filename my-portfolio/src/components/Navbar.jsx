@@ -132,15 +132,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         /* scrolled pill */
         .kx-bar {
           transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+          min-height: 44px;
+          height: 44px;
+          padding-top: 0.25rem !important;
+          padding-bottom: 0.25rem !important;
         }
-        .kx-bar.scrolled {
-          margin-top: 10px;
-          border-radius: 999px;
-          max-width: 1100px;
-          left: 50%;
-          transform: translateX(-50%);
-          box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--kx-border);
-        }
+.kx-bar.scrolled {\n  margin-top: 4px;\n  border-radius: 999px;\n  max-width: 1100px;\n  left: 50%;\n  transform: translateX(-50%);\n  box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--kx-border);\n        }
 
         /* Desktop nav pill buttons */
         .kx-pill {
@@ -304,30 +301,29 @@ const Navbar = ({ onSectionChange, activeSection }) => {
 
       {/* ═══ NAV BAR ═══ */}
       <nav
-        className={`kx-nav kx-bar fixed top-0 z-50 w-full px-6 py-3 ${
-          scrolled ? 'scrolled' : ''
-        }`}
-        style={{ background: scrolled ? 'var(--kx-glass)' : 'var(--kx-ink)', backdropFilter: 'blur(18px)' }}
+        className={`kx-nav kx-bar fixed top-0 z-50 w-full px-6 py-0 ${scrolled ? 'scrolled' : ''}`}
+        style={{ background: scrolled ? 'var(--kx-glass)' : 'var(--kx-ink)', backdropFilter: 'blur(18px)', minHeight: '44px', display: 'flex', alignItems: 'center' }}
       >
-        <div className="flex items-center justify-between max-w-[1200px] mx-auto">
+        <div className="flex items-center justify-between max-w-[1200px] mx-auto w-full h-full" style={{height: '44px'}}>
 
           {/* ── Logo ── */}
           <motion.div
-            className="flex items-center gap-3 cursor-pointer select-none"
+            className="flex items-center gap-2 cursor-pointer select-none h-full"
+            style={{height: '44px'}}
             onClick={() => go('hero')}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
-            <div className="relative">
+            <div className="relative flex items-center h-full" style={{height: '44px'}}>
               <motion.img
                 src={logoImage}
                 alt="Kraftrix Africa"
-className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border-2 border-yellow-400 shadow-lg kx-logo-unique"
-                style={{ filter: 'grayscale(0.15) brightness(1.08) contrast(1.15)', background: 'linear-gradient(135deg, #fffbe6 0%, #f5c842 100%)', border: '2.5px solid var(--kx-gold)', boxShadow: '0 0 10px 2px rgba(245,200,66,0.25), 0 0 0 3px rgba(0,0,0,0.07)' }}
+                className="w-5 h-5 min-w-5 min-h-5 max-w-5 max-h-5 rounded-full object-cover border-2 border-yellow-400 shadow-lg kx-logo-unique"
+                style={{ filter: 'grayscale(0.15) brightness(1.08) contrast(1.15)', background: 'linear-gradient(135deg, #fffbe6 0%, #f5c842 100%)', border: '2.5px solid var(--kx-gold)', boxShadow: '0 0 10px 2px rgba(245,200,66,0.25), 0 0 0 3px rgba(0,0,0,0.07)', display: 'block', margin: '0 auto', verticalAlign: 'middle' }}
                 animate={{ boxShadow: ['0 0 8px 2px #f5c84255', '0 0 18px 4px #f5c84299', '0 0 8px 2px #f5c84255'] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
               />
-              <span className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[var(--kx-ink)]" />
+              {/* Removed status indicator to prevent overlap */}
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-base font-bold tracking-tight" style={{ color: 'var(--kx-pearl)', fontFamily: 'Syne, sans-serif' }}>
