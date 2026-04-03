@@ -1,263 +1,568 @@
-import React, { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import ThemeToggle from './ThemeToggle';
-import logoImage from "/Kraftrix Africa.png";
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, ChevronDown, Zap } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+// import ThemeToggle from './ThemeToggle';
 
-const Navbar = ({ onSectionChange, activeSection, isDark, onToggle }) => {
-  const [navOpen, setNavOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+const logoImage = "/Kraftrix Africa.jpg";
 
-  const links = [
-    { name: 'Home', section: 'hero' },
-    { name: 'Projects', section: 'projects' },
-  ];
+/* ─────────────────────────────────────────────
+   Pill cursor trail effect (canvas overlay)
+───────────────────────────────────────────── */
+const NAV_LINKS = [
+  { name: 'Home', section: 'hero' },
+  { name: 'Projects', section: 'projects' },
+];
 
-  const aboutDropdown = [
-    { name: 'About', section: 'about' },
-    { name: 'Experience', section: 'experience' },
-    { name: 'Testimonials', section: 'testimonials' },
-    { name: 'Fun Facts', section: 'funfacts' },
-  ];
+const ABOUT_ITEMS = [
+  { name: 'About', section: 'about', icon: '◈' },
+  { name: 'Experience', section: 'experience', icon: '◉' },
+  { name: 'Testimonials', section: 'testimonials', icon: '◎' },
+  { name: 'Fun Facts', section: 'funfacts', icon: '◆' },
+];
 
-  const handleClick = (section) => {
-    onSectionChange(section);
-    setNavOpen(false);
+/* ── Animated number ticker for a subtle "live" feel ── */
+const Ticker = () => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setCount(c => (c + 1) % 100), 80);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span className="kx-ticker font-mono text-[10px] opacity-40 select-none">
+      {String(count).padStart(2, '0')}
+    </span>
+  );
+};
+
+/* ── Magnetic button wrapper ── */
+const MagneticBtn = ({ children, className, onClick, active }) => {
+  const ref = useRef(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+
+  const handleMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    setPos({ x: (e.clientX - cx) * 0.25, y: (e.clientY - cy) * 0.25 });
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-background text-text shadow-soft backdrop-blur-md transition-colors duration-500 border-b border-yellow-400">
-      <div className="max-w-[90rem] mx-auto px-6 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => handleClick('hero')}>
-          <motion.img
-            src={logoImage}
-            alt="Kraftrix Africa Logo"
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-accent/40 shadow-soft"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          />
-          <span className="text-xl md:text-2xl font-bold text-primary tracking-tight">
-            Kraftrix Africa Technologies
-          </span>
-        </div>
+    <motion.button
+      ref={ref}
+      animate={{ x: pos.x, y: pos.y }}
+      onMouseMove={handleMove}
+      onMouseLeave={() => setPos({ x: 0, y: 0 })}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      onClick={onClick}
+      className={className}
+      data-active={active}
+    >
+      {children}
+    </motion.button>
+  );
+};
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center justify-around flex-1 max-w-md gap-2">
-          {links.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleClick(link.section)}
-              className={`px-4 py-2 rounded-lg font-semibold text-base transition-all duration-200
-                ${activeSection === link.section
-                  ? 'bg-primary text-background shadow-soft'
-                  : 'text-text hover:text-accent hover:bg-section/60'}
-              `}
-            >
-              {link.name}
-            </button>
-          ))}
+/* ═══════════════════════════════════════════
+   MAIN NAVBAR
+═══════════════════════════════════════════ */
+const Navbar = ({ onSectionChange, activeSection }) => {
+  const [navOpen, setNavOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const dropdownRef = useRef(null);
 
-          {/* About Me Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`flex items-center space-x-1 px-4 py-2 rounded-lg font-semibold text-base transition-all duration-200
-                ${aboutDropdown.some(item => item.section === activeSection)
-                  ? 'bg-primary text-background shadow-soft'
-                  : 'text-text hover:text-accent hover:bg-section/60'}
-              `}
-            >
-              <span>About Me</span>
-              <motion.div
-                animate={{ rotate: dropdownOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ChevronDown size={16} />
-              </motion.div>
-            </button>
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-            <AnimatePresence>
-              {dropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute top-full mt-2 w-48 bg-blue-100 dark:bg-blue-900 rounded-lg shadow-lg border border-primary-secondary/20 py-2 z-50"
-                >
-                  {aboutDropdown.map((item, index) => (
-                    <motion.button
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.2 }}
-                      onClick={() => {
-                        handleClick(item.section);
-                        setDropdownOpen(false);
-                      }}
-                      className={`block w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
-                        activeSection === item.section
-                          ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white'
-                          : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
-                      }`}
-                    >
-                      {item.name}
-                    </motion.button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+  /* close dropdown on outside click */
+  useEffect(() => {
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
-          {/* Contact */}
-          <button
-            onClick={() => handleClick('contact')}
-            className={`text-base font-medium transition-colors duration-300 ${
-              activeSection === 'contact'
-                ? 'text-primary-accent dark:text-primary-accent-dark'
-                : 'text-primary-text dark:text-primary-text-dark hover:text-primary-accent dark:hover:text-primary-accent-dark'
-            }`}
-          >
-            Contact
-          </button>
-        </div>
+  const go = (section) => {
+    onSectionChange(section);
+    setNavOpen(false);
+    setDropdownOpen(false);
+  };
 
-        {/* Theme Toggle and Hamburger */}
-        <div className="flex items-center space-x-4">
-          <ThemeToggle isDark={isDark} onToggle={onToggle} />
-          <button
-            onClick={() => setNavOpen(!navOpen)}
-            className="md:hidden text-primary-text dark:text-primary-text-dark focus:outline-none"
-            aria-label="Toggle navigation"
-          >
-            {navOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
-      </div>
+  const isAboutActive = ABOUT_ITEMS.some(i => i.section === activeSection);
 
-      {/* Sidebar Backdrop */}
-      {navOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => setNavOpen(false)}
-        />
-      )}
+  return (
+    <>
+      {/* ── Global styles injected inline ── */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
 
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 h-full w-64 bg-blue-100 dark:bg-blue-900 shadow-lg z-50 transform transition-transform duration-300 ease-in-out ${
-          navOpen ? 'translate-x-0' : '-translate-x-full'
+        :root {
+          --kx-gold:   #F5C842;
+          --kx-ember:  #FF6B35;
+          --kx-ink:    #0A0A0F;
+          --kx-slate:  #1A1A2E;
+          --kx-pearl:  #F0EDE8;
+          --kx-glass:  rgba(10,10,15,0.72);
+          --kx-border: rgba(245,200,66,0.22);
+        }
+
+        .kx-nav {
+          font-family: 'Syne', sans-serif;
+        }
+        .kx-mono {
+          font-family: 'Space Mono', monospace;
+        }
+        /* Unique logo style for this portfolio */
+        .kx-logo-unique {
+          transition: box-shadow 0.4s, filter 0.3s;
+          outline: 2.5px solid #fffbe6;
+          outline-offset: 2px;
+        }
+        .kx-logo-unique:hover {
+          filter: brightness(1.15) saturate(1.2) drop-shadow(0 0 8px #f5c842cc);
+          box-shadow: 0 0 24px 6px #f5c84299, 0 0 0 3px #fffbe6;
+        }
+
+        /* scrolled pill */
+        .kx-bar {
+          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .kx-bar.scrolled {
+          margin-top: 10px;
+          border-radius: 999px;
+          max-width: 1100px;
+          left: 50%;
+          transform: translateX(-50%);
+          box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--kx-border);
+        }
+
+        /* Desktop nav pill buttons */
+        .kx-pill {
+          position: relative;
+          padding: 8px 20px;
+          border-radius: 999px;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          transition: color 0.25s, background 0.25s;
+          overflow: hidden;
+          white-space: nowrap;
+          color: var(--kx-pearl);
+        }
+        .kx-pill::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: var(--kx-gold);
+          border-radius: 999px;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+          z-index: 0;
+        }
+        .kx-pill:hover::before,
+        .kx-pill[data-active='true']::before {
+          transform: scaleX(1);
+        }
+        .kx-pill:hover,
+        .kx-pill[data-active='true'] {
+          color: var(--kx-ink);
+        }
+        .kx-pill span { position: relative; z-index: 1; }
+
+        /* Contact — ember outlined */
+        .kx-contact {
+          padding: 9px 24px;
+          border-radius: 999px;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          border: 2px solid var(--kx-ember);
+          color: var(--kx-ember);
+          background: transparent;
+          transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+          white-space: nowrap;
+        }
+        .kx-contact:hover,
+        .kx-contact[data-active='true'] {
+          background: var(--kx-ember);
+          color: #fff;
+          box-shadow: 0 0 24px rgba(255,107,53,0.45);
+        }
+
+        /* Dropdown card */
+        .kx-dropdown {
+          background: var(--kx-slate);
+          border: 1px solid var(--kx-border);
+          border-radius: 18px;
+          overflow: hidden;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .kx-dd-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 11px 18px;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: var(--kx-pearl);
+          transition: background 0.2s, color 0.2s;
+          cursor: pointer;
+          border: none;
+          background: transparent;
+          width: 100%;
+          text-align: left;
+        }
+        .kx-dd-item .dd-icon {
+          font-size: 10px;
+          color: var(--kx-gold);
+          flex-shrink: 0;
+        }
+        .kx-dd-item:hover,
+        .kx-dd-item.active {
+          background: rgba(245,200,66,0.12);
+          color: var(--kx-gold);
+        }
+        .kx-dd-item.active .dd-icon { color: var(--kx-ember); }
+        .kx-dd-sep {
+          height: 1px;
+          background: var(--kx-border);
+          margin: 2px 0;
+        }
+
+        /* Sidebar */
+        .kx-sidebar {
+          background: var(--kx-ink);
+          border-right: 1px solid var(--kx-border);
+        }
+        .kx-sb-btn {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+          text-align: left;
+          padding: 14px 20px;
+          border-radius: 14px;
+          font-family: 'Syne', sans-serif;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: #999;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        .kx-sb-btn:hover { background: rgba(245,200,66,0.08); color: var(--kx-gold); }
+        .kx-sb-btn.active { background: var(--kx-gold); color: var(--kx-ink); }
+        .kx-sb-sub {
+          padding: 10px 16px;
+          border-radius: 10px;
+          font-family: 'Syne', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          color: #777;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          text-align: left;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          transition: all 0.2s;
+        }
+        .kx-sb-sub:hover { color: var(--kx-gold); background: rgba(245,200,66,0.06); }
+        .kx-sb-sub.active { color: var(--kx-ember); }
+
+        /* Hamburger lines */
+        .kx-ham span {
+          display: block;
+          width: 24px;
+          height: 2px;
+          background: var(--kx-pearl);
+          transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+          border-radius: 99px;
+        }
+        .kx-ham.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .kx-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .kx-ham.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        .kx-ham { display: flex; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 6px; }
+      `}</style>
+
+      {/* ═══ NAV BAR ═══ */}
+      <nav
+        className={`kx-nav kx-bar fixed top-0 z-50 w-full px-6 py-3 ${
+          scrolled ? 'scrolled' : ''
         }`}
+        style={{ background: scrolled ? 'var(--kx-glass)' : 'var(--kx-ink)', backdropFilter: 'blur(18px)' }}
       >
-        <div className="flex items-center justify-between p-6 border-b border-primary-secondary/20">
-          <span className="text-lg font-bold text-primary-text dark:text-primary-text-dark">Menu</span>
-          <button
-            onClick={() => setNavOpen(false)}
-            className="text-primary-text dark:text-primary-text-dark focus:outline-none"
-            aria-label="Close navigation"
+        <div className="flex items-center justify-between max-w-[1200px] mx-auto">
+
+          {/* ── Logo ── */}
+          <motion.div
+            className="flex items-center gap-3 cursor-pointer select-none"
+            onClick={() => go('hero')}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
-            <X size={24} />
-          </button>
-        </div>
-        <ul className="px-6 py-6 space-y-4">
-          {links.map((link) => (
-            <li key={link.name}>
-              <button
-                onClick={() => handleClick(link.section)}
-                className={`
-                  block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
-                  ${
-                    activeSection === link.section
-                      ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
-                      : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
-                  }
-                  focus:outline-none
-                  active:scale-95 active:shadow-inner
-                  transition-all duration-300
-                `}
+            <div className="relative">
+              <motion.img
+                src={logoImage}
+                alt="Kraftrix Africa"
+className="w-5 h-5 md:w-6 md:h-6 rounded-full object-cover border-2 border-yellow-400 shadow-lg kx-logo-unique"
+                style={{ filter: 'grayscale(0.15) brightness(1.08) contrast(1.15)', background: 'linear-gradient(135deg, #fffbe6 0%, #f5c842 100%)', border: '2.5px solid var(--kx-gold)', boxShadow: '0 0 10px 2px rgba(245,200,66,0.25), 0 0 0 3px rgba(0,0,0,0.07)' }}
+                animate={{ boxShadow: ['0 0 8px 2px #f5c84255', '0 0 18px 4px #f5c84299', '0 0 8px 2px #f5c84255'] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <span className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[var(--kx-ink)]" />
+            </div>
+            <div className="flex flex-col leading-none">
+              <span className="text-base font-bold tracking-tight" style={{ color: 'var(--kx-pearl)', fontFamily: 'Syne, sans-serif' }}>
+                Kraftrix <span style={{ color: 'var(--kx-gold)' }}>Africa</span>
+              </span>
+              <span className="kx-mono text-[9px] tracking-widest uppercase" style={{ color: 'var(--kx-ember)' }}>Technologies</span>
+            </div>
+            <Ticker />
+          </motion.div>
+
+          {/* ── Desktop links ── */}
+          <div className="hidden md:flex items-center gap-2">
+            {NAV_LINKS.map((link) => (
+              <MagneticBtn
+                key={link.section}
+                className="kx-pill"
+                active={activeSection === link.section}
+                onClick={() => go(link.section)}
               >
-                {link.name}
-              </button>
-            </li>
-          ))}
+                <span>{link.name}</span>
+              </MagneticBtn>
+            ))}
 
-          {/* About Me Dropdown in Sidebar */}
-          <li>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`
-                block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
-                ${
-                  aboutDropdown.some(item => item.section === activeSection)
-                    ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
-                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
-                }
-                focus:outline-none
-                active:scale-95 active:shadow-inner
-                transition-all duration-300
-              `}
-            >
-              About Me
-            </button>
-            <AnimatePresence>
-              {dropdownOpen && (
-                <motion.ul
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="ml-4 mt-2 space-y-2"
+            {/* About dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <MagneticBtn
+                className="kx-pill flex items-center gap-1"
+                active={isAboutActive}
+                onClick={() => setDropdownOpen(o => !o)}
+              >
+                <span>About Me</span>
+                <motion.span
+                  style={{ position: 'relative', zIndex: 1, display: 'flex' }}
+                  animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {aboutDropdown.map((item, index) => (
-                    <motion.li
-                      key={item.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.2 }}
-                    >
-                      <button
-                        onClick={() => {
-                          handleClick(item.section);
-                          setDropdownOpen(false);
-                        }}
-                        className={`block w-full text-left text-sm px-4 py-2 rounded-lg bg-blue-300 dark:bg-blue-600 ${
-                          activeSection === item.section
-                            ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
-                            : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20'
-                        }`}
-                      >
-                        {item.name}
-                      </button>
-                    </motion.li>
-                  ))}
-                </motion.ul>
-              )}
-            </AnimatePresence>
-          </li>
+                  <ChevronDown size={14} />
+                </motion.span>
+              </MagneticBtn>
 
-          {/* Contact in Sidebar */}
-          <li>
-            <button
-              onClick={() => handleClick('contact')}
-              className={`
-                block w-full text-left text-base font-medium px-4 py-2 rounded-lg bg-blue-200 dark:bg-blue-700
-                ${
-                  activeSection === 'contact'
-                    ? 'bg-primary-accent text-white dark:bg-primary-accent dark:text-white shadow-md'
-                    : 'text-primary-text dark:text-primary-text-dark hover:bg-primary-accent/10 dark:hover:bg-primary-accent-dark/20 hover:text-primary-accent dark:hover:text-primary-accent-dark'
-                }
-                focus:outline-none
-                active:scale-95 active:shadow-inner
-                transition-all duration-300
-              `}
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="kx-dropdown absolute top-[calc(100%+10px)] left-1/2 w-52"
+                    style={{ transform: 'translateX(-50%)' }}
+                  >
+                    {/* tiny arrow */}
+                    <div style={{
+                      position: 'absolute', top: -7, left: '50%', transform: 'translateX(-50%)',
+                      width: 0, height: 0,
+                      borderLeft: '7px solid transparent',
+                      borderRight: '7px solid transparent',
+                      borderBottom: '7px solid var(--kx-border)',
+                    }} />
+                    {ABOUT_ITEMS.map((item, i) => (
+                      <React.Fragment key={item.section}>
+                        {i > 0 && <div className="kx-dd-sep" />}
+                        <motion.button
+                          className={`kx-dd-item ${activeSection === item.section ? 'active' : ''}`}
+                          initial={{ opacity: 0, x: -12 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                          onClick={() => go(item.section)}
+                        >
+                          <span className="dd-icon">{item.icon}</span>
+                          {item.name}
+                        </motion.button>
+                      </React.Fragment>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Contact — ember outlined */}
+            <MagneticBtn
+              className="kx-contact"
+              active={activeSection === 'contact'}
+              onClick={() => go('contact')}
             >
               Contact
+            </MagneticBtn>
+          </div>
+
+          {/* ── Right cluster ── */}
+          <div className="flex items-center gap-4">
+            {/* Hamburger */}
+            <button
+              className={`kx-ham md:hidden ${navOpen ? 'open' : ''}`}
+              onClick={() => setNavOpen(o => !o)}
+              aria-label="Toggle menu"
+            >
+              <span /><span /><span />
             </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </div>
+        </div>
+      </nav>
+
+      {/* ═══ MOBILE SIDEBAR ═══ */}
+      <AnimatePresence>
+        {navOpen && (
+          <>
+            {/* backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40"
+              style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
+              onClick={() => setNavOpen(false)}
+            />
+
+            {/* panel */}
+            <motion.aside
+              key="sidebar"
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', stiffness: 380, damping: 34 }}
+              className="kx-sidebar fixed top-0 left-0 h-full w-72 z-50 flex flex-col"
+            >
+              {/* header */}
+              <div className="flex items-center justify-between px-6 py-5 border-b" style={{ borderColor: 'var(--kx-border)' }}>
+                <div className="flex flex-col">
+                  <span className="text-base font-bold" style={{ color: 'var(--kx-gold)', fontFamily: 'Syne, sans-serif' }}>Menu</span>
+                  <span className="kx-mono text-[9px] tracking-widest" style={{ color: 'var(--kx-ember)' }}>Navigate</span>
+                </div>
+                <motion.button
+                  whileHover={{ rotate: 90, scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setNavOpen(false)}
+                  style={{ color: '#888', background: 'none', border: 'none', cursor: 'pointer' }}
+                >
+                  <X size={22} />
+                </motion.button>
+              </div>
+
+              {/* links */}
+              <nav className="flex flex-col gap-2 px-4 py-6 flex-1 overflow-y-auto">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.button
+                    key={link.section}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.07 }}
+                    onClick={() => go(link.section)}
+                    className={`kx-sb-btn ${activeSection === link.section ? 'active' : ''}`}
+                  >
+                    <Zap size={14} style={{ color: activeSection === link.section ? 'var(--kx-ink)' : 'var(--kx-gold)', flexShrink: 0 }} />
+                    {link.name}
+                  </motion.button>
+                ))}
+
+                {/* About group */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.14 }}
+                >
+                  <button
+                    onClick={() => setDropdownOpen(o => !o)}
+                    className={`kx-sb-btn ${isAboutActive ? 'active' : ''}`}
+                  >
+                    <Zap size={14} style={{ color: isAboutActive ? 'var(--kx-ink)' : 'var(--kx-gold)', flexShrink: 0 }} />
+                    About Me
+                    <motion.span
+                      animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      style={{ marginLeft: 'auto' }}
+                    >
+                      <ChevronDown size={14} />
+                    </motion.span>
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="ml-4 flex flex-col gap-1 mt-1 border-l-2 pl-3" style={{ borderColor: 'var(--kx-border)' }}>
+                          {ABOUT_ITEMS.map((item, i) => (
+                            <motion.button
+                              key={item.section}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: i * 0.05 }}
+                              onClick={() => go(item.section)}
+                              className={`kx-sb-sub ${activeSection === item.section ? 'active' : ''}`}
+                            >
+                              <span style={{ fontSize: 9, color: 'var(--kx-gold)' }}>{item.icon}</span>
+                              {item.name}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Contact */}
+                <motion.button
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.21 }}
+                  onClick={() => go('contact')}
+                  className="kx-sb-btn mt-auto"
+                  style={{
+                    border: '2px solid var(--kx-ember)',
+                    color: activeSection === 'contact' ? 'var(--kx-ink)' : 'var(--kx-ember)',
+                    background: activeSection === 'contact' ? 'var(--kx-ember)' : 'transparent',
+                    justifyContent: 'center',
+                  }}
+                >
+                  Contact
+                </motion.button>
+              </nav>
+
+              {/* footer */}
+              <div className="px-6 py-4 border-t kx-mono text-[9px] tracking-widest uppercase" style={{ borderColor: 'var(--kx-border)', color: '#444' }}>
+                Kraftrix Africa Technologies © 2025
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

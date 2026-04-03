@@ -539,7 +539,7 @@ const Hero = () => {
                 </a>
                 <a
                   href="/Brian%20Mwalish%20Cv.pdf"
-                  download="Brian Mwalish CV.pdf"
+                  download="BRIAN CV.pdf"
                   className="hero-btn-secondary"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
