@@ -171,10 +171,11 @@ const ShinyLogo = ({ onClick }) => {
    MAIN NAVBAR
 ══════════════════════════════════════════════ */
 const Navbar = ({ onSectionChange, activeSection }) => {
-  const [navOpen, setNavOpen]           = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [scrolled, setScrolled]         = useState(false);
-  const [isMobile, setIsMobile]         = useState(false);
+  const [navOpen, setNavOpen]                     = useState(false);
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false); // desktop only
+  const [mobileDropdownOpen, setMobileDropdownOpen]   = useState(false); // mobile only
+  const [scrolled, setScrolled]                   = useState(false);
+  const [isMobile, setIsMobile]                   = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -190,10 +191,11 @@ const Navbar = ({ onSectionChange, activeSection }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close desktop dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target))
-        setDropdownOpen(false);
+        setDesktopDropdownOpen(false);
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
@@ -211,7 +213,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
   const go = (section) => {
     onSectionChange(section);
     setNavOpen(false);
-    setDropdownOpen(false);
+    setDesktopDropdownOpen(false);
+    setMobileDropdownOpen(false);
   };
 
   const isAboutActive = ABOUT_ITEMS.some(i => i.section === activeSection);
@@ -468,14 +471,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         }
 
         /* ── RESPONSIVE BREAKPOINTS ── */
-        /* Large desktop: full labels + icons */
         @media (min-width: 1024px) {
           .kx-bar { padding: 0 2rem; }
           .kx-pill { font-size: 13px; padding: 7px 18px; }
           .kx-contact { font-size: 13px; padding: 7px 22px; }
         }
 
-        /* Tablet (768–1023): icons only pills to save space */
         @media (min-width: 768px) and (max-width: 1023px) {
           .kx-bar { padding: 0 1rem; }
           .kx-desktop-links { gap: 1px; }
@@ -485,14 +486,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           .kx-pill-label-short { display: inline !important; }
         }
 
-        /* Mobile: hide desktop links, show hamburger */
         @media (max-width: 767px) {
           .kx-desktop-links { display: none !important; }
           .kx-ham { display: flex !important; }
           .kx-bar { padding: 0 1rem; height: 60px; }
         }
 
-        /* Extra small phones */
         @media (max-width: 380px) {
           .kx-bar { padding: 0 0.75rem; }
         }
@@ -529,20 +528,20 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               </MagneticBtn>
             ))}
 
-            {/* About dropdown */}
+            {/* About dropdown — desktop only, uses desktopDropdownOpen */}
             <div style={{ position: 'relative' }} ref={dropdownRef}>
               <MagneticBtn
                 className="kx-pill kx-focus-ring"
                 active={isAboutActive}
-                onClick={() => setDropdownOpen(o => !o)}
+                onClick={() => setDesktopDropdownOpen(o => !o)}
                 aria-label="About Me menu"
                 aria-haspopup="true"
-                aria-expanded={dropdownOpen}
+                aria-expanded={desktopDropdownOpen}
               >
                 <User size={13} aria-hidden="true" />
                 <span className="kx-pill-label">About Me</span>
                 <motion.span
-                  animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                  animate={{ rotate: desktopDropdownOpen ? 180 : 0 }}
                   transition={{ duration: 0.25 }}
                   aria-hidden="true"
                   style={{ display: 'flex', alignItems: 'center' }}
@@ -552,7 +551,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               </MagneticBtn>
 
               <AnimatePresence>
-                {dropdownOpen && (
+                {desktopDropdownOpen && (
                   <motion.div
                     className="kx-dropdown"
                     initial={{ opacity: 0, y: 10, scale: 0.96 }}
@@ -687,7 +686,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                 </motion.button>
               </div>
 
-              {/* Nav links */}
+              {/* Nav links — mobile uses mobileDropdownOpen */}
               <nav className="kx-sb-scroll" style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '20px 12px', flex: 1, overflowY: 'auto' }}>
                 {NAV_LINKS.map(({ name, section, Icon }, i) => (
                   <motion.button
@@ -710,15 +709,15 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                   transition={{ delay: 0.12 }}
                 >
                   <button
-                    onClick={() => setDropdownOpen(o => !o)}
+                    onClick={() => setMobileDropdownOpen(o => !o)}
                     className={`kx-sb-btn kx-focus-ring ${isAboutActive ? 'active' : ''}`}
-                    aria-expanded={dropdownOpen}
+                    aria-expanded={mobileDropdownOpen}
                     style={{ width: '100%' }}
                   >
                     <span className="sb-icon" aria-hidden="true"><User size={15} /></span>
                     About Me
                     <motion.span
-                      animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                      animate={{ rotate: mobileDropdownOpen ? 180 : 0 }}
                       transition={{ duration: 0.22 }}
                       style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}
                       aria-hidden="true"
@@ -728,7 +727,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                   </button>
 
                   <AnimatePresence>
-                    {dropdownOpen && (
+                    {mobileDropdownOpen && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}

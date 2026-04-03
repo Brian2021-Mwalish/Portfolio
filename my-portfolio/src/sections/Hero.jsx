@@ -535,7 +535,7 @@ const Hero = () => {
                   rel="noopener noreferrer"
                   className="hero-btn-primary"
                 >
-                  View Projects
+                  Github
                 </a>
                 <a
                   href="/Brian%20Mwalish%20Cv.pdf"
