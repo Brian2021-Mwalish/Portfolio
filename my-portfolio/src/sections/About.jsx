@@ -39,12 +39,12 @@ const STYLES = `
       transparent 39px,
       var(--rule) 39px,
       var(--rule) 40px
-    );
-  }
-
-  /* red overline */
-  .overline-red::before {
-    content: '';
+              [
+                { num: '6',  label: 'Projects\nDelivered' },
+                { num: '|',    label: '' },
+                { num: '3+',   label: 'Years\nExperience' },
+                { num: '|',    label: '' },
+                { num: '7',    label: 'Core\nServices' },
     display: block;
     width: 40px;
     height: 3px;
