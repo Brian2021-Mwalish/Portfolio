@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ChevronDown, Zap, Home, FolderOpen, User, Briefcase, Star, Smile, Mail } from 'lucide-react';
+import { X, ChevronDown, Home, FolderOpen, User, Briefcase, Star, Smile, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const logoImage = "/Kraftrix Africa.jpg";
@@ -10,13 +10,13 @@ const NAV_LINKS = [
 ];
 
 const ABOUT_ITEMS = [
-  { name: 'About',        section: 'about',        icon: '◈', Icon: User },
-  { name: 'Experience',   section: 'experience',   icon: '◉', Icon: Briefcase },
-  { name: 'Testimonials', section: 'testimonials', icon: '◎', Icon: Star },
-  { name: 'Fun Facts',    section: 'funfacts',     icon: '◆', Icon: Smile },
+  { name: 'About',        section: 'about',        Icon: User },
+  { name: 'Experience',   section: 'experience',   Icon: Briefcase },
+  { name: 'Testimonials', section: 'testimonials', Icon: Star },
+  { name: 'Fun Facts',    section: 'funfacts',     Icon: Smile },
 ];
 
-/* ── Animated ticker (subtle live counter) ── */
+/* ── Animated ticker ── */
 const Ticker = () => {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -30,8 +30,8 @@ const Ticker = () => {
   );
 };
 
-/* ── Magnetic button (desktop only; touch-safe) ── */
-const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaLabel }) => {
+/* ── Magnetic button ── */
+const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaLabel, 'aria-haspopup': ariaHaspopup, 'aria-expanded': ariaExpanded }) => {
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const isTouchRef = useRef(false);
@@ -58,9 +58,144 @@ const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaL
       data-active={active}
       aria-pressed={active}
       aria-label={ariaLabel}
+      aria-haspopup={ariaHaspopup}
+      aria-expanded={ariaExpanded}
     >
       {children}
     </motion.button>
+  );
+};
+
+/* ── Shiny Logo with light beams ── */
+const ShinyLogo = ({ onClick }) => {
+  const [hovered, setHovered] = useState(false);
+  const [beamAngle, setBeamAngle] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setBeamAngle(a => (a + 1.2) % 360), 30);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div
+      onClick={onClick}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileTap={{ scale: 0.95 }}
+      className="kx-logo-wrap"
+      role="link"
+      tabIndex={0}
+      aria-label="Go to home"
+      onKeyDown={e => e.key === 'Enter' && onClick()}
+      style={{ cursor: 'pointer', position: 'relative', display: 'flex', alignItems: 'center', gap: 10 }}
+    >
+      {/* Logo orb container */}
+      <div style={{ position: 'relative', width: 46, height: 46, flexShrink: 0 }}>
+        {/* Outer glow ring */}
+        <motion.div
+          animate={{
+            boxShadow: hovered
+              ? '0 0 0 2px rgba(220,220,255,0.6), 0 0 22px rgba(180,180,255,0.5), 0 0 45px rgba(200,160,255,0.3)'
+              : '0 0 0 1.5px rgba(200,200,240,0.35), 0 0 14px rgba(160,160,220,0.25), 0 0 28px rgba(180,140,255,0.15)',
+          }}
+          transition={{ duration: 0.4 }}
+          style={{
+            position: 'absolute', inset: -3,
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: 3,
+          }}
+        />
+
+        {/* Rotating beam ring */}
+        <div style={{
+          position: 'absolute', inset: -6,
+          borderRadius: '50%',
+          background: `conic-gradient(from ${beamAngle}deg, transparent 0deg, rgba(200,180,255,0.7) 20deg, rgba(255,240,200,0.9) 40deg, rgba(200,220,255,0.7) 60deg, transparent 80deg, transparent 360deg)`,
+          WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 52%, black 100%)',
+          maskImage: 'radial-gradient(circle, transparent 48%, black 52%, black 100%)',
+          zIndex: 2,
+          pointerEvents: 'none',
+        }} />
+
+        {/* Silver sheen overlay */}
+        <motion.div
+          animate={{ opacity: hovered ? 0.7 : 0.35 }}
+          style={{
+            position: 'absolute', inset: 0,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, transparent 40%, rgba(180,200,255,0.3) 70%, rgba(255,220,150,0.2) 100%)',
+            zIndex: 4,
+            pointerEvents: 'none',
+            mixBlendMode: 'overlay',
+          }}
+        />
+
+        {/* Light sweep animation */}
+        <motion.div
+          animate={{ x: hovered ? ['-120%', '120%'] : '-120%' }}
+          transition={{ duration: 0.65, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute', inset: 0,
+            borderRadius: '50%',
+            background: 'linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.85) 50%, transparent 80%)',
+            zIndex: 5,
+            pointerEvents: 'none',
+            overflow: 'hidden',
+          }}
+        />
+
+        {/* Logo image */}
+        <img
+          src={logoImage}
+          alt="Kraftrix Africa logo"
+          width={46} height={46}
+          style={{
+            width: 46, height: 46,
+            borderRadius: '50%',
+            objectFit: 'cover',
+            position: 'relative',
+            zIndex: 1,
+            display: 'block',
+          }}
+        />
+      </div>
+
+      {/* Brand text */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 1, lineHeight: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15, color: '#fff', letterSpacing: '-0.01em' }}>
+            Kraftrix
+          </span>
+          {/* Shiny gold text */}
+          <span style={{
+            fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15,
+            background: 'linear-gradient(90deg, #C8A840 0%, #F5D060 30%, #FFF0A0 50%, #F5D060 70%, #C8A840 100%)',
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            animation: 'kx-gold-shine 3s linear infinite',
+          }}>
+            Africa
+          </span>
+        </div>
+        <span style={{
+          fontFamily: "'Space Mono', monospace", fontSize: 9,
+          letterSpacing: '0.18em', textTransform: 'uppercase',
+          background: 'linear-gradient(90deg, #FF6B35, #FF9A6C, #FF6B35)',
+          backgroundSize: '200% auto',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          animation: 'kx-ember-shine 2.5s linear infinite',
+        }}>
+          Technologies
+        </span>
+      </div>
+
+      <Ticker />
+    </motion.div>
   );
 };
 
@@ -68,9 +203,9 @@ const MagneticBtn = ({ children, className, onClick, active, 'aria-label': ariaL
    MAIN NAVBAR
 ══════════════════════════════════════════════ */
 const Navbar = ({ onSectionChange, activeSection }) => {
-  const [navOpen, setNavOpen]       = useState(false);
+  const [navOpen, setNavOpen]           = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled]         = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -79,7 +214,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* Close dropdown on outside click */
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target))
@@ -89,14 +223,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  /* Close mobile menu on resize to desktop */
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= 768) setNavOpen(false); };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  /* Lock body scroll when sidebar is open */
   useEffect(() => {
     document.body.style.overflow = navOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
@@ -115,106 +247,109 @@ const Navbar = ({ onSectionChange, activeSection }) => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
 
-        /* ── Color tokens (WCAG AA / color-blind safe) ──
-           • Gold  → warm yellow  (#F5C842)  contrast on dark: 9.3:1 ✓
-           • Ember → orange-red   (#FF6B35)  contrast on dark: 5.1:1 ✓
-           • Ink   → near-black   (#0A0A0F)
-           • Pearl → off-white    (#F0EDE8)  contrast on ink: 15.8:1 ✓
-           • Focus ring always visible for keyboard nav
-        */
         :root {
           --kx-gold:    #F5C842;
-          --kx-gold-dk: #C9A020;   /* darker variant for text-on-light */
+          --kx-gold-dk: #C9A020;
           --kx-ember:   #FF6B35;
-          --kx-ember-dk:#D94B15;
           --kx-ink:     #0A0A0F;
           --kx-slate:   #14142A;
           --kx-pearl:   #F0EDE8;
-          --kx-mist:    #C8C4BC;   /* secondary text — more legible than dim white */
-          --kx-glass:   rgba(10,10,18,0.84);
+          --kx-mist:    #C8C4BC;
+          --kx-glass:   rgba(10,10,18,0.88);
           --kx-border:  rgba(245,200,66,0.28);
-          --kx-focus:   #60C8FF;   /* high-vis blue focus ring (safe for deuteranopia) */
+          --kx-silver:  rgba(200,210,255,0.18);
+          --kx-focus:   #60C8FF;
         }
 
-        /* ─── Global resets ─── */
         *, *::before, *::after { box-sizing: border-box; }
-
         .kx-nav  { font-family: 'Syne', sans-serif; }
         .kx-mono { font-family: 'Space Mono', monospace; }
 
-        /* ─── Focus-visible ring (keyboard accessibility) ─── */
         .kx-focus-ring:focus-visible {
           outline: 2.5px solid var(--kx-focus);
           outline-offset: 3px;
           border-radius: 6px;
         }
 
-        /* ─── Top bar ─── */
+        /* ── Shine animations ── */
+        @keyframes kx-gold-shine {
+          0%   { background-position: 0% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes kx-ember-shine {
+          0%   { background-position: 0% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes kx-silver-pulse {
+          0%, 100% { opacity: 0.5; }
+          50%       { opacity: 1; }
+        }
+        @keyframes kx-beam-rotate {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+
+        /* ── Top bar — FULL WIDTH, no centering, no border-radius ── */
         .kx-bar {
           position: fixed; top: 0; left: 0; right: 0; z-index: 50;
           display: flex; align-items: center;
           height: 64px;
-          padding: 0 1.5rem;
+          padding: 0 2rem;
           background: var(--kx-ink);
           border-bottom: 1px solid transparent;
-          transition: background 0.4s ease, border-color 0.4s ease,
-                      box-shadow 0.4s ease, border-radius 0.4s ease,
-                      left 0.4s ease, right 0.4s ease, top 0.4s ease;
+          transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
           will-change: transform;
         }
+        /* Scrolled: still full-width, just gets glass + silver shimmer border */
         .kx-bar.scrolled {
-          top: 6px;
-          left: 50%;
-          right: auto;
-          transform: translateX(-50%);
-          width: calc(100% - 2rem);
-          max-width: 1240px;
-          border-radius: 999px;
           background: var(--kx-glass);
-          backdrop-filter: blur(20px) saturate(1.6);
-          -webkit-backdrop-filter: blur(20px) saturate(1.6);
-          border-bottom: none;
-          box-shadow: 0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px var(--kx-border);
+          backdrop-filter: blur(22px) saturate(1.7);
+          -webkit-backdrop-filter: blur(22px) saturate(1.7);
+          border-bottom: 1px solid rgba(200, 210, 255, 0.22);
+          box-shadow:
+            0 4px 32px rgba(0,0,0,0.5),
+            0 1px 0 rgba(255,255,255,0.06) inset,
+            0 0 80px rgba(150,130,255,0.06);
+        }
+        /* Animated silver shimmer line at bottom when scrolled */
+        .kx-bar.scrolled::after {
+          content: '';
+          position: absolute; bottom: 0; left: 0; right: 0;
+          height: 1px;
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(200,210,255,0.5) 20%,
+            rgba(255,240,200,0.8) 40%,
+            rgba(200,220,255,0.9) 50%,
+            rgba(255,240,200,0.8) 60%,
+            rgba(200,210,255,0.5) 80%,
+            transparent 100%
+          );
+          background-size: 200% auto;
+          animation: kx-gold-shine 3s linear infinite;
         }
 
-        /* ─── Logo ─── */
-        .kx-logo-img {
-          border-radius: 50%;
-          display: block;
-          object-fit: cover;
-          border: 1.5px solid rgba(245,200,66,0.45);
-          transition: filter 0.25s, transform 0.25s;
-        }
-        .kx-logo-img:hover { filter: brightness(1.08); }
-
-        /* ─── Pill nav buttons ─── */
+        /* ── Pill nav ── */
         .kx-pill {
           position: relative;
           padding: 7px 18px;
           border-radius: 999px;
           font-family: 'Syne', sans-serif;
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
+          font-size: 13px; font-weight: 700;
+          letter-spacing: 0.05em; text-transform: uppercase;
           color: var(--kx-mist);
-          background: transparent;
-          border: none;
-          cursor: pointer;
-          overflow: hidden;
+          background: transparent; border: none;
+          cursor: pointer; overflow: hidden;
           white-space: nowrap;
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
+          display: inline-flex; align-items: center; gap: 5px;
           transition: color 0.25s;
         }
-        /* Underline indicator — visible shape for color-blind users */
         .kx-pill::after {
           content: '';
           position: absolute;
           bottom: 4px; left: 18px; right: 18px;
           height: 2px;
-          background: var(--kx-gold);
+          background: linear-gradient(90deg, var(--kx-gold-dk), var(--kx-gold), #FFF0A0, var(--kx-gold));
           border-radius: 1px;
           transform: scaleX(0);
           transform-origin: center;
@@ -223,21 +358,18 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         .kx-pill::before {
           content: '';
           position: absolute; inset: 0;
-          background: rgba(245,200,66,0.12);
+          background: rgba(245,200,66,0.1);
           border-radius: 999px;
           transform: scaleX(0);
           transform-origin: left;
           transition: transform 0.28s cubic-bezier(0.16,1,0.3,1);
         }
-        .kx-pill:hover::before,
-        .kx-pill[data-active='true']::before  { transform: scaleX(1); }
-        .kx-pill:hover::after,
-        .kx-pill[data-active='true']::after   { transform: scaleX(1); }
-        .kx-pill:hover,
-        .kx-pill[data-active='true']          { color: var(--kx-gold); }
+        .kx-pill:hover::before, .kx-pill[data-active='true']::before { transform: scaleX(1); }
+        .kx-pill:hover::after,  .kx-pill[data-active='true']::after  { transform: scaleX(1); }
+        .kx-pill:hover, .kx-pill[data-active='true'] { color: var(--kx-gold); }
         .kx-pill > * { position: relative; z-index: 1; }
 
-        /* ─── Contact CTA ─── */
+        /* ── Contact CTA ── */
         .kx-contact {
           padding: 7px 22px;
           border-radius: 999px;
@@ -247,23 +379,20 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           border: 2px solid var(--kx-ember);
           color: var(--kx-pearl);
           background: transparent;
-          cursor: pointer;
-          white-space: nowrap;
+          cursor: pointer; white-space: nowrap;
           transition: background 0.25s, color 0.25s, box-shadow 0.25s;
         }
-        .kx-contact:hover,
-        .kx-contact[data-active='true'] {
+        .kx-contact:hover, .kx-contact[data-active='true'] {
           background: var(--kx-ember);
           color: #fff;
-          box-shadow: 0 0 20px rgba(255,107,53,0.4), 0 2px 8px rgba(0,0,0,0.3);
+          box-shadow: 0 0 24px rgba(255,107,53,0.45), 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        /* ─── Dropdown ─── */
+        /* ── Dropdown ── */
         .kx-dropdown {
           position: absolute;
           top: calc(100% + 10px);
-          left: 50%;
-          transform: translateX(-50%);
+          left: 50%; transform: translateX(-50%);
           width: 210px;
           background: var(--kx-slate);
           border: 1px solid var(--kx-border);
@@ -295,23 +424,16 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           display: flex; align-items: center; justify-content: center;
           border-radius: 7px;
           background: rgba(245,200,66,0.1);
-          color: var(--kx-gold);
-          flex-shrink: 0;
+          color: var(--kx-gold); flex-shrink: 0;
           transition: background 0.18s;
         }
-        .kx-dd-item:hover,
-        .kx-dd-item.active {
-          background: rgba(245,200,66,0.1);
-          color: var(--kx-pearl);
-        }
-        .kx-dd-item:hover .dd-icon-wrap,
-        .kx-dd-item.active .dd-icon-wrap {
-          background: var(--kx-gold);
-          color: var(--kx-ink);
+        .kx-dd-item:hover, .kx-dd-item.active { background: rgba(245,200,66,0.1); color: var(--kx-pearl); }
+        .kx-dd-item:hover .dd-icon-wrap, .kx-dd-item.active .dd-icon-wrap {
+          background: var(--kx-gold); color: var(--kx-ink);
         }
         .kx-dd-sep { height: 1px; background: var(--kx-border); margin: 0 12px; }
 
-        /* ─── Hamburger ─── */
+        /* ── Hamburger ── */
         .kx-ham {
           display: flex; flex-direction: column; justify-content: center;
           gap: 5px; background: none; border: none;
@@ -319,16 +441,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           transition: background 0.2s;
         }
         .kx-ham:hover { background: rgba(245,200,66,0.08); }
-        .kx-ham span {
-          display: block; width: 22px; height: 2px;
-          background: var(--kx-pearl); border-radius: 99px;
-          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
-        }
-        .kx-ham.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .kx-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .kx-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* ─── Mobile sidebar ─── */
+        /* ── Mobile sidebar ── */
         .kx-sidebar {
           position: fixed; top: 0; left: 0; height: 100%; width: min(300px, 85vw);
           background: var(--kx-ink);
@@ -351,8 +465,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         .kx-sb-btn .sb-icon {
           width: 32px; height: 32px; border-radius: 9px;
           display: flex; align-items: center; justify-content: center;
-          background: rgba(255,255,255,0.06);
-          flex-shrink: 0; transition: background 0.18s;
+          background: rgba(255,255,255,0.06); flex-shrink: 0;
+          transition: background 0.18s;
         }
         .kx-sb-btn:hover { background: rgba(245,200,66,0.08); color: var(--kx-pearl); }
         .kx-sb-btn:hover .sb-icon { background: rgba(245,200,66,0.15); color: var(--kx-gold); }
@@ -374,16 +488,13 @@ const Navbar = ({ onSectionChange, activeSection }) => {
         .kx-sb-sub.active { color: var(--kx-ember); }
         .kx-sb-sub.active .sub-icon { color: var(--kx-ember); }
 
-        /* Scrollbar in sidebar */
         .kx-sb-scroll::-webkit-scrollbar { width: 4px; }
         .kx-sb-scroll::-webkit-scrollbar-track { background: transparent; }
         .kx-sb-scroll::-webkit-scrollbar-thumb { background: rgba(245,200,66,0.2); border-radius: 2px; }
 
-        /* Mobile contact button */
         .kx-sb-contact {
           display: flex; align-items: center; justify-content: center; gap: 10px;
-          width: 100%; padding: 14px;
-          border-radius: 12px;
+          width: 100%; padding: 14px; border-radius: 12px;
           font-family: 'Syne', sans-serif;
           font-size: 14px; font-weight: 700;
           letter-spacing: 0.06em; text-transform: uppercase;
@@ -391,16 +502,14 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           color: var(--kx-ember); background: transparent;
           cursor: pointer; transition: all 0.22s;
         }
-        .kx-sb-contact:hover,
-        .kx-sb-contact.active {
+        .kx-sb-contact:hover, .kx-sb-contact.active {
           background: var(--kx-ember); color: #fff;
           box-shadow: 0 0 24px rgba(255,107,53,0.35);
         }
 
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .kx-bar, .kx-pill::before, .kx-pill::after,
-          .kx-contact, .kx-logo-img { transition: none !important; }
+          .kx-bar, .kx-pill::before, .kx-pill::after, .kx-contact { transition: none !important; }
+          @keyframes kx-gold-shine { from, to { background-position: 0% center; } }
         }
       `}</style>
 
@@ -412,34 +521,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
       >
         <div className="flex items-center justify-between w-full h-full">
 
-          {/* ── Logo ── */}
-          <motion.div
-            className="flex items-center gap-2 cursor-pointer select-none"
-            onClick={() => go('hero')}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            role="link"
-            tabIndex={0}
-            aria-label="Go to home"
-            onKeyDown={e => e.key === 'Enter' && go('hero')}
-          >
-            <img
-              src={logoImage}
-              alt="Kraftrix Africa logo"
-              width={48} height={48}
-              className="kx-logo-img"
-              style={{ width: 44, height: 44 }}
-            />
-            <div className="flex flex-col leading-none">
-              <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 15, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
-                Kraftrix <span style={{ color: 'var(--kx-gold)' }}>Africa</span>
-              </span>
-              <span className="kx-mono" style={{ fontSize: 9, color: 'var(--kx-ember)', letterSpacing: '0.18em', textTransform: 'uppercase', lineHeight: 1.4 }}>
-                Technologies
-              </span>
-            </div>
-            <Ticker />
-          </motion.div>
+          {/* ── Shiny Logo ── */}
+          <ShinyLogo onClick={() => go('hero')} />
 
           {/* ── Desktop links ── */}
           <div className="hidden md:flex items-center gap-1" role="menubar">
@@ -524,38 +607,14 @@ const Navbar = ({ onSectionChange, activeSection }) => {
           </div>
 
           {/* ── Hamburger (mobile) ── */}
-          <button
-            className={`kx-ham md:hidden kx-focus-ring`}
+          <motion.button
+            className="kx-ham kx-focus-ring"
+            onClick={() => setNavOpen(o => !o)}
+            aria-label={navOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={navOpen}
+            aria-controls="kx-mobile-menu"
             style={{ display: 'none' }}
-            id="kx-ham-btn"
-            onClick={() => setNavOpen(o => !o)}
-            aria-label={navOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={navOpen}
-            aria-controls="kx-mobile-menu"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-
-          {/* Inline style trick: show ham on mobile */}
-          <style>{`
-            @media (max-width: 767px) {
-              #kx-ham-btn { display: flex !important; }
-              #kx-ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-              #kx-ham-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-              #kx-ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-            }
-          `}</style>
-
-          {/* apply 'open' class on navOpen */}
-          <button
-            className={`kx-ham kx-focus-ring md:hidden`}
-            onClick={() => setNavOpen(o => !o)}
-            aria-label={navOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={navOpen}
-            aria-controls="kx-mobile-menu"
-            style={{ display: undefined }}
+            id="kx-mobile-ham"
           >
             <motion.span
               animate={{ rotate: navOpen ? 45 : 0, y: navOpen ? 7 : 0 }}
@@ -572,7 +631,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               transition={{ duration: 0.28 }}
               style={{ display: 'block', width: 22, height: 2, background: 'var(--kx-pearl)', borderRadius: 99 }}
             />
-          </button>
+          </motion.button>
+          <style>{`@media (max-width: 767px) { #kx-mobile-ham { display: flex !important; } }`}</style>
         </div>
       </nav>
 
@@ -580,7 +640,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
       <AnimatePresence>
         {navOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="kx-backdrop"
               initial={{ opacity: 0 }}
@@ -597,7 +656,6 @@ const Navbar = ({ onSectionChange, activeSection }) => {
               aria-hidden="true"
             />
 
-            {/* Sidebar */}
             <motion.aside
               key="kx-sidebar"
               id="kx-mobile-menu"
@@ -621,7 +679,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                   <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 16, color: 'var(--kx-gold)' }}>
                     Navigation
                   </span>
-                  <span className="kx-mono" style={{ fontSize: 9, color: 'var(--kx-ember)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: 'var(--kx-ember)', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
                     Kraftrix Africa
                   </span>
                 </div>
@@ -653,14 +711,11 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                     className={`kx-sb-btn kx-focus-ring ${activeSection === section ? 'active' : ''}`}
                     aria-current={activeSection === section ? 'page' : undefined}
                   >
-                    <span className="sb-icon" aria-hidden="true">
-                      <Icon size={15} />
-                    </span>
+                    <span className="sb-icon" aria-hidden="true"><Icon size={15} /></span>
                     {name}
                   </motion.button>
                 ))}
 
-                {/* About Me expandable */}
                 <motion.div
                   initial={{ opacity: 0, x: -18 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -672,9 +727,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                     aria-expanded={dropdownOpen}
                     style={{ width: '100%' }}
                   >
-                    <span className="sb-icon" aria-hidden="true">
-                      <User size={15} />
-                    </span>
+                    <span className="sb-icon" aria-hidden="true"><User size={15} /></span>
                     About Me
                     <motion.span
                       animate={{ rotate: dropdownOpen ? 180 : 0 }}
@@ -711,9 +764,7 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                               className={`kx-sb-sub kx-focus-ring ${activeSection === section ? 'active' : ''}`}
                               aria-current={activeSection === section ? 'page' : undefined}
                             >
-                              <span className="sub-icon" aria-hidden="true">
-                                <ItemIcon size={13} />
-                              </span>
+                              <span className="sub-icon" aria-hidden="true"><ItemIcon size={13} /></span>
                               {name}
                             </motion.button>
                           ))}
@@ -723,10 +774,8 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                   </AnimatePresence>
                 </motion.div>
 
-                {/* Spacer */}
                 <div style={{ flex: 1, minHeight: 16 }} />
 
-                {/* Contact CTA */}
                 <motion.button
                   initial={{ opacity: 0, x: -18 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -740,13 +789,12 @@ const Navbar = ({ onSectionChange, activeSection }) => {
                 </motion.button>
               </nav>
 
-              {/* Footer */}
               <div style={{
                 padding: '14px 20px',
                 borderTop: '1px solid var(--kx-border)',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               }}>
-                <span className="kx-mono" style={{ fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#444' }}>
+                <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#444' }}>
                   © 2025 Kraftrix Africa
                 </span>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--kx-gold)', display: 'inline-block' }} aria-hidden="true" />
