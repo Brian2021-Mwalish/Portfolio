@@ -573,14 +573,7 @@ const Hero = () => {
           <header className="h-bar">
             <div className="h-logo">Brian<span>.</span>dev</div>
 
-            <nav className="h-nav" aria-label="Quick navigation">
-              <a
-                href="https://github.com/Brian2021-Mwalish"
-                className="h-chip"
-              >
-                ~/github
-              </a>
-            </nav>
+            <nav className="h-nav" aria-label="Quick navigation" />
 
             <div className="h-status">
               <StatusDot />
