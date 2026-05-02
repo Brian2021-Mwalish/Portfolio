@@ -1,125 +1,126 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ownerImage from '../assets/brian.png';
-import reactLogo from "../assets/react.png";
-import pythonLogo from "../assets/python.png";
-import fastapiLogo from "../assets/fastapi.png";
-import dockerLogo from "../assets/docker.png";
-import awsLogo from "../assets/aws.png";
 
 // ─── DATA ─────────────────────────────────────────────────────────────────────
 
-const titles = [
-  "Full Stack Engineer",
-  "Backend Systems Builder",
-  "API & Cloud Architect",
-  "Software Engineer",
+const contactChannels = [
+  {
+    num: '01',
+    label: 'Email',
+    value: 'brianmwalish@gmail.com',
+    sub: 'Best for project proposals & detailed enquiries',
+    link: 'mailto:brianmwalish@gmail.com',
+    accent: '#E63946',
+    action: 'Send Email',
+    cmd: 'mailto',
+    icon: (
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  {
+    num: '02',
+    label: 'Mobile',
+    value: '+254 714 137 834',
+    sub: 'WhatsApp preferred for quick messages',
+    link: 'tel:+254714137834',
+    accent: '#22C55E',
+    action: 'Call Now',
+    cmd: 'tel',
+    icon: (
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+  },
+  {
+    num: '03',
+    label: 'LinkedIn',
+    value: 'linkedin.com/in/brianmwalish',
+    sub: 'Connect professionally & view endorsements',
+    link: 'https://linkedin.com/in/brianmwalish',
+    accent: '#38BDF8',
+    action: 'View Profile',
+    cmd: 'open --url',
+    icon: (
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    num: '04',
+    label: 'GitHub',
+    value: 'github.com/Brian2021-Mwalish',
+    sub: 'Explore repositories & open-source contributions',
+    link: 'https://github.com/Brian2021-Mwalish',
+    accent: '#A78BFA',
+    action: 'View Code',
+    cmd: 'open --url',
+    icon: (
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+      </svg>
+    ),
+  },
 ];
 
-const stack = [
-  { label: "Python",     color: "#3B82F6" },
-  { label: "Django",     color: "#22C55E" },
-  { label: "React",      color: "#38BDF8" },
-  { label: "PostgreSQL", color: "#A78BFA" },
-  { label: "Docker",     color: "#60A5FA" },
-  { label: "AWS",        color: "#F97316" },
-  { label: "FastAPI",    color: "#34D399" },
-  { label: "Node.js",    color: "#86EFAC" },
-  { label: "REST APIs",  color: "#FCA5A5" },
-  { label: "Git",        color: "#FB923C" },
+const faqs = [
+  {
+    q: 'What types of projects do you take on?',
+    a: 'Full-stack web applications, REST API backends, dashboard & analytics tools, payment integrations (M-Pesa, Stripe), and SaaS MVPs. Both greenfield builds and existing-codebase improvements.',
+  },
+  {
+    q: 'What is your typical project timeline?',
+    a: 'A focused MVP usually takes 3–6 weeks. Larger platforms with integrations typically run 8–16 weeks. I provide a detailed scope estimate after our initial call.',
+  },
+  {
+    q: 'Are you open to full-time roles?',
+    a: 'Yes — I am actively considering full-time and long-term contract positions alongside freelance engagements. Feel free to reach out with details.',
+  },
+  {
+    q: 'What does your tech stack look like?',
+    a: 'React / TypeScript on the frontend, Django & Django REST Framework on the backend, PostgreSQL for data, and AWS / Vercel for deployment. I adapt to team stacks as needed.',
+  },
 ];
 
-const metrics = [
-  { value: "10+",  label: "Production Projects" },
-  { value: "3+",   label: "Years Experience"    },
-  { value: "REST", label: "API Development"     },
-  { value: "99%",  label: "Uptime Systems"      },
+const stats = [
+  { value: '24h',  label: 'Response Time',       color: '#E63946' },
+  { value: '10+',  label: 'Happy Clients',        color: '#22C55E' },
+  { value: '5+',   label: 'Projects Delivered',   color: '#38BDF8' },
+  { value: '3+',   label: 'Years Experience',     color: '#A78BFA' },
 ];
 
-const interests = [
-  "Scalable Systems",
-  "Cloud Infrastructure",
-  "Backend Engineering",
-  "API Design",
-  "DevOps",
-];
+// ─── COPY BUTTON ──────────────────────────────────────────────────────────────
 
-const techIcons = [
-  { src: reactLogo,   alt: "React"   },
-  { src: pythonLogo,  alt: "Python"  },
-  { src: fastapiLogo, alt: "FastAPI" },
-  { src: dockerLogo,  alt: "Docker"  },
-  { src: awsLogo,     alt: "AWS"     },
-];
-
-// ─── TYPING EFFECT ────────────────────────────────────────────────────────────
-
-const TypingTitle = () => {
-  const [tIdx, setTIdx]         = useState(0);
-  const [displayed, setDisplayed] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [blink, setBlink]       = useState(true);
-
-  useEffect(() => {
-    const b = setInterval(() => setBlink(v => !v), 530);
-    return () => clearInterval(b);
-  }, []);
-
-  useEffect(() => {
-    const current = titles[tIdx];
-    let t;
-    if (!deleting) {
-      if (displayed.length < current.length) {
-        t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 55);
-      } else {
-        t = setTimeout(() => setDeleting(true), 1800);
-      }
-    } else {
-      if (displayed.length > 0) {
-        t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 32);
-      } else {
-        setDeleting(false);
-        setTIdx(i => (i + 1) % titles.length);
-      }
-    }
-    return () => clearTimeout(t);
-  }, [displayed, deleting, tIdx]);
+const CopyBtn = ({ text }) => {
+  const [state, setState] = useState('idle');
+  const handle = useCallback((e) => {
+    e.preventDefault(); e.stopPropagation();
+    navigator.clipboard.writeText(text).then(() => {
+      setState('copied'); setTimeout(() => setState('idle'), 1800);
+    }).catch(() => {
+      setState('err'); setTimeout(() => setState('idle'), 1800);
+    });
+  }, [text]);
 
   return (
-    <span style={{ fontFamily: "'Fira Code', monospace", color: '#22C55E', fontSize: 'inherit' }}>
-      {displayed}
-      <span style={{ opacity: blink ? 1 : 0, color: '#E63946' }}>|</span>
-    </span>
+    <button onClick={handle} title="Copy to clipboard" style={{
+      background: state === 'copied' ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.04)',
+      border: `1px solid ${state === 'copied' ? 'rgba(34,197,94,0.4)' : 'rgba(255,255,255,0.08)'}`,
+      borderRadius: 2,
+      padding: '3px 8px', cursor: 'pointer',
+      display: 'inline-flex', alignItems: 'center', gap: 4,
+      fontSize: '0.58rem', fontWeight: 600, letterSpacing: '0.1em',
+      color: state === 'copied' ? '#22C55E' : '#6B7280',
+      transition: 'all 0.2s', fontFamily: "'Fira Code', monospace",
+      flexShrink: 0,
+    }}>
+      {state === 'copied' ? '✓ COPIED' : state === 'err' ? '✕ FAIL' : 'COPY'}
+    </button>
   );
 };
-
-// ─── STACK BADGE ──────────────────────────────────────────────────────────────
-
-const StackBadge = ({ label, color }) => (
-  <motion.span
-    whileHover={{ scale: 1.07, y: -2 }}
-    transition={{ type: 'spring', stiffness: 400 }}
-    style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 5,
-      padding: '4px 10px',
-      borderRadius: 3,
-      border: `1px solid ${color}30`,
-      backgroundColor: `${color}12`,
-      fontFamily: "'Fira Code', monospace",
-      fontSize: '0.7rem',
-      color,
-      letterSpacing: '0.02em',
-      cursor: 'default',
-      userSelect: 'none',
-      whiteSpace: 'nowrap',
-    }}
-  >
-    <span style={{ width: 5, height: 5, borderRadius: '50%', backgroundColor: color, flexShrink: 0 }} />
-    {label}
-  </motion.span>
-);
 
 // ─── STATUS DOT ───────────────────────────────────────────────────────────────
 
@@ -128,7 +129,7 @@ const StatusDot = () => (
     <span style={{
       position: 'absolute', width: 10, height: 10, borderRadius: '50%',
       backgroundColor: '#22C55E', opacity: 0.3,
-      animation: 'heroPing 1.5s cubic-bezier(0,0,0.2,1) infinite',
+      animation: 'cPing 1.5s cubic-bezier(0,0,0.2,1) infinite',
     }} />
     <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#22C55E', position: 'relative', zIndex: 1 }} />
   </span>
@@ -136,646 +137,728 @@ const StatusDot = () => (
 
 // ─── TERM LINE ────────────────────────────────────────────────────────────────
 
-const TermLine = ({ prompt = '$', dimPrompt, children }) => (
-  <div style={{ display: 'flex', gap: 8, fontFamily: "'Fira Code', monospace", fontSize: '0.72rem', lineHeight: 1.65 }}>
-    <span style={{ color: dimPrompt ? '#374151' : '#22C55E', flexShrink: 0 }}>{prompt}</span>
+const TermLine = ({ prompt = '$', dim, children }) => (
+  <div style={{ display: 'flex', gap: 8, fontFamily: "'Fira Code', monospace", fontSize: '0.7rem', lineHeight: 1.7 }}>
+    <span style={{ color: dim ? '#374151' : '#22C55E', flexShrink: 0 }}>{prompt}</span>
     <span style={{ color: '#9CA3AF' }}>{children}</span>
   </div>
 );
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// ─── FAQ ITEM ─────────────────────────────────────────────────────────────────
 
-const Hero = () => {
-  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
-  const fadeUp  = {
-    hidden: { opacity: 0, y: 22 },
-    show:   { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+const FaqItem = ({ item, index }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', background: 'none', border: 'none',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 16, padding: '16px 0', cursor: 'pointer', textAlign: 'left',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{
+            fontFamily: "'Fira Code', monospace",
+            fontSize: '0.6rem', fontWeight: 600, color: '#E63946',
+            letterSpacing: '0.06em', flexShrink: 0,
+          }}>0{index + 1}</span>
+          <span style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.88rem', fontWeight: 500, color: '#E6EDF3',
+          }}>{item.q}</span>
+        </div>
+        <span style={{
+          width: 20, height: 20, borderRadius: 2,
+          border: '1px solid rgba(230,57,70,0.3)',
+          background: open ? 'rgba(230,57,70,0.15)' : 'transparent',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0, transition: 'all 0.2s',
+          fontSize: 14, color: open ? '#E63946' : '#6B7280', lineHeight: 1,
+        }}>
+          {open ? '−' : '+'}
+        </span>
+      </button>
+      <div style={{
+        maxHeight: open ? 160 : 0,
+        overflow: 'hidden',
+        transition: 'max-height 0.35s cubic-bezier(.22,1,.36,1)',
+      }}>
+        <p style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: '0.82rem', color: '#8B949E', lineHeight: 1.75,
+          padding: '0 0 16px 28px', margin: 0,
+        }}>{item.a}</p>
+      </div>
+    </div>
+  );
+};
+
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
+
+const Contact = () => {
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [formData, setFormData] = useState({ name: '', email: '', type: '', message: '' });
+  const [formState, setFormState] = useState('idle');
+
+  const handleChange = (e) => setFormData(p => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    setFormState('sending');
+    const subject = encodeURIComponent(`[Portfolio] ${formData.type || 'Enquiry'} from ${formData.name}`);
+    const body = encodeURIComponent(`Hi Brian,\n\nMy name is ${formData.name}.\n\n${formData.message}\n\n— ${formData.name}\n${formData.email}`);
+    setTimeout(() => {
+      window.location.href = `mailto:brianmwalish@gmail.com?subject=${subject}&body=${body}`;
+      setFormState('sent');
+      setTimeout(() => setFormState('idle'), 3000);
+    }, 600);
   };
-  const fadeIn = {
-    hidden: { opacity: 0, x: 30 },
-    show:   { opacity: 1, x: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.25 } },
+
+  const projectTypes = ['Full-Stack Web App', 'API / Backend', 'Dashboard / Analytics', 'UI / UX Design', 'Consultation', 'Full-Time Role', 'Other'];
+
+  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
   };
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap');
 
-        @keyframes heroPing {
+        @keyframes cPing {
           75%, 100% { transform: scale(2); opacity: 0; }
         }
-        @keyframes heroGrid {
+        @keyframes cGrid {
           0%   { background-position: 0 0; }
           100% { background-position: 0 40px; }
         }
-        @keyframes heroScan {
+        @keyframes cScan {
           0%   { transform: translateY(-5%); }
           100% { transform: translateY(110vh); }
         }
+        @keyframes cSpin {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes cTicker {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
 
-        *, *::before, *::after { box-sizing: border-box; }
-
-        .h-root {
+        .c-root {
           font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
           background-color: #0D1117;
-          min-height: 100dvh;
+          min-height: 100vh;
           color: #E6EDF3;
           position: relative;
           overflow: hidden;
         }
-
-        /* Animated dot grid */
-        .h-root::before {
+        .c-root::before {
           content: '';
           position: absolute; inset: 0;
-          background-image: radial-gradient(circle, rgba(230,57,70,0.07) 1px, transparent 1px);
+          background-image: radial-gradient(circle, rgba(230,57,70,0.05) 1px, transparent 1px);
           background-size: 40px 40px;
-          animation: heroGrid 6s linear infinite;
-          pointer-events: none;
-          z-index: 0;
+          animation: cGrid 6s linear infinite;
+          pointer-events: none; z-index: 0;
         }
-
-        /* Subtle scanline */
-        .h-root::after {
+        .c-root::after {
           content: '';
           position: absolute; left: 0; right: 0;
           height: 1px;
-          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.05) 50%, transparent 100%);
-          animation: heroScan 9s linear infinite;
-          pointer-events: none;
-          z-index: 1;
+          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.04) 50%, transparent 100%);
+          animation: cScan 9s linear infinite;
+          pointer-events: none; z-index: 1;
         }
 
-        /* Glows */
-        .h-glow-r { position: absolute; top: -140px; left: -100px; width: 550px; height: 550px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-        .h-glow-b { position: absolute; top: -60px; right: -60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(26,26,46,0.55) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+        .c-glow-r { position: absolute; top: -120px; left: -80px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+        .c-glow-b { position: absolute; bottom: -80px; right: -60px; width: 380px; height: 380px; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,0.04) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 
-        /* ── SHELL ── */
-        .h-shell {
+        .c-shell {
           position: relative; z-index: 10;
-          max-width: 1180px;
-          margin: 0 auto;
+          max-width: 1180px; margin: 0 auto;
           padding: 0 24px;
-          display: flex;
-          flex-direction: column;
-          min-height: 100dvh;
         }
 
         /* ── TOP BAR ── */
-        .h-bar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+        .c-bar {
+          display: flex; align-items: center; justify-content: space-between;
           padding: 18px 0 14px;
           border-bottom: 1px solid rgba(230,57,70,0.14);
-          gap: 12px;
-          flex-wrap: wrap;
+          gap: 12px; flex-wrap: wrap;
         }
-        .h-logo {
+        .c-logo {
           font-family: 'DM Serif Display', serif;
-          font-size: 1.05rem;
-          color: #E6EDF3;
-          white-space: nowrap;
+          font-size: 1.05rem; color: #E6EDF3;
         }
-        .h-logo span { color: #E63946; }
-
-        .h-nav {
-          display: flex; gap: 6px; flex-wrap: wrap;
-        }
-        .h-chip {
+        .c-logo span { color: #E63946; }
+        .c-chip {
           font-family: 'Fira Code', monospace;
-          font-size: 0.62rem;
-          color: #6B7280;
+          font-size: 0.62rem; color: #6B7280;
           padding: 3px 8px;
-          border: 1px solid rgba(107,114,128,0.18);
-          border-radius: 2px;
-          letter-spacing: 0.06em;
-          white-space: nowrap;
-          text-decoration: none;
+          border: 1px solid rgba(107,114,128,0.18); border-radius: 2px;
+          letter-spacing: 0.06em; white-space: nowrap;
+          text-decoration: none; background: none;
         }
-        .h-chip:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
-
-        .h-status {
-          display: flex; align-items: center; gap: 7px;
-          white-space: nowrap;
-        }
-        .h-status span {
+        .c-section-label {
           font-family: 'Fira Code', monospace;
-          font-size: 0.62rem;
-          color: #22C55E;
+          font-size: 0.58rem; font-weight: 500;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #E63946; margin-bottom: 9px;
         }
+
+        /* ── HERO HEADER ── */
+        .c-header {
+          padding: 52px 0 36px;
+          display: flex; align-items: flex-end;
+          justify-content: space-between; gap: 32px; flex-wrap: wrap;
+        }
+        .c-heading {
+          font-family: 'DM Serif Display', Georgia, serif;
+          font-size: clamp(3rem, 6.5vw, 5.2rem);
+          font-weight: 400; color: #E6EDF3;
+          line-height: 0.92; letter-spacing: -0.03em; margin: 0;
+        }
+        .c-heading em { color: #E63946; font-style: italic; }
+        .c-header-right {
+          max-width: 340px;
+        }
+        .c-header-sub {
+          font-size: 0.88rem; font-weight: 300;
+          color: #8B949E; line-height: 1.8; margin: 0 0 16px;
+        }
+        .c-avail {
+          display: inline-flex; align-items: center; gap: 8px;
+          border: 1px solid rgba(34,197,94,0.25); border-radius: 3px;
+          padding: 6px 12px;
+          background: rgba(34,197,94,0.06);
+        }
+        .c-avail-text {
+          font-family: 'Fira Code', monospace;
+          font-size: 0.62rem; color: #22C55E; letter-spacing: 0.08em;
+        }
+
+        /* ── STATS ── */
+        .c-stats {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          gap: 1px; margin-bottom: 52px;
+          border: 1px solid rgba(230,57,70,0.14); border-radius: 4px;
+          overflow: hidden; background: rgba(230,57,70,0.07);
+        }
+        .c-stat {
+          background: #0D1117; padding: 18px 12px; text-align: center;
+        }
+        .c-stat-val {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(1.6rem, 3vw, 2.2rem);
+          display: block; line-height: 1; margin-bottom: 4px;
+        }
+        .c-stat-lbl {
+          font-family: 'Fira Code', monospace;
+          font-size: 0.52rem; color: #6B7280;
+          letter-spacing: 0.1em; text-transform: uppercase; display: block;
+        }
+
+        /* ── TICKER ── */
+        .c-ticker {
+          overflow: hidden;
+          border-top: 1px solid rgba(230,57,70,0.14);
+          border-bottom: 1px solid rgba(230,57,70,0.14);
+          background: rgba(230,57,70,0.04);
+          margin-bottom: 52px; padding: 10px 0;
+        }
+        .c-ticker-track {
+          display: flex; animation: cTicker 20s linear infinite; width: max-content;
+        }
+        .c-ticker-item {
+          display: inline-flex; align-items: center; gap: 12px;
+          padding: 0 28px; font-family: 'Fira Code', monospace;
+          font-size: 0.62rem; font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase;
+          color: #6B7280; white-space: nowrap;
+        }
+        .c-ticker-dot { width: 4px; height: 4px; border-radius: '50%'; background: #E63946; flex-shrink: 0; }
 
         /* ── MAIN GRID ── */
-        .h-grid {
-          flex: 1;
-          display: grid;
-          grid-template-columns: 1fr 360px;
-          gap: 52px;
-          align-items: center;
-          padding: 44px 0 36px;
+        .c-grid {
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 32px; margin-bottom: 56px; align-items: start;
         }
 
-        /* ── LEFT STACK ── */
-        .h-left { display: flex; flex-direction: column; gap: 22px; }
-
-        /* Name */
-        .h-name {
-          font-family: 'DM Serif Display', Georgia, serif;
-          font-size: clamp(3rem, 7vw, 5.6rem);
-          font-weight: 400;
-          color: #E6EDF3;
-          line-height: 0.92;
-          letter-spacing: -0.03em;
-          margin: 0;
+        /* ── CHANNEL CARD ── */
+        .c-ch {
+          border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;
+          padding: 18px 20px; margin-bottom: 10px;
+          display: flex; align-items: flex-start; gap: 14px;
+          text-decoration: none; color: inherit;
+          background: rgba(22,27,34,0.6);
+          position: relative; overflow: hidden;
+          transition: border-color 0.25s, background 0.25s, transform 0.25s cubic-bezier(.22,1,.36,1);
+          cursor: pointer;
         }
-        .h-name-accent { color: #E63946; font-style: italic; }
-
-        /* Title row */
-        .h-title-row {
-          display: flex; align-items: center; gap: 10px;
-          min-height: 30px;
-        }
-        .h-title-prompt {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.65rem;
-          color: '#4B5563';
-          letter-spacing: 0.04em;
-        }
-        .h-title-text { font-size: clamp(0.95rem, 2vw, 1.2rem); }
-
-        /* Bio */
-        .h-bio {
-          font-size: 0.9rem;
-          font-weight: 300;
-          color: #8B949E;
-          line-height: 1.82;
-          max-width: 520px;
-        }
-
-        /* Section label */
-        .h-sec {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          font-weight: 500;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: #E63946;
-          margin-bottom: 9px;
-        }
-
-        /* Metrics grid */
-        .h-metrics {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          border: 1px solid rgba(230,57,70,0.14);
-          border-radius: 4px;
-          overflow: hidden;
-          background-color: rgba(230,57,70,0.07);
-        }
-        .h-metric {
-          background-color: #0D1117;
-          padding: 14px 10px;
-          text-align: center;
-        }
-        .h-metric-val {
+        .c-ch:last-child { margin-bottom: 0; }
+        .c-ch:hover { transform: translateX(4px); background: rgba(22,27,34,0.9); }
+        .c-ch-num {
+          position: absolute; top: 8px; right: 12px;
           font-family: 'DM Serif Display', serif;
-          font-size: clamp(1.35rem, 2.5vw, 1.85rem);
-          color: #E6EDF3;
-          display: block;
-          line-height: 1;
+          font-size: 2.4rem; font-weight: 400;
+          color: rgba(255,255,255,0.03); line-height: 1;
+          pointer-events: none; user-select: none;
         }
-        .h-metric-lbl {
+        .c-ch-icon {
+          width: 36px; height: 36px; border-radius: 3px;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0; border: 1px solid;
+          transition: background 0.2s;
+        }
+        .c-ch-lbl {
           font-family: 'Fira Code', monospace;
-          font-size: 0.52rem;
-          color: #6B7280;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          display: block;
-          margin-top: 4px;
+          font-size: 0.58rem; font-weight: 500; letter-spacing: 0.12em;
+          text-transform: uppercase; color: #6B7280; margin-bottom: 2px;
         }
-
-        /* Stack wrap */
-        .h-stack { display: flex; flex-wrap: wrap; gap: 6px; }
-
-        /* Interests */
-        .h-interests { display: flex; flex-wrap: wrap; gap: 6px; }
-        .h-interest {
+        .c-ch-val {
+          font-family: 'DM Serif Display', serif;
+          font-size: 0.95rem; color: #E6EDF3;
+          margin-bottom: 3px; word-break: break-all;
+        }
+        .c-ch-sub { font-size: 0.75rem; color: #6B7280; line-height: 1.4; }
+        .c-ch-action {
           font-family: 'Fira Code', monospace;
-          font-size: 0.6rem;
-          color: '#6B7280';
-          border: 1px solid rgba(107,114,128,0.2);
-          padding: 3px 9px;
-          border-radius: 2px;
-          letter-spacing: 0.04em;
-          color: #6B7280;
+          font-size: 0.62rem; font-weight: 500; letter-spacing: 0.06em;
+          margin-top: 6px; display: inline-flex; align-items: center; gap: 5px;
         }
 
-        /* Buttons */
-        .h-btns { display: flex; gap: 9px; flex-wrap: wrap; }
-        .h-btn-p {
-          font-family: 'Syne', sans-serif;
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          background-color: #E63946;
-          color: #fff;
-          padding: 11px 20px;
-          border-radius: 3px;
-          border: 1.5px solid #E63946;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 7px;
-          transition: background-color 0.18s, transform 0.15s;
-          cursor: pointer;
-          white-space: nowrap;
+        /* ── LOCATION ── */
+        .c-loc {
+          border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;
+          padding: 18px 20px; margin-top: 10px;
+          display: flex; align-items: flex-start; gap: 14px;
+          background: rgba(22,27,34,0.6);
         }
-        .h-btn-p:hover { background-color: #C62833; transform: translateY(-1px); }
 
-        .h-btn-o {
-          font-family: 'Syne', sans-serif;
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          background-color: transparent;
-          color: #8B949E;
-          padding: 11px 20px;
-          border-radius: 3px;
-          border: 1.5px solid rgba(139,148,158,0.22);
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 7px;
-          transition: border-color 0.18s, color 0.18s, transform 0.15s;
-          cursor: pointer;
-          white-space: nowrap;
+        /* ── TERM CARD ── */
+        .c-termcard {
+          border: 1px solid rgba(230,57,70,0.13); border-radius: 4px;
+          overflow: hidden; background: #0D1117;
+          margin-bottom: 12px;
         }
-        .h-btn-o:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
-
-        /* ── RIGHT PANEL ── */
-        .h-right { display: flex; flex-direction: column; gap: 13px; }
-
-        /* Image card */
-        .h-imgcard {
-          position: relative;
-          border: 1px solid rgba(230,57,70,0.18);
-          border-radius: 6px;
-          overflow: hidden;
-          background-color: #161B22;
-        }
-        .h-win-bar {
+        .c-win-bar {
           display: flex; align-items: center; gap: 5px;
-          padding: 7px 12px;
-          background-color: #161B22;
+          padding: 7px 12px; background: #161B22;
           border-bottom: 1px solid rgba(255,255,255,0.04);
         }
-        .h-dot { width: 9px; height: 9px; border-radius: 50%; }
-        .h-win-label {
+        .c-dot { width: 9px; height: 9px; border-radius: '50%'; }
+        .c-win-lbl {
           font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #6B7280;
-          margin-left: 5px;
+          font-size: 0.58rem; color: #6B7280; margin-left: 5px;
         }
-        .h-imgcard img {
-          width: 100%;
-          height: 248px;
-          object-fit: cover;
-          object-position: top center;
-          display: block;
-          filter: grayscale(18%);
-          transition: filter 0.4s;
+        .c-term-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 2px; }
+
+        /* ── FORM ── */
+        .c-form-card {
+          border: 1px solid rgba(230,57,70,0.18); border-radius: 4px;
+          background: #161B22; padding: 32px 36px;
+          position: relative; overflow: hidden;
         }
-        .h-imgcard:hover img { filter: grayscale(0%); }
-        .h-img-overlay {
-          position: absolute; bottom: 0; left: 0; right: 0;
-          padding: 20px 13px 13px;
-          background: linear-gradient(to top, rgba(13,17,23,0.9) 0%, transparent 100%);
-          display: flex; align-items: flex-end; justify-content: space-between;
-        }
-        .h-overlay-name {
+        .c-form-title {
           font-family: 'DM Serif Display', serif;
-          font-size: 1rem;
-          color: #E6EDF3;
+          font-size: 1.6rem; color: #E6EDF3;
+          margin: 0 0 4px; letter-spacing: -0.02em;
         }
-        .h-overlay-loc {
+        .c-form-sub {
           font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #6B7280;
-          margin-top: 2px;
+          font-size: 0.65rem; color: #6B7280; margin: 0 0 24px;
         }
-
-        /* Terminal card */
-        .h-termcard {
-          border: 1px solid rgba(230,57,70,0.13);
-          border-radius: 6px;
-          overflow: hidden;
-          background-color: #0D1117;
-        }
-        .h-term-body { padding: 11px 14px; display: flex; flex-direction: column; gap: 2px; }
-
-        /* Cred bar */
-        .h-cred {
-          border: 1px solid rgba(230,57,70,0.1);
-          border-radius: 4px;
-          padding: 9px 13px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 8px;
-          background-color: rgba(22,27,34,0.55);
-        }
-        .h-cred-item { display: flex; align-items: center; gap: 5px; }
-        .h-cred-dot { color: #E63946; font-size: 0.5rem; }
-        .h-cred-text {
+        .c-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .c-form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+        .c-form-lbl {
           font-family: 'Fira Code', monospace;
-          font-size: 0.6rem;
-          color: #6B7280;
+          font-size: 0.58rem; font-weight: 500;
+          letter-spacing: 0.12em; text-transform: uppercase; color: #6B7280;
+        }
+        .c-form-input {
+          font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: #E6EDF3;
+          background: #0D1117; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 3px; padding: 10px 12px;
+          outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+          width: 100%; box-sizing: border-box;
+        }
+        .c-form-input:focus { border-color: rgba(230,57,70,0.5); box-shadow: 0 0 0 3px rgba(230,57,70,0.08); }
+        .c-form-input::placeholder { color: #374151; }
+        .c-form-select {
+          font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: #E6EDF3;
+          background: #0D1117; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 3px; padding: 10px 12px;
+          outline: none; width: 100%; box-sizing: border-box; cursor: pointer;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat; background-position: right 12px center;
+          transition: border-color 0.2s;
+        }
+        .c-form-select:focus { border-color: rgba(230,57,70,0.5); }
+        .c-form-textarea {
+          font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: #E6EDF3;
+          background: #0D1117; border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 3px; padding: 10px 12px;
+          outline: none; width: 100%; box-sizing: border-box;
+          resize: vertical; min-height: 110px;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .c-form-textarea:focus { border-color: rgba(230,57,70,0.5); box-shadow: 0 0 0 3px rgba(230,57,70,0.08); }
+        .c-form-textarea::placeholder { color: #374151; }
+        .c-char { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: #374151; text-align: right; margin-top: 3px; }
+        .c-form-btn {
+          width: 100%; padding: 13px 24px;
+          background: #E63946; color: #fff;
+          font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          border: 1.5px solid #E63946; border-radius: 3px;
+          cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+          transition: background 0.2s, transform 0.15s, opacity 0.2s;
+          margin-top: 6px;
+        }
+        .c-form-btn:hover:not(:disabled) { background: #C62833; transform: translateY(-1px); }
+        .c-form-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .c-form-btn.sent { background: #22C55E; border-color: #22C55E; }
+
+        /* ── FAQ ── */
+        .c-faq-card {
+          border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;
+          background: rgba(22,27,34,0.6); padding: 28px 32px; margin-top: 12px;
+        }
+        .c-faq-title {
+          font-family: 'DM Serif Display', serif;
+          font-size: 1.3rem; color: #E6EDF3; margin: 0 0 4px;
         }
 
-        /* ── FOOTER BAR ── */
-        .h-foot {
+        /* ── BOTTOM CTA ── */
+        .c-cta {
+          border: 1px solid rgba(230,57,70,0.18); border-radius: 4px;
+          background: #161B22; padding: 48px 44px;
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 40px; flex-wrap: wrap; margin-bottom: 0;
+          position: relative; overflow: hidden;
+        }
+        .c-cta::before {
+          content: '';
+          position: absolute; top: 0; left: 0; right: 0; height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(230,57,70,0.5), transparent);
+        }
+        .c-cta-heading {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(1.5rem, 3vw, 2.2rem); color: #E6EDF3;
+          margin: 0 0 8px; letter-spacing: -0.02em;
+        }
+        .c-cta-sub { font-size: 0.88rem; font-weight: 300; color: #8B949E; line-height: 1.7; max-width: 420px; margin: 0; }
+        .c-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+        .c-btn-p {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #E63946; color: #fff;
+          font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          padding: 12px 24px; border-radius: 3px; border: 1.5px solid #E63946;
+          text-decoration: none; cursor: pointer;
+          transition: background 0.18s, transform 0.15s;
+        }
+        .c-btn-p:hover { background: #C62833; transform: translateY(-1px); }
+        .c-btn-o {
+          display: inline-flex; align-items: center; gap: 7px;
+          background: transparent; color: #8B949E;
+          font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          padding: 12px 24px; border-radius: 3px; border: 1.5px solid rgba(139,148,158,0.22);
+          text-decoration: none; cursor: pointer;
+          transition: border-color 0.18s, color 0.18s, transform 0.15s;
+        }
+        .c-btn-o:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
+
+        /* ── FOOTER ── */
+        .c-foot {
           border-top: 1px solid rgba(230,57,70,0.09);
-          padding: 11px 0 15px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 8px;
+          padding: 11px 0 20px;
+          display: flex; align-items: center; justify-content: space-between;
+          flex-wrap: wrap; gap: 8px; margin-top: 40px;
         }
-        .h-foot-icons { display: flex; align-items: center; gap: 13px; }
-        .h-foot-label {
+        .c-foot-txt {
           font-family: 'Fira Code', monospace;
-          font-size: 0.56rem;
-          color: #374151;
-          letter-spacing: 0.16em;
-        }
-        .h-foot-copy {
-          display: flex; align-items: center; gap: 8px;
-        }
-        .h-foot-sep { width: 1px; height: 10px; background-color: rgba(107,114,128,0.25); }
-        .h-foot-txt {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #374151;
+          font-size: 0.56rem; color: #374151;
         }
 
-        /* ─── RESPONSIVE ──────────────────────────────────── */
-
-        /* Tablet ≤ 900px */
-        @media (max-width: 900px) {
-          .h-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-            padding: 32px 0 24px;
-          }
-          .h-right {
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-          .h-imgcard { flex: 1 1 220px; min-width: 0; }
-          .h-termcard { flex: 1 1 220px; min-width: 0; }
-          .h-cred { width: 100%; }
-          .h-metrics { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 960px) {
+          .c-grid { grid-template-columns: 1fr; }
+          .c-form-row { grid-template-columns: 1fr; }
+          .c-stats { grid-template-columns: repeat(2, 1fr); }
+          .c-cta { padding: 36px 28px; }
         }
-
-        /* Mobile ≤ 640px */
-        @media (max-width: 640px) {
-          .h-shell { padding: 0 16px; }
-          .h-nav { display: none; }
-          .h-name { font-size: clamp(2.4rem, 13vw, 3.2rem); }
-          .h-right { flex-direction: column; }
-          .h-metrics { grid-template-columns: repeat(2, 1fr); }
-          .h-btns { gap: 8px; }
-          .h-btn-p, .h-btn-o { padding: 10px 15px; font-size: 0.68rem; }
-          .h-foot { flex-direction: column; align-items: flex-start; }
-        }
-
-        /* Tiny ≤ 360px */
-        @media (max-width: 360px) {
-          .h-name { font-size: 2rem; }
-          .h-stack { gap: 4px; }
-          .h-interests { gap: 4px; }
+        @media (max-width: 600px) {
+          .c-shell { padding: 0 16px; }
+          .c-heading { font-size: 2.8rem; }
+          .c-header { padding: 40px 0 28px; }
+          .c-form-card { padding: 24px 20px; }
+          .c-faq-card { padding: 20px; }
         }
       `}</style>
 
-      <section className="h-root">
-        <div className="h-glow-r" aria-hidden="true" />
-        <div className="h-glow-b" aria-hidden="true" />
+      <section className="c-root" id="contact">
+        <div className="c-glow-r" aria-hidden="true" />
+        <div className="c-glow-b" aria-hidden="true" />
 
-        <div className="h-shell">
+        <div className="c-shell">
 
           {/* ── TOP BAR ── */}
-          <header className="h-bar">
-            <div className="h-logo">Brian<span>.</span>dev</div>
-
-            <nav className="h-nav" aria-label="Quick navigation">
-              {[
-                { label: '~/github',   href: 'https://github.com/Brian2021-Mwalish' },
-                { label: '~/projects', href: '#projects' },
-                { label: '~/contact',  href: '#contact'  },
-              ].map(l => (
-                <a key={l.label} href={l.href} className="h-chip">{l.label}</a>
-              ))}
-            </nav>
-
-            <div className="h-status">
-              <StatusDot />
-              <span>open_to_work</span>
+          <div className="c-bar">
+            <div className="c-logo">Brian<span>.</span>dev</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span className="c-chip">~/contact</span>
+              <span className="c-chip" style={{ color: '#E63946', borderColor: 'rgba(230,57,70,0.25)' }}>section_03</span>
             </div>
-          </header>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <StatusDot />
+              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.62rem', color: '#22C55E' }}>available</span>
+            </div>
+          </div>
+
+          {/* ── HEADER ── */}
+          <motion.div
+            className="c-header"
+            variants={stagger} initial="hidden" whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.div variants={fadeUp}>
+              <div style={{ marginBottom: 12 }}>
+                <TermLine prompt="$">whoami --section contact</TermLine>
+              </div>
+              <h2 className="c-heading">
+                Let's Work<br />
+                <em>Together</em>
+              </h2>
+            </motion.div>
+            <motion.div className="c-header-right" variants={fadeUp}>
+              <p className="c-header-sub">
+                Have a project in mind, want to collaborate, or just want to say hello?
+                I'm a message away — and I respond fast.
+              </p>
+              <div className="c-avail">
+                <StatusDot />
+                <span className="c-avail-text">open_to_work · Eldoret, KE · EAT (UTC+3)</span>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* ── STATS ── */}
+          <motion.div
+            className="c-stats"
+            style={{ marginBottom: 0 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            {stats.map((s, i) => (
+              <div key={i} className="c-stat">
+                <span className="c-stat-val" style={{ color: s.color }}>{s.value}</span>
+                <span className="c-stat-lbl">{s.label}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* ── TICKER ── */}
+          <div className="c-ticker" style={{ marginTop: 32 }}>
+            <div className="c-ticker-track">
+              {[...Array(2)].map((_, ri) =>
+                ['Open for Freelance', 'Available for Full-Time', 'Based in Eldoret KE', 'Remote-Ready', 'Fast Responder', 'Clean Code Advocate', 'M-Pesa Integration', 'Full-Stack Developer', 'React + Django'].map((t, i) => (
+                  <span key={`${ri}-${i}`} className="c-ticker-item">
+                    <span className="c-ticker-dot" style={{ borderRadius: '50%' }} />
+                    {t}
+                  </span>
+                ))
+              )}
+            </div>
+          </div>
 
           {/* ── MAIN GRID ── */}
-          <motion.div
-            className="h-grid"
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-          >
+          <div className="c-grid">
 
-            {/* ── LEFT ── */}
-            <div className="h-left">
-
-              {/* whoami prompt */}
+            {/* ── LEFT: Channels + Terminal ── */}
+            <motion.div
+              variants={stagger} initial="hidden" whileInView="show"
+              viewport={{ once: true, amount: 0.15 }}
+            >
               <motion.div variants={fadeUp}>
-                <TermLine prompt="$">whoami</TermLine>
-              </motion.div>
-
-              {/* Name */}
-              <motion.div variants={fadeUp}>
-                <h1 className="h-name">
-                  Brian<br />
-                  Mwa<span className="h-name-accent">lish</span>
-                </h1>
-              </motion.div>
-
-              {/* Typing title */}
-              <motion.div variants={fadeUp} className="h-title-row">
-                <span style={{
-                  fontFamily: "'Fira Code', monospace",
-                  fontSize: '0.65rem',
-                  color: '#4B5563',
-                  letterSpacing: '0.04em',
-                  flexShrink: 0,
-                }}>
-                  role:
-                </span>
-                <span className="h-title-text">
-                  <TypingTitle />
-                </span>
-              </motion.div>
-
-              {/* Bio */}
-              <motion.div variants={fadeUp}>
-                <p className="h-bio">
-                  > I develop scalable systems, intelligent software solutions,
-                   and modern applications with a focus on software architecture, 
-                   cloud infrastructure, machine learning, backend engineering, automation, 
-                   and emerging technologies. Passionate about building secure, high-performance,
-                    and data-driven solutions using modern software engineering principles
-                     and technologies.
-                </p>
-              </motion.div>
-
-              {/* Metrics */}
-              <motion.div variants={fadeUp}>
-                <p className="h-sec">// engineering metrics</p>
-                <div className="h-metrics">
-                  {metrics.map((m, i) => (
-                    <div key={i} className="h-metric">
-                      <span className="h-metric-val">{m.value}</span>
-                      <span className="h-metric-lbl">{m.label}</span>
+                <p className="c-section-label">// reach_me_on</p>
+                {contactChannels.map((ch, i) => (
+                  <motion.a
+                    key={i}
+                    href={ch.link}
+                    target={ch.link?.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="c-ch"
+                    onMouseEnter={() => setHoveredCard(i)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      borderColor: hoveredCard === i ? `${ch.accent}30` : 'rgba(255,255,255,0.06)',
+                      animationDelay: `${i * 0.06}s`,
+                    }}
+                    whileHover={{ x: 4 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  >
+                    <div className="c-ch-num">{ch.num}</div>
+                    <div
+                      className="c-ch-icon"
+                      style={{
+                        background: `${ch.accent}12`,
+                        borderColor: `${ch.accent}30`,
+                        color: ch.accent,
+                      }}
+                    >
+                      {ch.icon}
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Stack */}
-              <motion.div variants={fadeUp}>
-                <p className="h-sec">// tech stack</p>
-                <div className="h-stack">
-                  {stack.map((t, i) => <StackBadge key={i} label={t.label} color={t.color} />)}
-                </div>
-              </motion.div>
-
-              {/* Interests */}
-              <motion.div variants={fadeUp}>
-                <p className="h-sec">// interested in</p>
-                <div className="h-interests">
-                  {interests.map((t, i) => (
-                    <span key={i} className="h-interest">{t}</span>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div variants={fadeUp} className="h-btns">
-                <a
-                  href="https://github.com/Brian2021-Mwalish"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-btn-p"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 012.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55C20.22 21.4 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
-                  </svg>
-                  GitHub Profile
-                </a>
-                <a href="/BRIAN%20CV.pdf" download="BRIAN CV.pdf" className="h-btn-o">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M12 10v6m0 0l-3-3m3 3l3-3M7 19H5a2 2 0 01-2-2V7a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2h-2"/>
-                  </svg>
-                  Resume / CV
-                </a>
-                <a href="#projects" className="h-btn-o">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-                  </svg>
-                  View Projects
-                </a>
-              </motion.div>
-
-            </div>
-
-            {/* ── RIGHT ── */}
-            <motion.div className="h-right" variants={fadeIn}>
-
-              {/* Photo — IDE window style */}
-              <div className="h-imgcard">
-                <div className="h-win-bar" aria-hidden="true">
-                  <span className="h-dot" style={{ backgroundColor: '#FF5F57' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#FEBC2E' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#28C840' }} />
-                  <span className="h-win-label">brian_mwalish.jpg</span>
-                </div>
-                <img src={ownerImage} alt="Brian Mwalish — Software Engineer" />
-                <div className="h-img-overlay">
-                  <div>
-                    <p className="h-overlay-name">Brian Mwalish</p>
-                    <p className="h-overlay-loc">Eldoret, KE · Available</p>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <StatusDot />
-                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#22C55E' }}>online</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Terminal README */}
-              <div className="h-termcard">
-                <div className="h-win-bar" aria-hidden="true">
-                  <span className="h-dot" style={{ backgroundColor: '#FF5F57' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#FEBC2E' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#28C840' }} />
-                  <span className="h-win-label">README.md</span>
-                </div>
-                <div className="h-term-body">
-                  <TermLine prompt="$">git log --oneline --author="Brian"</TermLine>
-                  <TermLine prompt="›" dimPrompt>Built scalable REST APIs with Django</TermLine>
-                  <TermLine prompt="›" dimPrompt>Deployed microservices on AWS ECS</TermLine>
-                  <TermLine prompt="›" dimPrompt>Optimised PostgreSQL query performance</TermLine>
-                  <TermLine prompt="›" dimPrompt>Shipped 10+ production applications</TermLine>
-                  <TermLine prompt="$">_</TermLine>
-                </div>
-              </div>
-
-              {/* Credibility bar */}
-              <div className="h-cred">
-                {['Open Source', 'Problem Solver', 'System Thinker'].map((t, i) => (
-                  <div key={i} className="h-cred-item">
-                    <span className="h-cred-dot">◆</span>
-                    <span className="h-cred-text">{t}</span>
-                  </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div className="c-ch-lbl">{ch.label}</div>
+                      <div className="c-ch-val">{ch.value}</div>
+                      <div className="c-ch-sub">{ch.sub}</div>
+                      <span className="c-ch-action" style={{ color: ch.accent }}>
+                        <span style={{ opacity: 0.5 }}>$</span> {ch.cmd} {ch.action} →
+                      </span>
+                    </div>
+                    <CopyBtn text={ch.value} />
+                  </motion.a>
                 ))}
-              </div>
+              </motion.div>
 
+              {/* Terminal card */}
+              <motion.div variants={fadeUp} style={{ marginTop: 10 }}>
+                <div className="c-termcard">
+                  <div className="c-win-bar" aria-hidden="true">
+                    <span className="c-dot" style={{ backgroundColor: '#FF5F57', borderRadius: '50%' }} />
+                    <span className="c-dot" style={{ backgroundColor: '#FEBC2E', borderRadius: '50%' }} />
+                    <span className="c-dot" style={{ backgroundColor: '#28C840', borderRadius: '50%' }} />
+                    <span className="c-win-lbl">contact_info.sh</span>
+                  </div>
+                  <div className="c-term-body">
+                    <TermLine prompt="$">cat location.txt</TermLine>
+                    <TermLine prompt="›" dim>Eldoret, Kenya · EAT (UTC+3)</TermLine>
+                    <TermLine prompt="›" dim>Remote-first · Open to relocation</TermLine>
+                    <TermLine prompt="$">echo $AVAILABILITY</TermLine>
+                    <TermLine prompt="›" dim>Freelance ✓  Full-Time ✓  Contract ✓</TermLine>
+                    <TermLine prompt="$">_</TermLine>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
 
+            {/* ── RIGHT: Form + FAQ ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+            >
+              {/* Form */}
+              <div className="c-form-card">
+                <div className="c-win-bar" style={{ margin: '-32px -36px 24px', padding: '7px 14px' }} aria-hidden="true">
+                  <span className="c-dot" style={{ backgroundColor: '#FF5F57', borderRadius: '50%' }} />
+                  <span className="c-dot" style={{ backgroundColor: '#FEBC2E', borderRadius: '50%' }} />
+                  <span className="c-dot" style={{ backgroundColor: '#28C840', borderRadius: '50%' }} />
+                  <span className="c-win-lbl">compose_message.jsx</span>
+                </div>
+                <h3 className="c-form-title">Send a Message</h3>
+                <p className="c-form-sub">// your mail client will open with everything pre-filled</p>
+
+                <div className="c-form-row">
+                  <div className="c-form-group" style={{ marginBottom: 0 }}>
+                    <label className="c-form-lbl">name *</label>
+                    <input className="c-form-input" name="name" value={formData.name} onChange={handleChange} placeholder="Your name" autoComplete="off" />
+                  </div>
+                  <div className="c-form-group" style={{ marginBottom: 0 }}>
+                    <label className="c-form-lbl">email *</label>
+                    <input className="c-form-input" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="you@email.com" autoComplete="off" />
+                  </div>
+                </div>
+
+                <div className="c-form-group">
+                  <label className="c-form-lbl">project_type</label>
+                  <select className="c-form-select" name="type" value={formData.type} onChange={handleChange}>
+                    <option value="">Select a category…</option>
+                    {projectTypes.map((t, i) => <option key={i} value={t}>{t}</option>)}
+                  </select>
+                </div>
+
+                <div className="c-form-group">
+                  <label className="c-form-lbl">message *</label>
+                  <textarea className="c-form-textarea" name="message" value={formData.message} onChange={handleChange} placeholder="Hi Brian, I'd like to discuss…" maxLength={600} />
+                  <div className="c-char">{formData.message.length} / 600</div>
+                </div>
+
+                <button
+                  className={`c-form-btn${formState === 'sent' ? ' sent' : ''}`}
+                  onClick={handleSubmit}
+                  disabled={formState === 'sending' || !formData.name || !formData.email || !formData.message}
+                >
+                  {formState === 'sending' ? (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} style={{ animation: 'cSpin 1s linear infinite' }}>
+                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" strokeLinecap="round" />
+                      </svg>
+                      Opening Mail Client…
+                    </>
+                  ) : formState === 'sent' ? (
+                    <>
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                      Mail Client Opened ✓
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* FAQ */}
+              <div className="c-faq-card">
+                <p className="c-section-label">// common_questions</p>
+                <h3 className="c-faq-title">Quick Answers</h3>
+                <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.62rem', color: '#6B7280', margin: '4px 0 20px' }}>
+                  before we talk
+                </p>
+                {faqs.map((item, i) => <FaqItem key={i} item={item} index={i} />)}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ── BOTTOM CTA ── */}
+          <motion.div
+            className="c-cta"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div>
+              <h3 className="c-cta-heading">Ready to Start?</h3>
+              <p className="c-cta-sub">Every great project starts with a conversation. Let's build something that makes an impact.</p>
+            </div>
+            <div className="c-cta-btns">
+              <a href="mailto:brianmwalish@gmail.com" className="c-btn-p">
+                Email Me
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </a>
+              <a href="/BRIAN%20CV.pdf" download="BRIAN CV.pdf" className="c-btn-o">
+                Download CV
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M7 19H5a2 2 0 01-2-2V7a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2h-2" /></svg>
+              </a>
+            </div>
           </motion.div>
 
           {/* ── FOOTER ── */}
-          <footer className="h-foot">
-            <div className="h-foot-icons">
-              <span className="h-foot-label">STACK</span>
-              {techIcons.map((t, i) => (
-                <motion.img
-                  key={i}
-                  src={t.src}
-                  alt={t.alt}
-                  style={{ width: 19, height: 19, opacity: 0.35, filter: 'grayscale(65%)', cursor: 'pointer' }}
-                  whileHover={{ opacity: 1, scale: 1.3, filter: 'grayscale(0%)' }}
-                  transition={{ type: 'spring', stiffness: 400 }}
-                />
-              ))}
-            </div>
-            <div className="h-foot-copy">
-              <span className="h-foot-txt">© 2025 Brian Mwalish</span>
-              <span className="h-foot-sep" />
-              <span className="h-foot-txt">Software Engineer · Eldoret KE</span>
-            </div>
+          <footer className="c-foot">
+            <span className="c-foot-txt">© 2025 Brian Mwalish · Software Engineer · Eldoret KE</span>
+            <span className="c-foot-txt">brian.dev · section_03/contact</span>
           </footer>
 
         </div>
@@ -784,4 +867,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Contact;
