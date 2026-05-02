@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+
 import ownerImage from '../assets/brian.png';
 import reactLogo from "../assets/react.png";
 import pythonLogo from "../assets/python.png";
@@ -574,9 +575,9 @@ const Hero = () => {
 
             <nav className="h-nav" aria-label="Quick navigation">
               {[
-                { label: '~/github',   href: 'https://github.com/Brian2021-Mwalish' },
-                { label: '~/projects', href: '#projects' },
-                { label: '~/contact',  href: '#contact'  },
+                { label: '~/github', href: 'https://github.com/Brian2021-Mwalish' },
+                { label: 'projects', href: '#projects' },
+                { label: 'contact', href: '#contact' },
               ].map(l => (
                 <a key={l.label} href={l.href} className="h-chip">{l.label}</a>
               ))}
@@ -631,12 +632,12 @@ const Hero = () => {
               {/* Bio */}
               <motion.div variants={fadeUp}>
                 <p className="h-bio">
-                  > I develop scalable systems, intelligent software solutions,
-                   and modern applications with a focus on software architecture, 
-                   cloud infrastructure, machine learning, backend engineering, automation, 
-                   and emerging technologies. Passionate about building secure, high-performance,
-                    and data-driven solutions using modern software engineering principles
-                     and technologies.
+                  {'> '} I develop scalable systems, intelligent software solutions,
+                  and modern applications with a focus on software architecture,
+                  cloud infrastructure, machine learning, backend engineering, automation,
+                  and emerging technologies. Passionate about building secure, high-performance,
+                  and data-driven solutions using modern software engineering principles
+                  and technologies.
                 </p>
               </motion.div>
 
