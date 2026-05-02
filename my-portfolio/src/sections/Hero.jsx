@@ -146,7 +146,7 @@ const TermLine = ({ prompt = '$', dimPrompt, children }) => (
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
-const Hero = () => {
+const Hero = ({ onSectionChange }) => {
   const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
   const fadeUp  = {
     hidden: { opacity: 0, y: 22 },
@@ -672,6 +672,7 @@ const Hero = () => {
                   rel="noopener noreferrer"
                   className="h-btn-p"
                 >
+
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 012.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55C20.22 21.4 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
                   </svg>
@@ -683,7 +684,15 @@ const Hero = () => {
                   </svg>
                   Resume / CV
                 </a>
-                <a href="#projects" className="h-btn-o">
+                <a
+                  href="#projects"
+                  className="h-btn-o"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSectionChange && onSectionChange('projects');
+                  }}
+                >
+
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
                   </svg>
