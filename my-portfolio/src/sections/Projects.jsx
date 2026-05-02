@@ -16,7 +16,7 @@ const projects = [
     year: '2026',
     status: 'live',
     features: ['Student Enrollment', 'Course Management', 'Academic Records', 'Fee Tracking', 'Admin Portal', 'Staff Dashboard'],
-    metrics: [{ label: 'User Roles', val: 4 }, { label: 'Modules', val: 12 }, { label: 'Uptime', val: 99 }],
+    metrics: [{ label: 'User Roles', val: 4 }, { label: 'Modules', val: 12 }, { label: 'Uptime %', val: 99 }],
   },
   {
     title: 'Liquidity-Funding',
@@ -31,7 +31,7 @@ const projects = [
     year: '2025',
     status: 'live',
     features: ['M-Pesa Payment Integration', 'Real-Time Dashboard', 'Investment Tracking', 'Referral Program', 'Modern UI'],
-    metrics: [{ label: 'Components', val: 40 }, { label: 'API Endpoints', val: 28 }, { label: 'Uptime', val: 99 }],
+    metrics: [{ label: 'Components', val: 40 }, { label: 'API Endpoints', val: 28 }, { label: 'Uptime %', val: 99 }],
   },
   {
     title: 'Home-mAP Hub',
@@ -76,7 +76,7 @@ const projects = [
     year: '2025',
     status: 'live',
     features: ['Smart Real-Time Updates', 'Admin Dashboard', 'Customer Loyalty', 'Fully Responsive'],
-    metrics: [{ label: 'Tables Managed', val: 50 }, { label: 'Avg Booking ms', val: 320 }, { label: 'SMS Success', val: 98 }],
+    metrics: [{ label: 'Tables Managed', val: 50 }, { label: 'Avg Booking ms', val: 320 }, { label: 'SMS Success %', val: 98 }],
   },
   {
     title: 'Loyalty Dashboard',
@@ -107,23 +107,57 @@ const collabItems = [
   'Git-based team collaboration',
 ];
 
-// Tech usage tallied across all projects
 const techUsage = [
-  { name: 'React', count: 4 },
-  { name: 'Django', count: 4 },
-  { name: 'TypeScript', count: 3 },
-  { name: 'Tailwind CSS', count: 3 },
-  { name: 'PostgreSQL', count: 2 },
-  { name: 'FastAPI', count: 1 },
-  { name: 'Chart.js', count: 2 },
-  { name: 'Redux', count: 2 },
+  { name: 'React',       count: 4 },
+  { name: 'Django',      count: 4 },
+  { name: 'TypeScript',  count: 3 },
+  { name: 'Tailwind CSS',count: 3 },
+  { name: 'PostgreSQL',  count: 2 },
+  { name: 'Chart.js',    count: 2 },
+  { name: 'Redux',       count: 2 },
+  { name: 'FastAPI',     count: 1 },
 ];
 
 const CATEGORIES = ['All', 'Full-Stack', 'Dashboard'];
 
-// ─── COMPONENTS ──────────────────────────────────────────────────────────────
+// ─── STATUS DOT ──────────────────────────────────────────────────────────────
 
-// Animated number counter
+const StatusDot = () => (
+  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 10, height: 10 }}>
+    <span style={{
+      position: 'absolute', width: 10, height: 10, borderRadius: '50%',
+      backgroundColor: '#22C55E', opacity: 0.3,
+      animation: 'heroPing 1.5s cubic-bezier(0,0,0.2,1) infinite',
+    }} />
+    <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#22C55E', position: 'relative', zIndex: 1 }} />
+  </span>
+);
+
+// ─── TERM LINE ───────────────────────────────────────────────────────────────
+
+const TermLine = ({ prompt = '$', dimPrompt, children }) => (
+  <div style={{ display: 'flex', gap: 8, fontFamily: "'Fira Code', monospace", fontSize: '0.72rem', lineHeight: 1.65 }}>
+    <span style={{ color: dimPrompt ? '#374151' : '#22C55E', flexShrink: 0 }}>{prompt}</span>
+    <span style={{ color: '#9CA3AF' }}>{children}</span>
+  </div>
+);
+
+// ─── WIN BAR ─────────────────────────────────────────────────────────────────
+
+const WinBar = ({ label }) => (
+  <div style={{
+    display: 'flex', alignItems: 'center', gap: 5,
+    padding: '7px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)',
+  }}>
+    {[{ bg: '#FF5F57' }, { bg: '#FEBC2E' }, { bg: '#28C840' }].map((d, i) => (
+      <span key={i} style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: d.bg }} />
+    ))}
+    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#6B7280', marginLeft: 5 }}>{label}</span>
+  </div>
+);
+
+// ─── ANIMATED COUNTER ────────────────────────────────────────────────────────
+
 const Counter = ({ target, suffix = '' }) => {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
@@ -149,7 +183,8 @@ const Counter = ({ target, suffix = '' }) => {
   return <span ref={ref}>{val}{suffix}</span>;
 };
 
-// Copy-to-clipboard micro interaction
+// ─── COPY LINK BUTTON ────────────────────────────────────────────────────────
+
 const CopyLinkBtn = ({ url }) => {
   const [state, setState] = useState('idle');
 
@@ -170,43 +205,29 @@ const CopyLinkBtn = ({ url }) => {
       onClick={handleCopy}
       title="Copy link"
       style={{
-        background: state === 'copied' ? '#22C55E' : state === 'error' ? '#E63946' : '#F0EDE8',
-        border: '1.5px solid #D1CDC4',
+        fontFamily: "'Fira Code', monospace",
+        fontSize: '0.62rem',
+        background: state === 'copied' ? 'rgba(34,197,94,0.15)' : state === 'error' ? 'rgba(230,57,70,0.15)' : 'transparent',
+        border: `1px solid ${state === 'copied' ? 'rgba(34,197,94,0.4)' : state === 'error' ? 'rgba(230,57,70,0.4)' : 'rgba(107,114,128,0.2)'}`,
         borderRadius: 2,
-        padding: '6px 10px',
+        padding: '9px 10px',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
         gap: 5,
-        fontSize: '0.7rem',
-        fontWeight: 700,
-        letterSpacing: '0.06em',
-        color: state !== 'idle' ? '#fff' : '#1A1A2E',
-        transition: 'background 0.2s, color 0.2s',
+        color: state === 'copied' ? '#22C55E' : state === 'error' ? '#E63946' : '#6B7280',
+        transition: 'all 0.2s',
         flexShrink: 0,
-        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+        letterSpacing: '0.06em',
       }}
     >
-      {state === 'copied' ? (
-        <>
-          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-          COPIED
-        </>
-      ) : state === 'error' ? '✕ FAIL' : (
-        <>
-          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-          </svg>
-          LINK
-        </>
-      )}
+      {state === 'copied' ? '✓ copied' : state === 'error' ? '✕ fail' : '⧉ link'}
     </button>
   );
 };
 
-// Expandable detail drawer
+// ─── DETAIL DRAWER ───────────────────────────────────────────────────────────
+
 const DetailDrawer = ({ project, onClose }) => {
   useEffect(() => {
     const handler = (e) => { if (e.key === 'Escape') onClose(); };
@@ -221,7 +242,7 @@ const DetailDrawer = ({ project, onClose }) => {
       onClick={onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(26,26,46,0.55)',
+        background: 'rgba(13,17,23,0.85)',
         backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
         animation: 'fadeInOverlay 0.25s ease',
@@ -230,138 +251,139 @@ const DetailDrawer = ({ project, onClose }) => {
       <div
         onClick={e => e.stopPropagation()}
         style={{
-          background: '#F7F5F0',
-          borderTop: `4px solid ${project.accent}`,
-          borderLeft: '2px solid #1A1A2E',
-          borderRight: '2px solid #1A1A2E',
-          borderRadius: '4px 4px 0 0',
+          background: '#161B22',
+          borderTop: `3px solid ${project.accent}`,
+          border: `1px solid rgba(230,57,70,0.2)`,
+          borderTop: `3px solid ${project.accent}`,
+          borderRadius: '6px 6px 0 0',
           width: '100%',
           maxWidth: 760,
           maxHeight: '80vh',
           overflowY: 'auto',
-          padding: '40px 48px 48px',
           position: 'relative',
           animation: 'slideUp 0.35s cubic-bezier(.22,1,.36,1)',
-          fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
-          boxShadow: '0 -8px 40px rgba(26,26,46,0.18)',
+          fontFamily: "'DM Sans', ui-sans-serif, system-ui, sans-serif",
         }}
       >
-        <button
-          onClick={onClose}
-          style={{
-            position: 'absolute', top: 16, right: 16,
-            background: '#1A1A2E', color: '#F7F5F0',
-            border: 'none', borderRadius: 2,
-            width: 32, height: 32,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            cursor: 'pointer', fontSize: 18, lineHeight: 1,
-          }}
-        >×</button>
+        <WinBar label={`${project.title.toLowerCase().replace(/\s/g, '_')}.md`} />
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-          <div style={{ width: 4, height: 32, background: project.accent, borderRadius: 2 }} />
-          <span style={{
-            background: '#1A1A2E', color: '#F7F5F0',
-            fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em',
-            padding: '3px 10px', borderRadius: 2, textTransform: 'uppercase',
-          }}>{project.category}</span>
-          <span style={{ color: '#9A9590', fontSize: '0.78rem' }}>{project.year}</span>
-        </div>
+        <div style={{ padding: '32px 44px 44px' }}>
+          <button
+            onClick={onClose}
+            style={{
+              position: 'absolute', top: 44, right: 44,
+              background: '#E63946', color: '#fff',
+              border: 'none', borderRadius: 2,
+              width: 28, height: 28,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', fontSize: 16, lineHeight: 1,
+              fontFamily: "'Fira Code', monospace",
+            }}
+          >×</button>
 
-        <h2 style={{
-          fontFamily: "'Playfair Display', serif",
-          fontSize: '2.2rem', fontWeight: 900,
-          color: '#1A1A2E', margin: '0 0 16px',
-          letterSpacing: '-0.02em',
-        }}>{project.title}</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 4, height: 28, background: project.accent, borderRadius: 2 }} />
+            <span style={{
+              fontFamily: "'Fira Code', monospace",
+              fontSize: '0.6rem', fontWeight: 500, letterSpacing: '0.12em',
+              color: '#E63946', padding: '3px 8px', borderRadius: 2,
+              border: '1px solid rgba(230,57,70,0.3)', background: 'rgba(230,57,70,0.08)',
+              textTransform: 'uppercase',
+            }}>{project.category}</span>
+            <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.6rem', color: '#6B7280' }}>{project.year}</span>
+          </div>
 
-        <p style={{ color: '#4B4A56', fontSize: '0.95rem', lineHeight: 1.75, margin: '0 0 32px' }}>
-          {project.longDesc}
-        </p>
+          <h2 style={{
+            fontFamily: "'DM Serif Display', Georgia, serif",
+            fontSize: '2rem', fontWeight: 400,
+            color: '#E6EDF3', margin: '0 0 14px',
+            letterSpacing: '-0.02em',
+          }}>{project.title}</h2>
 
-        <div style={{ marginBottom: 32 }}>
-          <div style={{
-            fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em',
-            textTransform: 'uppercase', color: '#9A9590', marginBottom: 14,
-          }}>Project Metrics</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <p style={{ color: '#8B949E', fontSize: '0.88rem', lineHeight: 1.8, margin: '0 0 28px' }}>
+            {project.longDesc}
+          </p>
+
+          {/* Metrics */}
+          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// project metrics</p>
+          <div style={{ marginBottom: 24 }}>
             {project.metrics.map((m, i) => (
-              <div key={i}>
+              <div key={i} style={{ marginBottom: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                  <span style={{ fontSize: '0.82rem', color: '#4B4A56', fontWeight: 500 }}>{m.label}</span>
-                  <span style={{ fontSize: '0.82rem', color: '#1A1A2E', fontWeight: 700 }}>{m.val}{m.label.includes('Uptime') || m.label.includes('Success') ? '%' : ''}</span>
+                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.7rem', color: '#8B949E' }}>{m.label}</span>
+                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.7rem', color: '#E6EDF3', fontWeight: 500 }}>{m.val}</span>
                 </div>
-                <div style={{ height: 6, background: '#E8E4DC', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{ height: 5, background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
                   <div style={{
                     height: '100%',
                     width: `${Math.round((m.val / maxMetric) * 100)}%`,
                     background: project.accent,
-                    borderRadius: 3,
+                    borderRadius: 2,
                     transition: 'width 0.8s cubic-bezier(.22,1,.36,1)',
                   }} />
                 </div>
               </div>
             ))}
           </div>
-        </div>
 
-        <div style={{ marginBottom: 32 }}>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9590', marginBottom: 12 }}>Key Features</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {/* Features */}
+          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// key features</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 24 }}>
             {project.features.map((f, i) => (
               <span key={i} style={{
-                background: project.accent + '18',
-                border: `1.5px solid ${project.accent}55`,
-                color: '#1A1A2E',
-                fontSize: '0.8rem', fontWeight: 600,
-                padding: '5px 14px', borderRadius: 2,
+                fontFamily: "'Fira Code', monospace", fontSize: '0.68rem', color: '#22C55E',
+                padding: '4px 12px', borderRadius: 2,
+                border: '1px solid rgba(34,197,94,0.25)', background: 'rgba(34,197,94,0.08)',
               }}>{f}</span>
             ))}
           </div>
-        </div>
 
-        <div style={{ marginBottom: 32 }}>
-          <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#9A9590', marginBottom: 12 }}>Tech Stack</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {/* Tech */}
+          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// tech stack</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 28 }}>
             {project.tech.map((t, i) => (
               <span key={i} style={{
-                background: '#F0EDE8', color: '#1A1A2E',
-                fontSize: '0.78rem', fontWeight: 600,
-                padding: '5px 14px', borderRadius: 2,
-                border: '1px solid #D1CDC4',
+                fontFamily: "'Fira Code', monospace", fontSize: '0.68rem', color: '#6B7280',
+                padding: '4px 12px', borderRadius: 2,
+                border: '1px solid rgba(107,114,128,0.2)', background: 'rgba(107,114,128,0.06)',
               }}>{t}</span>
             ))}
           </div>
-        </div>
 
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          {project.live && (
-            <a href={project.live} target="_blank" rel="noopener noreferrer" style={{
-              background: '#1A1A2E', color: '#F7F5F0',
-              padding: '12px 28px', borderRadius: 2,
-              fontSize: '0.85rem', fontWeight: 700,
-              letterSpacing: '0.05em', textDecoration: 'none',
-              border: '2px solid #1A1A2E',
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              transition: 'background 0.2s',
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = project.accent}
-              onMouseLeave={e => e.currentTarget.style.background = '#1A1A2E'}
-            >
-              View Live ↗
-            </a>
-          )}
-          <a href={project.github} target="_blank" rel="noopener noreferrer" style={{
-            background: 'transparent', color: '#1A1A2E',
-            padding: '12px 28px', borderRadius: 2,
-            fontSize: '0.85rem', fontWeight: 700,
-            letterSpacing: '0.05em', textDecoration: 'none',
-            border: '2px solid #1A1A2E',
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-          }}>
-            GitHub →
-          </a>
-          {project.live && <CopyLinkBtn url={project.live} />}
+          {/* Buttons */}
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            {project.live && (
+              <a
+                href={project.live} target="_blank" rel="noopener noreferrer"
+                style={{
+                  fontFamily: "'Syne', sans-serif", fontSize: '0.72rem', fontWeight: 700,
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  background: '#E63946', color: '#fff',
+                  padding: '11px 24px', borderRadius: 3,
+                  border: '1.5px solid #E63946', textDecoration: 'none',
+                  display: 'inline-flex', alignItems: 'center', gap: 7,
+                  transition: 'background 0.18s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = '#C62833'}
+                onMouseLeave={e => e.currentTarget.style.background = '#E63946'}
+              >View Live ↗</a>
+            )}
+            <a
+              href={project.github} target="_blank" rel="noopener noreferrer"
+              style={{
+                fontFamily: "'Syne', sans-serif", fontSize: '0.72rem', fontWeight: 700,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                background: 'transparent', color: '#8B949E',
+                padding: '11px 24px', borderRadius: 3,
+                border: '1.5px solid rgba(139,148,158,0.22)', textDecoration: 'none',
+                display: 'inline-flex', alignItems: 'center', gap: 7,
+                transition: 'all 0.18s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#E63946'; e.currentTarget.style.color = '#E63946'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(139,148,158,0.22)'; e.currentTarget.style.color = '#8B949E'; }}
+            >GitHub →</a>
+            {project.live && <CopyLinkBtn url={project.live} />}
+          </div>
         </div>
       </div>
     </div>
@@ -372,11 +394,11 @@ const DetailDrawer = ({ project, onClose }) => {
 
 const Projects = ({ onSectionChange }) => {
   const sectionRef = useRef(null);
+  const techRef = useRef(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
   const [openProject, setOpenProject] = useState(null);
   const [techBarReady, setTechBarReady] = useState(false);
-  const techRef = useRef(null);
 
   const filtered = activeCategory === 'All'
     ? projects
@@ -395,607 +417,610 @@ const Projects = ({ onSectionChange }) => {
   return (
     <>
       <style>{`
-        @keyframes slideUp {
-          from { transform: translateY(60px); opacity: 0; }
-          to   { transform: translateY(0);    opacity: 1; }
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&display=swap');
+
+        @keyframes heroPing {
+          75%, 100% { transform: scale(2); opacity: 0; }
+        }
+        @keyframes heroGrid {
+          0%   { background-position: 0 0; }
+          100% { background-position: 0 40px; }
+        }
+        @keyframes heroScan {
+          0%   { transform: translateY(-5%); }
+          100% { transform: translateY(110vh); }
         }
         @keyframes fadeInOverlay {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
+        @keyframes slideUp {
+          from { transform: translateY(60px); opacity: 0; }
+          to   { transform: translateY(0);    opacity: 1; }
+        }
         @keyframes fadeInCard {
-          from { opacity: 0; transform: translateY(24px); }
+          from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        .proj-root {
-          font-family: 'DM Sans', sans-serif;
-          background-color: #F7F5F0;
-          min-height: 100vh;
+        *, *::before, *::after { box-sizing: border-box; }
+
+        .pr-root {
+          font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+          background-color: #0D1117;
+          min-height: 100dvh;
+          color: #E6EDF3;
           position: relative;
           overflow: hidden;
         }
-        .proj-root::before {
+        .pr-root::before {
           content: '';
           position: absolute; inset: 0;
-          background-image: repeating-linear-gradient(
-            0deg, transparent, transparent 47px, #E2DDD5 47px, #E2DDD5 48px
-          );
-          pointer-events: none; z-index: 0;
+          background-image: radial-gradient(circle, rgba(230,57,70,0.07) 1px, transparent 1px);
+          background-size: 40px 40px;
+          animation: heroGrid 6s linear infinite;
+          pointer-events: none;
+          z-index: 0;
         }
-        .proj-accent-bar {
-          position: absolute; top: 0; left: 0;
-          width: 8px; height: 100%;
-          background-color: #1A1A2E; z-index: 2;
+        .pr-root::after {
+          content: '';
+          position: absolute; left: 0; right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.05) 50%, transparent 100%);
+          animation: heroScan 9s linear infinite;
+          pointer-events: none;
+          z-index: 1;
         }
-        .proj-inner {
+
+        .pr-glow-r { position: absolute; top: -140px; left: -100px; width: 550px; height: 550px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+        .pr-glow-b { position: absolute; bottom: -100px; right: -60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(26,26,46,0.55) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+
+        .pr-shell {
           position: relative; z-index: 10;
-          max-width: 1440px; margin: 0 auto;
-          padding: 80px 48px 80px 72px;
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 0 24px;
+          display: flex;
+          flex-direction: column;
+          min-height: 100dvh;
+        }
+
+        /* TOP BAR */
+        .pr-bar {
+          display: flex; align-items: center;
+          justify-content: space-between;
+          padding: 18px 0 14px;
+          border-bottom: 1px solid rgba(230,57,70,0.14);
+          gap: 12px; flex-wrap: wrap;
+        }
+        .pr-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: #E6EDF3; white-space: nowrap; }
+        .pr-logo span { color: #E63946; }
+        .pr-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+        .pr-chip {
+          font-family: 'Fira Code', monospace;
+          font-size: 0.62rem; color: #6B7280;
+          padding: 3px 8px; border: 1px solid rgba(107,114,128,0.18);
+          border-radius: 2px; letter-spacing: 0.06em;
+          white-space: nowrap; text-decoration: none; cursor: pointer;
+          transition: border-color 0.18s, color 0.18s;
+          background: transparent;
+        }
+        .pr-chip:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
+        .pr-chip.active { border-color: rgba(230,57,70,0.4); color: #E63946; }
+        .pr-status { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+        .pr-status span { font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #22C55E; }
+
+        /* INNER */
+        .pr-inner { flex: 1; padding: 44px 0 60px; }
+
+        /* SECTION LABEL */
+        .pr-sec {
+          font-family: 'Fira Code', monospace;
+          font-size: 0.58rem; font-weight: 500;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #E63946; margin-bottom: 9px;
         }
 
         /* HEADER */
-        .proj-header {
+        .pr-header-row {
           display: flex; align-items: flex-start;
           justify-content: space-between; gap: 32px;
-          margin-bottom: 48px; flex-wrap: wrap;
+          flex-wrap: wrap; margin-bottom: 36px;
         }
-        .proj-section-label {
+        .pr-heading {
+          font-family: 'DM Serif Display', Georgia, serif;
+          font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 400;
+          color: #E6EDF3; line-height: 0.92;
+          letter-spacing: -0.03em; margin: 0 0 0;
+        }
+        .pr-heading em { color: #E63946; font-style: italic; }
+        .pr-section-tag {
           display: inline-flex; align-items: center; gap: 8px;
-          background-color: #1A1A2E; color: #F7F5F0;
-          font-size: 0.72rem; font-weight: 600;
-          letter-spacing: 0.14em; text-transform: uppercase;
-          padding: 6px 14px; border-radius: 2px; margin-bottom: 16px;
+          font-family: 'Fira Code', monospace;
+          font-size: 0.58rem; font-weight: 500;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: #E63946; margin-bottom: 12px;
         }
-        .proj-heading {
-          font-family: 'Playfair Display', Georgia, serif;
-          font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900;
-          color: #1A1A2E; line-height: 0.95;
-          letter-spacing: -0.03em; margin: 0;
-        }
-        .proj-heading span { color: #E63946; }
-        .proj-subtext {
-          font-size: 1rem; color: #4B4A56;
-          line-height: 1.75; max-width: 380px;
-          margin: 20px 0 0; align-self: flex-end;
+        .pr-subtext {
+          font-size: 0.88rem; color: #8B949E;
+          line-height: 1.82; max-width: 440px;
+          align-self: flex-end; margin: 0;
         }
 
-        /* STATS ROW */
-        .stats-row {
-          display: flex; gap: 0;
-          border: 2px solid #1A1A2E; border-radius: 4px;
-          overflow: hidden; margin-bottom: 48px;
-          box-shadow: 4px 4px 0 #D1CDC4;
+        /* STATS */
+        .pr-stats {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          gap: 1px; border: 1px solid rgba(230,57,70,0.14);
+          border-radius: 4px; overflow: hidden;
+          background-color: rgba(230,57,70,0.07);
+          margin-bottom: 36px;
         }
-        .stat-cell {
-          flex: 1; padding: 20px 28px;
-          border-right: 2px solid #1A1A2E;
-          background: #fff;
+        .pr-stat { background-color: #0D1117; padding: 18px 10px; text-align: center; }
+        .pr-stat-val {
+          font-family: 'DM Serif Display', serif;
+          font-size: clamp(1.5rem, 2.5vw, 2rem); color: #E6EDF3;
+          display: block; line-height: 1;
         }
-        .stat-cell:last-child { border-right: none; }
-        .stat-num {
-          font-family: 'Playfair Display', serif;
-          font-size: 2.2rem; font-weight: 900;
-          color: #1A1A2E; line-height: 1;
-          display: block; margin-bottom: 2px;
-        }
-        .stat-label {
-          font-size: 0.68rem; font-weight: 600;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: #9A9590;
+        .pr-stat-val.accent { color: #E63946; }
+        .pr-stat-lbl {
+          font-family: 'Fira Code', monospace; font-size: 0.52rem;
+          color: #6B7280; letter-spacing: 0.1em; text-transform: uppercase;
+          display: block; margin-top: 5px;
         }
 
-        /* DIVIDER */
-        .proj-divider {
-          display: flex; align-items: center; gap: 12px; margin-bottom: 36px;
+        /* FILTER */
+        .pr-filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 32px; }
+        .pr-filter-btn {
+          font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #6B7280;
+          padding: 5px 12px; border: 1px solid rgba(107,114,128,0.2); border-radius: 2px;
+          letter-spacing: 0.06em; cursor: pointer; transition: all .18s; background: transparent;
         }
-        .proj-divider-line { height: 2px; background-color: #1A1A2E; flex: 0 0 48px; }
-        .proj-divider-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #E63946; }
-        .proj-divider-text {
-          font-size: 0.8rem; font-weight: 600;
-          letter-spacing: 0.1em; text-transform: uppercase; color: #9A9590;
-        }
-
-        /* FILTER TABS */
-        .filter-row {
-          display: flex; align-items: center; gap: 8px;
-          margin-bottom: 40px; flex-wrap: wrap;
-        }
-        .filter-label {
-          font-size: 0.72rem; font-weight: 600;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: #9A9590; margin-right: 4px;
-        }
-        .filter-btn {
-          padding: 8px 20px; border-radius: 2px;
-          border: 2px solid #1A1A2E;
-          font-family: 'DM Sans', sans-serif;
-          font-size: 0.82rem; font-weight: 600;
-          letter-spacing: 0.05em; cursor: pointer;
-          transition: background 0.18s, color 0.18s;
-          position: relative;
-        }
-        .filter-btn.active {
-          background: #1A1A2E; color: #F7F5F0;
-        }
-        .filter-btn:not(.active) {
-          background: transparent; color: #1A1A2E;
-        }
-        .filter-btn:not(.active):hover {
-          background: #E8E4DC;
-        }
-        .filter-count {
+        .pr-filter-btn:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
+        .pr-filter-btn.active { border-color: #E63946; color: #E63946; background: rgba(230,57,70,0.08); }
+        .pr-filter-count {
           display: inline-flex; align-items: center; justify-content: center;
           background: #E63946; color: #fff;
-          width: 18px; height: 18px; border-radius: 50%;
-          font-size: 0.6rem; font-weight: 800;
-          margin-left: 6px; vertical-align: middle;
+          width: 16px; height: 16px; border-radius: 50%;
+          font-size: 0.55rem; font-weight: 800; margin-left: 5px; vertical-align: middle;
         }
 
         /* COLLAB */
-        .collab-card {
-          background-color: #1A1A2E; color: #F7F5F0;
-          border-radius: 4px; border: 2px solid #1A1A2E;
-          box-shadow: 8px 8px 0 #E63946;
-          padding: 40px 48px; margin-bottom: 64px;
-          position: relative; overflow: hidden;
+        .pr-collab {
+          border: 1px solid rgba(230,57,70,0.18); border-radius: 6px;
+          background-color: #161B22; overflow: hidden; margin-bottom: 40px;
+          position: relative;
         }
-        .collab-card::after {
-          content: 'TEAM'; position: absolute;
-          right: -6px; top: 12px;
-          font-family: 'Playfair Display', serif;
-          font-size: 6rem; font-weight: 900;
-          color: rgba(255,255,255,0.04); letter-spacing: -2px;
+        .pr-collab::before {
+          content: 'COLLAB'; position: absolute; right: -12px; top: 38px;
+          font-family: 'DM Serif Display', serif; font-size: 6rem; font-weight: 400;
+          color: rgba(230,57,70,0.04); letter-spacing: -2px;
           pointer-events: none; user-select: none;
         }
-        .collab-icon-wrap {
-          width: 56px; height: 56px; background-color: #E63946;
-          border-radius: 2px; display: flex; align-items: center;
-          justify-content: center; flex-shrink: 0; margin-bottom: 20px;
-        }
-        .collab-title {
-          font-family: 'Playfair Display', Georgia, serif;
-          font-size: 1.9rem; font-weight: 700; color: #F7F5F0;
-          margin: 0 0 8px; letter-spacing: -0.02em;
-        }
-        .collab-sub {
-          font-size: 0.95rem; color: #A8A4A0;
-          line-height: 1.7; max-width: 600px; margin: 0 0 28px;
-        }
-        .collab-grid {
-          display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-          gap: 10px 20px;
-        }
-        .collab-item {
-          display: flex; align-items: flex-start; gap: 10px;
-          font-size: 0.88rem; color: #C8C4C0; line-height: 1.5;
-        }
-        .collab-arrow { color: #E63946; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
+        .pr-collab-body { padding: 24px 28px 28px; }
+        .pr-collab-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #E6EDF3; margin: 0 0 8px; }
+        .pr-collab-sub { font-size: 0.85rem; color: #8B949E; line-height: 1.75; margin: 0 0 20px; }
+        .pr-collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px 16px; }
+        .pr-collab-item { display: flex; align-items: flex-start; gap: 8px; font-family: 'Fira Code', monospace; font-size: 0.68rem; color: #6B7280; line-height: 1.5; }
+        .pr-collab-arrow { color: #E63946; flex-shrink: 0; margin-top: 1px; }
 
-        /* GRID — 3 equal columns that fill full width */
-        .proj-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 28px;
-          margin-bottom: 64px;
-          width: 100%;
-        }
+        /* GRID */
+        .pr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
 
         /* CARD */
-        .proj-card {
-          background-color: #FFFFFF; border: 2px solid #1A1A2E;
-          border-radius: 4px; padding: 32px;
+        .pr-card {
+          background-color: #161B22;
+          border: 1px solid rgba(230,57,70,0.15);
+          border-radius: 6px; padding: 28px;
           display: flex; flex-direction: column;
           position: relative; overflow: hidden;
-          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
+          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color .2s;
           cursor: pointer;
           animation: fadeInCard 0.5s ease both;
-          width: 100%;
-          box-sizing: border-box;
         }
-        .proj-card:hover { transform: translateY(-6px); }
-        .card-num {
-          position: absolute; top: 14px; right: 18px;
-          font-family: 'Playfair Display', serif;
-          font-size: 4.5rem; font-weight: 900; color: #F0EDE8;
-          line-height: 1; letter-spacing: -3px;
+        .pr-card:hover { transform: translateY(-5px); border-color: rgba(230,57,70,0.35); }
+        .pr-card-num {
+          position: absolute; top: 10px; right: 14px;
+          font-family: 'DM Serif Display', serif; font-size: 4rem; font-weight: 400;
+          color: rgba(230,57,70,0.06); line-height: 1; letter-spacing: -3px;
           pointer-events: none; user-select: none;
         }
-        .card-top {
-          display: flex; justify-content: space-between;
-          align-items: flex-start; margin-bottom: 16px; gap: 8px;
+        .pr-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 8px; }
+        .pr-card-top-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .pr-card-cat {
+          font-family: 'Fira Code', monospace; font-size: 0.6rem; font-weight: 500;
+          letter-spacing: 0.12em; text-transform: uppercase;
+          color: #E63946; padding: 3px 8px; border-radius: 2px;
+          border: 1px solid rgba(230,57,70,0.3); background: rgba(230,57,70,0.08);
         }
-        .card-top-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .card-category {
-          display: inline-block; background-color: #1A1A2E; color: #F7F5F0;
-          font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
-          text-transform: uppercase; padding: 4px 10px; border-radius: 2px;
-        }
-        .card-year {
-          font-size: 0.68rem; font-weight: 600; color: #9A9590;
-          letter-spacing: 0.06em;
-        }
-        .card-status {
-          display: flex; align-items: center; gap: 6px;
-          font-size: 0.7rem; font-weight: 500; color: #9A9590;
-        }
-        .card-status-dot { width: 7px; height: 7px; border-radius: 50%; }
-        .card-accent-bar { height: 3px; border-radius: 2px; margin-bottom: 18px; width: 36px; }
-        .card-title {
-          font-family: 'Playfair Display', Georgia, serif;
-          font-size: 1.5rem; font-weight: 700; color: #1A1A2E;
-          margin: 0 0 12px; line-height: 1.15; letter-spacing: -0.02em;
-        }
-        .card-desc {
-          font-size: 0.88rem; color: #4B4A56;
-          line-height: 1.7; margin: 0 0 20px; flex: 1;
-          display: -webkit-box; -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical; overflow: hidden;
-        }
-        .card-features {
-          display: grid; grid-template-columns: 1fr 1fr;
-          gap: 6px 12px; margin-bottom: 20px;
-        }
-        .card-feat-item {
-          display: flex; align-items: flex-start; gap: 6px;
-          font-size: 0.78rem; color: #4B4A56; line-height: 1.4;
-        }
-        .card-feat-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-        .card-tech-row {
-          display: flex; flex-wrap: wrap; gap: 6px;
-          margin-bottom: 22px; padding-bottom: 20px;
-          border-bottom: 1.5px solid #E8E4DC;
-        }
-        .card-tech-pill {
-          background-color: #F0EDE8; color: #1A1A2E;
-          font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
-          padding: 3px 10px; border-radius: 2px; border: 1px solid #D1CDC4;
-        }
-        .card-btns { display: flex; gap: 8px; margin-top: auto; }
-        .card-btn-live {
-          flex: 1; display: inline-flex; align-items: center;
-          justify-content: center; gap: 6px;
-          background-color: #1A1A2E; color: #F7F5F0;
-          font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
-          font-weight: 600; letter-spacing: 0.05em; padding: 10px 14px;
-          border-radius: 2px; text-decoration: none; border: 2px solid #1A1A2E;
-          transition: background 0.2s, color 0.2s; cursor: pointer;
-        }
-        .card-btn-live:hover { background-color: #E63946; border-color: #E63946; }
-        .card-btn-gh {
-          flex: 1; display: inline-flex; align-items: center;
-          justify-content: center; gap: 6px;
-          background-color: transparent; color: #1A1A2E;
-          font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
-          font-weight: 600; letter-spacing: 0.05em; padding: 10px 14px;
-          border-radius: 2px; text-decoration: none; border: 2px solid #1A1A2E;
-          transition: background 0.2s, color 0.2s; cursor: pointer;
-        }
-        .card-btn-gh:hover { background-color: #1A1A2E; color: #F7F5F0; }
-        .card-btn-detail {
-          display: inline-flex; align-items: center; justify-content: center;
-          background-color: transparent; color: #9A9590;
-          border: 2px solid #E8E4DC; border-radius: 2px;
-          padding: 10px 12px; cursor: pointer; font-size: 0.75rem;
-          font-weight: 600; letter-spacing: 0.06em; font-family: 'DM Sans', sans-serif;
-          transition: background 0.2s, color 0.2s, border-color 0.2s;
-          white-space: nowrap;
-        }
-        .card-btn-detail:hover { background: #F0EDE8; color: #1A1A2E; border-color: #1A1A2E; }
+        .pr-card-year { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; }
+        .pr-card-status { display: flex; align-items: center; gap: 5px; font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; }
+        .pr-card-status-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .pr-card-accent { height: 2px; border-radius: 2px; margin-bottom: 14px; width: 32px; }
+        .pr-card-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #E6EDF3; margin: 0 0 10px; line-height: 1.15; letter-spacing: -0.02em; }
+        .pr-card-desc { font-size: 0.82rem; color: #8B949E; line-height: 1.7; margin: 0 0 16px; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .pr-card-features { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 10px; margin-bottom: 16px; }
+        .pr-feat-item { display: flex; align-items: flex-start; gap: 5px; font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #6B7280; line-height: 1.4; }
+        .pr-feat-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+        .pr-card-tech-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .pr-tech-pill { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; padding: 2px 8px; border-radius: 2px; border: 1px solid rgba(107,114,128,0.2); background: rgba(107,114,128,0.06); }
 
-        /* TECH STACK SECTION */
-        .tech-section {
-          background: #fff; border: 2px solid #1A1A2E;
-          border-radius: 4px; padding: 36px 40px;
-          margin-bottom: 64px; box-shadow: 4px 4px 0 #D1CDC4;
-          position: relative; overflow: hidden;
+        /* CARD BUTTONS */
+        .pr-card-btns { display: flex; gap: 7px; margin-top: auto; }
+        .pr-btn-live {
+          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+          font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700;
+          letter-spacing: 0.08em; text-transform: uppercase;
+          background-color: #E63946; color: #fff;
+          padding: 9px 12px; border-radius: 3px;
+          border: 1.5px solid #E63946; cursor: pointer;
+          transition: background .18s, transform .15s; text-decoration: none;
         }
-        .tech-section-title {
-          font-family: 'Playfair Display', serif;
-          font-size: 1.4rem; font-weight: 700; color: #1A1A2E;
-          margin: 0 0 6px; letter-spacing: -0.02em;
+        .pr-btn-live:hover { background: #C62833; transform: translateY(-1px); }
+        .pr-btn-gh {
+          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+          font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700;
+          letter-spacing: 0.08em; text-transform: uppercase;
+          background: transparent; color: #8B949E;
+          padding: 9px 12px; border-radius: 3px;
+          border: 1.5px solid rgba(139,148,158,0.22); cursor: pointer;
+          transition: all .18s; text-decoration: none;
         }
-        .tech-section-sub {
-          font-size: 0.85rem; color: #9A9590; margin: 0 0 28px;
+        .pr-btn-gh:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
+        .pr-btn-detail {
+          display: inline-flex; align-items: center; justify-content: center;
+          font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280;
+          background: transparent; border: 1px solid rgba(107,114,128,0.2); border-radius: 2px;
+          padding: 9px 10px; cursor: pointer; transition: all .18s; white-space: nowrap;
         }
-        .tech-bar-row {
-          display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+        .pr-btn-detail:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
+
+        /* TECH SECTION */
+        .pr-tech-section {
+          border: 1px solid rgba(230,57,70,0.13); border-radius: 6px;
+          background-color: #161B22; overflow: hidden; margin-bottom: 40px;
         }
-        .tech-bar-label {
-          font-size: 0.82rem; font-weight: 600; color: #1A1A2E;
-          width: 110px; flex-shrink: 0;
-        }
-        .tech-bar-track {
-          flex: 1; height: 10px; background: #F0EDE8;
-          border-radius: 2px; overflow: hidden;
-        }
-        .tech-bar-fill {
-          height: 100%; border-radius: 2px;
-          background: #1A1A2E;
-          transition: width 0.9s cubic-bezier(.22,1,.36,1);
-        }
-        .tech-bar-count {
-          font-size: 0.78rem; font-weight: 700;
-          color: #4B4A56; width: 28px; text-align: right; flex-shrink: 0;
-        }
+        .pr-tech-body { padding: 24px 28px 28px; }
+        .pr-tech-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #E6EDF3; margin: 0 0 4px; }
+        .pr-tech-sub { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; margin: 0 0 20px; letter-spacing: 0.04em; }
+        .pr-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .pr-bar-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #8B949E; width: 100px; flex-shrink: 0; }
+        .pr-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+        .pr-bar-fill { height: 100%; border-radius: 2px; transition: width 0.9s cubic-bezier(.22,1,.36,1); }
+        .pr-bar-count { font-family: 'Fira Code', monospace; font-size: 0.65rem; color: #6B7280; width: 24px; text-align: right; flex-shrink: 0; }
 
         /* CTA */
-        .proj-cta {
-          background-color: #1A1A2E; border-radius: 4px;
-          border: 2px solid #1A1A2E; box-shadow: 8px 8px 0 #E63946;
-          padding: 56px 48px;
-          display: flex; align-items: center;
-          justify-content: space-between;
-          gap: 40px; flex-wrap: wrap;
-          position: relative; overflow: hidden;
+        .pr-cta {
+          border: 1px solid rgba(230,57,70,0.2); border-radius: 6px;
+          background-color: #161B22; overflow: hidden;
+          position: relative;
         }
-        .proj-cta::after {
-          content: '→'; position: absolute;
-          right: 160px; top: 50%; transform: translateY(-50%);
-          font-family: 'Playfair Display', serif; font-size: 10rem; font-weight: 900;
-          color: rgba(255,255,255,0.03); pointer-events: none; user-select: none;
+        .pr-cta::before {
+          content: '';position: absolute; top: -100px; right: -100px;
+          width: 300px; height: 300px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%);
+          pointer-events: none;
         }
-        .cta-heading {
-          font-family: 'Playfair Display', Georgia, serif;
-          font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700;
-          color: #F7F5F0; margin: 0 0 8px; letter-spacing: -0.02em;
+        .pr-cta-body {
+          padding: 36px 44px;
+          display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
         }
-        .cta-sub { font-size: 0.95rem; color: #A8A4A0; line-height: 1.65; max-width: 440px; margin: 0; }
-        .cta-btn {
-          display: inline-flex; align-items: center; gap: 10px;
-          background-color: #E63946; color: #F7F5F0;
-          font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
-          font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-          padding: 16px 36px; border-radius: 2px; border: none;
-          cursor: pointer; white-space: nowrap; flex-shrink: 0;
-          transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-          box-shadow: 4px 4px 0 #F7F5F0;
+        .pr-cta-heading { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); color: #E6EDF3; margin: 0 0 8px; letter-spacing: -0.02em; }
+        .pr-cta-sub { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: '#6B7280'; line-height: 1.75; max-width: 400px; margin: 0; color: #6B7280; }
+        .pr-cta-btns { display: flex; gap: 9px; flex-wrap: wrap; }
+        .pr-btn-p {
+          font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          background-color: #E63946; color: #fff;
+          padding: 11px 20px; border-radius: 3px; border: 1.5px solid #E63946;
+          text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+          transition: background-color .18s, transform .15s; cursor: pointer; white-space: nowrap;
         }
-        .cta-btn:hover { opacity: 0.92; transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #F7F5F0; }
+        .pr-btn-p:hover { background-color: #C62833; transform: translateY(-1px); }
+        .pr-btn-o {
+          font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          background-color: transparent; color: #8B949E;
+          padding: 11px 20px; border-radius: 3px; border: 1.5px solid rgba(139,148,158,0.22);
+          text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+          transition: border-color .18s, color .18s, transform .15s; cursor: pointer; white-space: nowrap;
+        }
+        .pr-btn-o:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
 
-        /* CORNER NUM */
-        .proj-corner-num {
-          position: absolute; top: 32px; right: 48px;
-          font-family: 'Playfair Display', serif;
-          font-size: clamp(5rem, 12vw, 10rem); font-weight: 900;
-          color: #E2DDD5; line-height: 1;
-          user-select: none; pointer-events: none; z-index: 1; letter-spacing: -0.04em;
+        /* FOOTER */
+        .pr-foot {
+          border-top: 1px solid rgba(230,57,70,0.09);
+          padding: 11px 0 15px;
+          display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
         }
+        .pr-foot-txt { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: #374151; }
 
-        /* EMPTY STATE */
-        .empty-state {
-          text-align: center; padding: 80px 40px;
-          color: #9A9590; font-size: 1rem; grid-column: 1 / -1;
-        }
-        .empty-state strong {
-          display: block; font-family: 'Playfair Display', serif;
-          font-size: 1.4rem; color: #4B4A56; margin-bottom: 8px;
-        }
+        /* WIN BAR shared */
+        .pr-winbar { display: flex; align-items: center; gap: 5px; padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); background-color: #161B22; }
+        .pr-wdot { width: 9px; height: 9px; border-radius: 50%; }
+        .pr-wlabel { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: #6B7280; margin-left: 5px; }
+
+        /* EMPTY */
+        .pr-empty { text-align: center; padding: 60px 40px; color: #6B7280; grid-column: 1 / -1; font-family: 'Fira Code', monospace; font-size: 0.78rem; }
 
         /* RESPONSIVE */
-        @media (max-width: 1200px) {
-          .proj-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        }
         @media (max-width: 900px) {
-          .proj-inner { padding: 60px 24px 60px 40px; }
-          .proj-grid { grid-template-columns: repeat(2, 1fr); }
-          .collab-card { padding: 32px 24px; }
-          .proj-cta { padding: 40px 32px; }
-          .stats-row { flex-wrap: wrap; }
-          .stat-cell { border-bottom: 2px solid #1A1A2E; flex: 0 0 50%; }
+          .pr-grid { grid-template-columns: repeat(2, 1fr); }
+          .pr-stats { grid-template-columns: repeat(2, 1fr); }
+          .pr-cta-body { flex-direction: column; }
         }
-        @media (max-width: 600px) {
-          .proj-inner { padding: 48px 16px 48px 28px; }
-          .proj-heading { font-size: 2.8rem; }
-          .card-features { grid-template-columns: 1fr; }
-          .proj-cta::after { display: none; }
-          .stat-cell { flex: 0 0 100%; }
-          .proj-grid { grid-template-columns: 1fr; }
+        @media (max-width: 640px) {
+          .pr-shell { padding: 0 16px; }
+          .pr-nav { display: none; }
+          .pr-heading { font-size: clamp(2.2rem, 12vw, 2.8rem); }
+          .pr-grid { grid-template-columns: 1fr; }
+          .pr-stats { grid-template-columns: repeat(2, 1fr); }
+          .pr-cta-body { padding: 28px 20px; }
+          .pr-card-features { grid-template-columns: 1fr; }
         }
       `}</style>
 
-      <section className="proj-root" ref={sectionRef} id="projects">
-        <div className="proj-accent-bar" />
-        <div className="proj-corner-num" aria-hidden="true">02</div>
+      <section className="pr-root" ref={sectionRef} id="projects">
+        <div className="pr-glow-r" aria-hidden="true" />
+        <div className="pr-glow-b" aria-hidden="true" />
 
-        <div className="proj-inner">
+        <div className="pr-shell">
 
-          {/* ── HEADER ── */}
-          <div className="proj-header">
-            <div>
-              <div className="proj-section-label">
-                <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block' }} />
-                Portfolio · {projects.length} Projects
-              </div>
-              <h2 className="proj-heading">
-                Featured<br />
-                <span>Projects</span>
-              </h2>
+          {/* ── TOP BAR ── */}
+          <header className="pr-bar">
+            <div className="pr-logo">Brian<span>.</span>dev</div>
+            <nav className="pr-nav" aria-label="Quick navigation">
+              {[
+                { label: '~/home',     href: '#home'    },
+                { label: '~/projects', href: '#projects', active: true },
+                { label: '~/contact',  href: '#contact' },
+              ].map(l => (
+                <a key={l.label} href={l.href} className={`pr-chip${l.active ? ' active' : ''}`}>{l.label}</a>
+              ))}
+            </nav>
+            <div className="pr-status">
+              <StatusDot />
+              <span>{projects.length}_projects_indexed</span>
             </div>
-            <p className="proj-subtext">
-              Full-stack solutions built with modern technologies — from investment platforms to restaurant management systems.
-            </p>
-          </div>
+          </header>
 
-          {/* ── ANIMATED STATS ROW ── */}
-          <div className="stats-row">
-            {[
-              { label: 'Projects Built', val: projects.length, suffix: '' },
-              { label: 'Live & Deployed', val: projects.filter(p => p.status === 'live').length, suffix: '' },
-              { label: 'Technologies Used', val: new Set(projects.flatMap(p => p.tech)).size, suffix: '+' },
-              { label: 'Years Experience', val: 3, suffix: '+' },
-            ].map((s, i) => (
-              <div className="stat-cell" key={i}>
-                <span className="stat-num" style={{ color: i === 0 ? '#E63946' : '#1A1A2E' }}>
-                  <Counter target={s.val} suffix={s.suffix} />
-                </span>
-                <span className="stat-label">{s.label}</span>
+          <div className="pr-inner">
+
+            {/* ── HEADER ── */}
+            <div className="pr-header-row">
+              <div>
+                <div className="pr-section-tag">
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block' }} />
+                  Portfolio · {projects.length} Projects
+                </div>
+                <h2 className="pr-heading">
+                  Featured<br />
+                  <em>Projects</em>
+                </h2>
               </div>
-            ))}
-          </div>
-
-          <div className="proj-divider">
-            <div className="proj-divider-line" />
-            <div className="proj-divider-dot" />
-            <span className="proj-divider-text">Recent Work</span>
-          </div>
-
-          {/* ── FILTER TABS ── */}
-          <div className="filter-row">
-            <span className="filter-label">Filter:</span>
-            {CATEGORIES.map(cat => {
-              const count = cat === 'All' ? projects.length : projects.filter(p => p.category === cat).length;
-              return (
-                <button
-                  key={cat}
-                  className={`filter-btn${activeCategory === cat ? ' active' : ''}`}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  {cat}
-                  <span className="filter-count">{count}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* ── COLLAB CARD ── */}
-          <div className="collab-card">
-            <div className="collab-icon-wrap">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#F7F5F0" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
+              <p className="pr-subtext">
+                {'>'} Full-stack solutions built with modern technologies — from investment platforms to institutional portals and smart booking systems.
+              </p>
             </div>
-            <h3 className="collab-title">Collaborative Development Experience</h3>
-            <p className="collab-sub">
-              Collaborated with multiple engineers on applications and platforms across business, booking, institutional, and SME domains.
-            </p>
-            <div className="collab-grid">
-              {collabItems.map((item, i) => (
-                <div key={i} className="collab-item">
-                  <span className="collab-arrow">▸</span>
-                  {item}
+
+            {/* ── STATS ── */}
+            <p className="pr-sec">// engineering metrics</p>
+            <div className="pr-stats">
+              {[
+                { val: projects.length,                                           suffix: '',  label: 'Total Projects',    accent: true  },
+                { val: projects.filter(p => p.status === 'live').length,          suffix: '',  label: 'Live & Deployed',   accent: false },
+                { val: new Set(projects.flatMap(p => p.tech)).size,               suffix: '+', label: 'Technologies Used', accent: false },
+                { val: 3,                                                          suffix: '+', label: 'Years Experience',  accent: false },
+              ].map((s, i) => (
+                <div key={i} className="pr-stat">
+                  <span className={`pr-stat-val${s.accent ? ' accent' : ''}`}>
+                    <Counter target={s.val} suffix={s.suffix} />
+                  </span>
+                  <span className="pr-stat-lbl">{s.label}</span>
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* ── PROJECTS GRID ── */}
-          <div className="proj-grid">
-            {filtered.length === 0 ? (
-              <div className="empty-state">
-                <strong>No projects found</strong>
-                Try a different filter category.
+            {/* ── FILTER ── */}
+            <div className="pr-filter-row">
+              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#6B7280', letterSpacing: '0.12em', textTransform: 'uppercase' }}>filter:</span>
+              {CATEGORIES.map(cat => {
+                const count = cat === 'All' ? projects.length : projects.filter(p => p.category === cat).length;
+                return (
+                  <button
+                    key={cat}
+                    className={`pr-filter-btn${activeCategory === cat ? ' active' : ''}`}
+                    onClick={() => setActiveCategory(cat)}
+                  >
+                    {cat}
+                    <span className="pr-filter-count">{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* ── COLLAB ── */}
+            <div className="pr-collab">
+              <div className="pr-winbar">
+                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
+                <span className="pr-wlabel">collaborative_experience.md</span>
               </div>
-            ) : filtered.map((project, index) => (
-              <div
-                key={project.num}
-                className="proj-card"
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                style={{
-                  boxShadow: hoveredIndex === index
-                    ? `6px 6px 0 ${project.accent}`
-                    : '4px 4px 0 #D1CDC4',
-                  animationDelay: `${index * 0.08}s`,
-                }}
-              >
-                <div className="card-num">{project.num}</div>
-
-                <div className="card-top">
-                  <div className="card-top-left">
-                    <span className="card-category">{project.category}</span>
-                    <span className="card-year">{project.year}</span>
-                  </div>
-                  <div className="card-status">
-                    <span className="card-status-dot" style={{ backgroundColor: project.status === 'live' ? '#22C55E' : '#D97706' }} />
-                    {project.status === 'live' ? 'Live' : 'In Dev'}
-                  </div>
+              <div className="pr-collab-body">
+                <div style={{ marginBottom: 14 }}>
+                  <TermLine prompt="$">git log --oneline --team --author="Brian"</TermLine>
                 </div>
-
-                <div className="card-accent-bar" style={{ backgroundColor: project.accent }} />
-                <h3 className="card-title">{project.title}</h3>
-                <p className="card-desc">{project.description}</p>
-
-                <div className="card-features">
-                  {project.features.slice(0, 4).map((f, i) => (
-                    <div key={i} className="card-feat-item">
-                      <div className="card-feat-dot" style={{ backgroundColor: project.accent }} />
-                      {f}
+                <h3 className="pr-collab-title">Collaborative Development Experience</h3>
+                <p className="pr-collab-sub">
+                  Worked with multiple engineers across business, booking, institutional, and SME domains.
+                </p>
+                <div className="pr-collab-grid">
+                  {collabItems.map((item, i) => (
+                    <div key={i} className="pr-collab-item">
+                      <span className="pr-collab-arrow">▸</span>
+                      {item}
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
 
-                <div className="card-tech-row">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="card-tech-pill">{t}</span>
-                  ))}
-                </div>
+            {/* ── GRID ── */}
+            <p className="pr-sec">// recent work</p>
+            <div className="pr-grid">
+              {filtered.length === 0 ? (
+                <div className="pr-empty">// no projects match filter</div>
+              ) : filtered.map((project, index) => (
+                <div
+                  key={project.num}
+                  className="pr-card"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  style={{
+                    boxShadow: hoveredIndex === index ? `0 8px 32px rgba(230,57,70,0.15)` : 'none',
+                    animationDelay: `${index * 0.08}s`,
+                  }}
+                >
+                  <div className="pr-card-num">{project.num}</div>
 
-                <div className="card-btns">
-                  {project.live && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="card-btn-live">
-                      Live ↗
+                  <div className="pr-card-top">
+                    <div className="pr-card-top-left">
+                      <span className="pr-card-cat">{project.category}</span>
+                      <span className="pr-card-year">{project.year}</span>
+                    </div>
+                    <div className="pr-card-status">
+                      <span className="pr-card-status-dot" style={{ backgroundColor: project.status === 'live' ? '#22C55E' : '#D97706' }} />
+                      {project.status === 'live' ? 'live' : 'in_dev'}
+                    </div>
+                  </div>
+
+                  <div className="pr-card-accent" style={{ backgroundColor: project.accent }} />
+                  <h3 className="pr-card-title">{project.title}</h3>
+                  <p className="pr-card-desc">{project.description}</p>
+
+                  <div className="pr-card-features">
+                    {project.features.slice(0, 4).map((f, i) => (
+                      <div key={i} className="pr-feat-item">
+                        <div className="pr-feat-dot" style={{ backgroundColor: project.accent }} />
+                        {f}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pr-card-tech-row">
+                    {project.tech.map((t, i) => (
+                      <span key={i} className="pr-tech-pill">{t}</span>
+                    ))}
+                  </div>
+
+                  <div className="pr-card-btns">
+                    {project.live && (
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="pr-btn-live">
+                        Live ↗
+                      </a>
+                    )}
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="pr-btn-gh">
+                      GitHub
                     </a>
-                  )}
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="card-btn-gh">
+                    <button className="pr-btn-detail" onClick={() => setOpenProject(project)}>
+                      Details
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* ── TECH STACK ── */}
+            <p className="pr-sec">// stack frequency</p>
+            <div className="pr-tech-section" ref={techRef}>
+              <div className="pr-winbar">
+                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
+                <span className="pr-wlabel">stack_analysis.sh</span>
+              </div>
+              <div className="pr-tech-body">
+                <div style={{ marginBottom: 16 }}>
+                  <TermLine prompt="$">git log --stat | grep "Tech" | sort | uniq -c | sort -rn</TermLine>
+                </div>
+                <h3 className="pr-tech-title">Stack Frequency</h3>
+                <p className="pr-tech-sub">Technologies used across all {projects.length} projects</p>
+                {techUsage.map((t, i) => (
+                  <div key={i} className="pr-bar-row">
+                    <span className="pr-bar-label">{t.name}</span>
+                    <div className="pr-bar-track">
+                      <div
+                        className="pr-bar-fill"
+                        style={{
+                          width: techBarReady ? `${Math.round((t.count / maxTech) * 100)}%` : '0%',
+                          background: i % 2 === 0 ? '#E63946' : '#22C55E',
+                          transitionDelay: `${i * 0.08}s`,
+                        }}
+                      />
+                    </div>
+                    <span className="pr-bar-count">{t.count}×</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── CTA ── */}
+            <div className="pr-cta">
+              <div className="pr-winbar">
+                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
+                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
+                <span className="pr-wlabel">new_opportunity.sh</span>
+              </div>
+              <div className="pr-cta-body">
+                <div>
+                  <div style={{ marginBottom: 12 }}>
+                    <TermLine prompt="$">./start_collaboration.sh --mode=open</TermLine>
+                  </div>
+                  <h3 className="pr-cta-heading">Interested in Working Together?</h3>
+                  <p className="pr-cta-sub">
+                    {'>'} Ready to build scalable, high-performance solutions. Let's create something remarkable.
+                  </p>
+                </div>
+                <div className="pr-cta-btns">
+                  <button className="pr-btn-p" onClick={() => onSectionChange && onSectionChange('contact')}>
+                    Let's Connect
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                  <a href="https://github.com/Brian2021-Mwalish" target="_blank" rel="noopener noreferrer" className="pr-btn-o">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 012.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55C20.22 21.4 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
+                    </svg>
                     GitHub
                   </a>
-                  <button
-                    className="card-btn-detail"
-                    onClick={() => setOpenProject(project)}
-                  >
-                    Details
-                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* ── TECH STACK USAGE ── */}
-          <div className="tech-section" ref={techRef}>
-            <div style={{ position: 'absolute', top: 12, right: 20, fontFamily: "'Playfair Display', serif", fontSize: '4rem', fontWeight: 900, color: '#F0EDE8', pointerEvents: 'none', userSelect: 'none' }}>∑</div>
-            <h3 className="tech-section-title">Stack Frequency</h3>
-            <p className="tech-section-sub">Technologies used across all {projects.length} projects</p>
-            {techUsage.map((t, i) => (
-              <div className="tech-bar-row" key={i}>
-                <span className="tech-bar-label">{t.name}</span>
-                <div className="tech-bar-track">
-                  <div
-                    className="tech-bar-fill"
-                    style={{
-                      width: techBarReady ? `${Math.round((t.count / maxTech) * 100)}%` : '0%',
-                      background: i % 2 === 0 ? '#1A1A2E' : '#E63946',
-                      transitionDelay: `${i * 0.08}s`,
-                    }}
-                  />
-                </div>
-                <span className="tech-bar-count">{t.count}×</span>
-              </div>
-            ))}
-          </div>
-
-          {/* ── CTA ── */}
-          <div className="proj-cta">
-            <div>
-              <h3 className="cta-heading">Interested in Working Together?</h3>
-              <p className="cta-sub">
-                I'm always open to discussing new projects and opportunities. Let's create something amazing together.
-              </p>
             </div>
-            <button className="cta-btn" onClick={() => onSectionChange('contact')}>
-              Let's Connect
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
-          </div>
-        </div>
 
-        {/* ── DETAIL DRAWER ── */}
-        {openProject && (
-          <DetailDrawer project={openProject} onClose={() => setOpenProject(null)} />
-        )}
+          </div>
+
+          {/* ── FOOTER ── */}
+          <footer className="pr-foot">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <StatusDot />
+              <span className="pr-foot-txt" style={{ color: '#22C55E' }}>online</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span className="pr-foot-txt">© 2025 Brian Mwalish</span>
+              <span style={{ width: 1, height: 10, backgroundColor: 'rgba(107,114,128,0.25)' }} />
+              <span className="pr-foot-txt">Software Engineer · Eldoret KE</span>
+            </div>
+          </footer>
+
+        </div>
       </section>
+
+      {/* ── DETAIL DRAWER ── */}
+      {openProject && (
+        <DetailDrawer project={openProject} onClose={() => setOpenProject(null)} />
+      )}
     </>
   );
 };
