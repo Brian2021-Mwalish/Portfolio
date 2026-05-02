@@ -612,8 +612,7 @@ const Contact = () => {
           <div className="c-bar">
             <div className="c-logo">Brian<span>.</span>dev</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span className="c-chip">~/contact</span>
-              <span className="c-chip" style={{ color: '#E63946', borderColor: 'rgba(230,57,70,0.25)' }}>section_03</span>
+              <span className="c-chip">section_03</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
               <StatusDot />

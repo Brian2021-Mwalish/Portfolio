@@ -768,15 +768,7 @@ const Projects = ({ onSectionChange }) => {
           {/* ── TOP BAR ── */}
           <header className="pr-bar">
             <div className="pr-logo">Brian<span>.</span>dev</div>
-            <nav className="pr-nav" aria-label="Quick navigation">
-              {[
-                { label: '~/home',     href: '#home'    },
-                { label: '~/projects', href: '#projects', active: true },
-                { label: '~/contact',  href: '#contact' },
-              ].map(l => (
-                <a key={l.label} href={l.href} className={`pr-chip${l.active ? ' active' : ''}`}>{l.label}</a>
-              ))}
-            </nav>
+
             <div className="pr-status">
               <StatusDot />
               <span>{projects.length}_projects_indexed</span>
