@@ -574,13 +574,12 @@ const Hero = () => {
             <div className="h-logo">Brian<span>.</span>dev</div>
 
             <nav className="h-nav" aria-label="Quick navigation">
-              {[
-                { label: '~/github', href: 'https://github.com/Brian2021-Mwalish' },
-                { label: 'projects', href: '#projects' },
-                { label: 'contact', href: '#contact' },
-              ].map(l => (
-                <a key={l.label} href={l.href} className="h-chip">{l.label}</a>
-              ))}
+              <a
+                href="https://github.com/Brian2021-Mwalish"
+                className="h-chip"
+              >
+                ~/github
+              </a>
             </nav>
 
             <div className="h-status">
