@@ -45,6 +45,15 @@ const interests = [
   "DevOps",
 ];
 
+const recentWork = [
+  "Built scalable REST APIs with Django",
+  "Deployed microservices on AWS ECS",
+  "Optimised PostgreSQL query performance",
+  "Shipped 10+ production applications",
+];
+
+const credentials = ["Open Source", "Problem Solver", "System Thinker"];
+
 const techIcons = [
   { src: reactLogo,   alt: "React"   },
   { src: pythonLogo,  alt: "Python"  },
@@ -94,7 +103,7 @@ const TypingTitle = () => {
   );
 };
 
-// ─── STACK CHIP (hexagon-notched, brand motif) ────────────────────────────────
+// ─── STACK CHIP ───────────────────────────────────────────────────────────────
 
 const StackChip = ({ label }) => (
   <motion.span
@@ -113,6 +122,35 @@ const StatusDot = () => (
     <span className="h-statusDotPulse" />
     <span className="h-statusDotCore" />
   </span>
+);
+
+// ─── SIGNATURE PHOTO FRAME ────────────────────────────────────────────────────
+// The brand's hexagon motif, carried into the portrait itself: two offset
+// hex "shadow" layers behind a hex-clipped photo, like a mis-registered print.
+
+const HexPortrait = () => (
+  <div className="h-photoWrap">
+    <div className="h-hexGhost h-hexGhost--orange" aria-hidden="true" />
+    <div className="h-hexGhost h-hexGhost--purple" aria-hidden="true" />
+    <motion.div
+      className="h-hexPhoto"
+      whileHover={{ scale: 1.015 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+    >
+      <img src={ownerImage} alt="Brian Mwalish — Software Engineer" />
+    </motion.div>
+
+    <div className="h-photoTag">
+      <div>
+        <p className="h-photoTag-name">Brian Mwalish</p>
+        <p className="h-photoTag-loc">Eldoret, KE</p>
+      </div>
+      <div className="h-photoTag-status">
+        <StatusDot />
+        <span>Available</span>
+      </div>
+    </div>
+  </div>
 );
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
@@ -140,6 +178,10 @@ const Hero = ({ onSectionChange }) => {
         @keyframes dotPulse {
           75%, 100% { transform: scale(2.4); opacity: 0; }
         }
+        @keyframes hexBreath {
+          0%, 100% { transform: translate(var(--gx), var(--gy)) rotate(var(--gr)); }
+          50%      { transform: translate(calc(var(--gx) * 0.6), calc(var(--gy) * 0.6)) rotate(calc(var(--gr) * -1)); }
+        }
 
         *, *::before, *::after { box-sizing: border-box; }
 
@@ -153,6 +195,7 @@ const Hero = ({ onSectionChange }) => {
           --line: #E7E1F4;
           --orange-tint: #FDE0C7;
           --slate: #6B6478;
+          --hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
         }
 
         .h-root {
@@ -164,7 +207,7 @@ const Hero = ({ onSectionChange }) => {
           overflow: hidden;
         }
 
-        /* Geometric backdrop — flat solid hexagon, the brand's signature motif */
+        /* Ambient geometric backdrop */
         .h-hexLayer {
           position: absolute;
           top: 8%;
@@ -172,7 +215,7 @@ const Hero = ({ onSectionChange }) => {
           width: 340px;
           height: 300px;
           background-color: var(--paper-2);
-          clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+          clip-path: var(--hex);
           animation: hexDrift 26s ease-in-out infinite alternate;
           pointer-events: none;
           z-index: 0;
@@ -188,7 +231,7 @@ const Hero = ({ onSectionChange }) => {
           position: absolute; top: -40px; left: 46%;
           width: 90px; height: 90px;
           background-color: var(--orange);
-          clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+          clip-path: var(--hex);
           pointer-events: none; z-index: 0;
         }
 
@@ -325,7 +368,7 @@ const Hero = ({ onSectionChange }) => {
           margin-bottom: 10px;
         }
 
-        /* Metrics — quiet card row, not the generic gradient-stat template */
+        /* Metrics */
         .h-metrics {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -405,6 +448,10 @@ const Hero = ({ onSectionChange }) => {
           white-space: nowrap;
         }
         .h-btn-p:hover { background-color: #4C1D95; border-color: #4C1D95; transform: translateY(-1px); }
+        .h-btn-p:focus-visible, .h-btn-o:focus-visible {
+          outline: 2px solid var(--orange);
+          outline-offset: 2px;
+        }
 
         .h-btn-o {
           font-family: 'Space Grotesk', sans-serif;
@@ -429,50 +476,82 @@ const Hero = ({ onSectionChange }) => {
         /* ── RIGHT PANEL ── */
         .h-right { display: flex; flex-direction: column; gap: 14px; }
 
-        /* Photo — framed with a hexagon corner-notch, echoing the brand mark */
-        .h-imgcard {
+        /* Signature element — hex-clipped portrait with offset "misprint" layers */
+        .h-photoWrap {
           position: relative;
-          border: 1px solid var(--line);
-          border-radius: 4px;
-          overflow: hidden;
-          background-color: #FFFFFF;
-          box-shadow: 10px 10px 0 var(--paper-2);
+          padding: 16px 18px 0;
         }
-        .h-imgcard::before {
-          content: '';
-          position: absolute; top: 0; right: 0;
-          width: 46px; height: 46px;
+        .h-hexGhost {
+          position: absolute;
+          top: 16px; left: 18px; right: 18px;
+          aspect-ratio: 0.86 / 1;
+          clip-path: var(--hex);
+          animation: hexBreath 9s ease-in-out infinite;
+        }
+        .h-hexGhost--orange {
+          --gx: 12px; --gy: 12px; --gr: 5deg;
           background-color: var(--orange);
-          clip-path: polygon(100% 0, 0 0, 100% 100%);
-          z-index: 2;
+          transform: translate(var(--gx), var(--gy)) rotate(var(--gr));
+          z-index: 0;
         }
-        .h-imgcard img {
+        .h-hexGhost--purple {
+          --gx: 6px; --gy: -6px; --gr: -3deg;
+          background-color: var(--purple);
+          opacity: 0.92;
+          transform: translate(var(--gx), var(--gy)) rotate(var(--gr));
+          animation-delay: -3s;
+          z-index: 1;
+        }
+        .h-hexPhoto {
+          position: relative;
+          z-index: 2;
+          aspect-ratio: 0.86 / 1;
+          clip-path: var(--hex);
+          background-color: #FFFFFF;
+          overflow: hidden;
+        }
+        .h-hexPhoto img {
           width: 100%;
-          height: 300px;
+          height: 100%;
           object-fit: cover;
           object-position: top center;
           display: block;
         }
-        .h-img-overlay {
-          padding: 16px 16px 16px;
+
+        .h-photoTag {
+          margin-top: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 11px 14px;
+          border: 1px solid var(--line);
+          border-radius: 4px;
           background-color: #FFFFFF;
-          border-top: 1px solid var(--line);
-          display: flex; align-items: center; justify-content: space-between;
         }
-        .h-overlay-name {
+        .h-photoTag-name {
           font-family: 'Space Grotesk', sans-serif;
           font-weight: 700;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           color: var(--ink);
         }
-        .h-overlay-loc {
+        .h-photoTag-loc {
           font-family: 'JetBrains Mono', monospace;
           font-size: 0.6rem;
           color: var(--slate);
-          margin-top: 3px;
+          margin-top: 2px;
+        }
+        .h-photoTag-status {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.62rem;
+          color: var(--slate);
+          white-space: nowrap;
         }
 
-        /* Log card — quiet, professional recap, no terminal cosplay */
+        /* Recent-work recap */
         .h-logcard {
           border: 1px solid var(--line);
           border-radius: 4px;
@@ -561,8 +640,9 @@ const Hero = ({ onSectionChange }) => {
 
         @media (max-width: 900px) {
           .h-grid { grid-template-columns: 1fr; gap: 34px; padding: 34px 0 26px; }
-          .h-right { flex-direction: row; flex-wrap: wrap; }
-          .h-imgcard, .h-logcard { flex: 1 1 240px; min-width: 0; }
+          .h-right { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+          .h-photoWrap { flex: 1 1 220px; min-width: 0; }
+          .h-logcard { flex: 1 1 240px; min-width: 0; }
           .h-cred { width: 100%; }
           .h-metrics { grid-template-columns: repeat(2, 1fr); }
           .h-tagline { display: none; }
@@ -582,6 +662,10 @@ const Hero = ({ onSectionChange }) => {
           .h-name { font-size: 2rem; }
           .h-stack { gap: 5px; }
           .h-interests { gap: 5px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .h-hexLayer, .h-hexGhost, .h-statusDotPulse { animation: none; }
         }
       `}</style>
 
@@ -706,29 +790,19 @@ const Hero = ({ onSectionChange }) => {
             {/* ── RIGHT ── */}
             <motion.div className="h-right" variants={fadeIn}>
 
-              <div className="h-imgcard">
-                <img src={ownerImage} alt="Brian Mwalish — Software Engineer" />
-                <div className="h-img-overlay">
-                  <div>
-                    <p className="h-overlay-name">Brian Mwalish</p>
-                    <p className="h-overlay-loc">Eldoret, KE</p>
-                  </div>
-                  <StatusDot />
-                </div>
-              </div>
+              <HexPortrait />
 
               <div className="h-logcard">
                 <div className="h-logcard-head">Recent Work</div>
                 <div className="h-logcard-body">
-                  <div className="h-logline">Built scalable REST APIs with Django</div>
-                  <div className="h-logline">Deployed microservices on AWS ECS</div>
-                  <div className="h-logline">Optimised PostgreSQL query performance</div>
-                  <div className="h-logline">Shipped 10+ production applications</div>
+                  {recentWork.map((line, i) => (
+                    <div key={i} className="h-logline">{line}</div>
+                  ))}
                 </div>
               </div>
 
               <div className="h-cred">
-                {['Open Source', 'Problem Solver', 'System Thinker'].map((t, i) => (
+                {credentials.map((t, i) => (
                   <div key={i} className="h-cred-item">
                     <span className="h-cred-dot">◆</span>
                     <span className="h-cred-text">{t}</span>
