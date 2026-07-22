@@ -18,16 +18,16 @@ const titles = [
 ];
 
 const stack = [
-  { label: "Python",     color: "#3B82F6" },
-  { label: "Django",     color: "#22C55E" },
-  { label: "React",      color: "#38BDF8" },
-  { label: "PostgreSQL", color: "#A78BFA" },
-  { label: "Docker",     color: "#60A5FA" },
-  { label: "AWS",        color: "#F97316" },
-  { label: "FastAPI",    color: "#34D399" },
-  { label: "Node.js",    color: "#86EFAC" },
-  { label: "REST APIs",  color: "#FCA5A5" },
-  { label: "Git",        color: "#FB923C" },
+  { label: "Python" },
+  { label: "Django" },
+  { label: "React" },
+  { label: "PostgreSQL" },
+  { label: "Docker" },
+  { label: "AWS" },
+  { label: "FastAPI" },
+  { label: "Node.js" },
+  { label: "REST APIs" },
+  { label: "Git" },
 ];
 
 const metrics = [
@@ -56,10 +56,10 @@ const techIcons = [
 // ─── TYPING EFFECT ────────────────────────────────────────────────────────────
 
 const TypingTitle = () => {
-  const [tIdx, setTIdx]         = useState(0);
+  const [tIdx, setTIdx]           = useState(0);
   const [displayed, setDisplayed] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const [blink, setBlink]       = useState(true);
+  const [deleting, setDeleting]   = useState(false);
+  const [blink, setBlink]         = useState(true);
 
   useEffect(() => {
     const b = setInterval(() => setBlink(v => !v), 530);
@@ -87,61 +87,32 @@ const TypingTitle = () => {
   }, [displayed, deleting, tIdx]);
 
   return (
-    <span style={{ fontFamily: "'Fira Code', monospace", color: '#22C55E', fontSize: 'inherit' }}>
+    <span className="h-typed">
       {displayed}
-      <span style={{ opacity: blink ? 1 : 0, color: '#E63946' }}>|</span>
+      <span className="h-caret" style={{ opacity: blink ? 1 : 0 }}>|</span>
     </span>
   );
 };
 
-// ─── STACK BADGE ──────────────────────────────────────────────────────────────
+// ─── STACK CHIP (hexagon-notched, brand motif) ────────────────────────────────
 
-const StackBadge = ({ label, color }) => (
+const StackChip = ({ label }) => (
   <motion.span
-    whileHover={{ scale: 1.07, y: -2 }}
+    whileHover={{ y: -2 }}
     transition={{ type: 'spring', stiffness: 400 }}
-    style={{
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 5,
-      padding: '4px 10px',
-      borderRadius: 3,
-      border: `1px solid ${color}30`,
-      backgroundColor: `${color}12`,
-      fontFamily: "'Fira Code', monospace",
-      fontSize: '0.7rem',
-      color,
-      letterSpacing: '0.02em',
-      cursor: 'default',
-      userSelect: 'none',
-      whiteSpace: 'nowrap',
-    }}
+    className="h-chipTag"
   >
-    <span style={{ width: 5, height: 5, borderRadius: '50%', backgroundColor: color, flexShrink: 0 }} />
     {label}
   </motion.span>
 );
 
-// ─── STATUS DOT ───────────────────────────────────────────────────────────────
+// ─── AVAILABILITY DOT ─────────────────────────────────────────────────────────
 
 const StatusDot = () => (
-  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 10, height: 10 }}>
-    <span style={{
-      position: 'absolute', width: 10, height: 10, borderRadius: '50%',
-      backgroundColor: '#22C55E', opacity: 0.3,
-      animation: 'heroPing 1.5s cubic-bezier(0,0,0.2,1) infinite',
-    }} />
-    <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#22C55E', position: 'relative', zIndex: 1 }} />
+  <span className="h-statusDotWrap">
+    <span className="h-statusDotPulse" />
+    <span className="h-statusDotCore" />
   </span>
-);
-
-// ─── TERM LINE ────────────────────────────────────────────────────────────────
-
-const TermLine = ({ prompt = '$', dimPrompt, children }) => (
-  <div style={{ display: 'flex', gap: 8, fontFamily: "'Fira Code', monospace", fontSize: '0.72rem', lineHeight: 1.65 }}>
-    <span style={{ color: dimPrompt ? '#374151' : '#22C55E', flexShrink: 0 }}>{prompt}</span>
-    <span style={{ color: '#9CA3AF' }}>{children}</span>
-  </div>
 );
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
@@ -160,58 +131,64 @@ const Hero = ({ onSectionChange }) => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-        @keyframes heroPing {
-          75%, 100% { transform: scale(2); opacity: 0; }
+        @keyframes hexDrift {
+          0%   { transform: translate(0, 0) rotate(0deg); }
+          100% { transform: translate(-60px, 60px) rotate(6deg); }
         }
-        @keyframes heroGrid {
-          0%   { background-position: 0 0; }
-          100% { background-position: 0 40px; }
-        }
-        @keyframes heroScan {
-          0%   { transform: translateY(-5%); }
-          100% { transform: translateY(110vh); }
+        @keyframes dotPulse {
+          75%, 100% { transform: scale(2.4); opacity: 0; }
         }
 
         *, *::before, *::after { box-sizing: border-box; }
 
+        :root {
+          --ink: #1B1130;
+          --purple: #5B21B6;
+          --purple-2: #8B5CF6;
+          --orange: #F97316;
+          --paper: #FAF9F7;
+          --paper-2: #F1EEFB;
+          --line: rgba(27,17,48,0.10);
+          --slate: #6B6478;
+        }
+
         .h-root {
-          font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-          background-color: #0D1117;
+          font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+          background-color: var(--paper);
           min-height: 100dvh;
-          color: #E6EDF3;
+          color: var(--ink);
           position: relative;
           overflow: hidden;
         }
 
-        /* Animated dot grid */
-        .h-root::before {
-          content: '';
-          position: absolute; inset: 0;
-          background-image: radial-gradient(circle, rgba(230,57,70,0.07) 1px, transparent 1px);
-          background-size: 40px 40px;
-          animation: heroGrid 6s linear infinite;
+        /* Geometric backdrop — hexagon lattice, the brand's signature motif */
+        .h-hexLayer {
+          position: absolute;
+          inset: -10% -10% -10% 40%;
+          opacity: 0.5;
+          background-image:
+            linear-gradient(120deg, transparent 46%, rgba(91,33,182,0.06) 47%, rgba(91,33,182,0.06) 53%, transparent 54%),
+            linear-gradient(60deg,  transparent 46%, rgba(249,115,22,0.05) 47%, rgba(249,115,22,0.05) 53%, transparent 54%);
+          background-size: 130px 150px;
+          animation: hexDrift 26s ease-in-out infinite alternate;
           pointer-events: none;
           z-index: 0;
         }
-
-        /* Subtle scanline */
-        .h-root::after {
-          content: '';
-          position: absolute; left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.05) 50%, transparent 100%);
-          animation: heroScan 9s linear infinite;
-          pointer-events: none;
-          z-index: 1;
+        .h-glowPurple {
+          position: absolute; top: -160px; right: -120px;
+          width: 560px; height: 560px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(91,33,182,0.14) 0%, transparent 70%);
+          pointer-events: none; z-index: 0;
+        }
+        .h-glowOrange {
+          position: absolute; bottom: -140px; left: -100px;
+          width: 420px; height: 420px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 70%);
+          pointer-events: none; z-index: 0;
         }
 
-        /* Glows */
-        .h-glow-r { position: absolute; top: -140px; left: -100px; width: 550px; height: 550px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-        .h-glow-b { position: absolute; top: -60px; right: -60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(26,26,46,0.55) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-
-        /* ── SHELL ── */
         .h-shell {
           position: relative; z-index: 10;
           max-width: 1180px;
@@ -227,377 +204,415 @@ const Hero = ({ onSectionChange }) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 18px 0 14px;
-          border-bottom: 1px solid rgba(230,57,70,0.14);
+          padding: 22px 0 16px;
+          border-bottom: 1px solid var(--line);
           gap: 12px;
           flex-wrap: wrap;
         }
         .h-logo {
-          font-family: 'DM Serif Display', serif;
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 700;
           font-size: 1.05rem;
-          color: #E6EDF3;
-          white-space: nowrap;
+          color: var(--ink);
+          letter-spacing: -0.01em;
         }
-        .h-logo span { color: #E63946; }
+        .h-logo span { color: var(--orange); }
 
-        .h-nav {
-          display: flex; gap: 6px; flex-wrap: wrap;
+        .h-tagline {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.16em;
+          color: var(--slate);
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
-        .h-chip {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.62rem;
-          color: #6B7280;
-          padding: 3px 8px;
-          border: 1px solid rgba(107,114,128,0.18);
-          border-radius: 2px;
-          letter-spacing: 0.06em;
-          white-space: nowrap;
-          text-decoration: none;
-        }
-        .h-chip:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
+        .h-tagline b { color: var(--purple); font-weight: 500; }
+        .h-tagline .sep { color: var(--orange); }
 
         .h-status {
-          display: flex; align-items: center; gap: 7px;
+          display: flex; align-items: center; gap: 8px;
           white-space: nowrap;
         }
         .h-status span {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.62rem;
-          color: #22C55E;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.06em;
+          color: var(--ink);
         }
 
         /* ── MAIN GRID ── */
         .h-grid {
           flex: 1;
           display: grid;
-          grid-template-columns: 1fr 360px;
-          gap: 52px;
+          grid-template-columns: 1fr 380px;
+          gap: 56px;
           align-items: center;
-          padding: 44px 0 36px;
+          padding: 48px 0 40px;
         }
 
-        /* ── LEFT STACK ── */
         .h-left { display: flex; flex-direction: column; gap: 22px; }
 
-        /* Name */
+        .h-eyebrow {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--orange);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .h-eyebrow::before {
+          content: '';
+          width: 22px; height: 1px;
+          background-color: var(--orange);
+          display: inline-block;
+        }
+
         .h-name {
-          font-family: 'DM Serif Display', Georgia, serif;
-          font-size: clamp(3rem, 7vw, 5.6rem);
-          font-weight: 400;
-          color: #E6EDF3;
-          line-height: 0.92;
-          letter-spacing: -0.03em;
+          font-family: 'Fraunces', Georgia, serif;
+          font-optical-sizing: auto;
+          font-size: clamp(3rem, 6.6vw, 5.2rem);
+          font-weight: 600;
+          color: var(--ink);
+          line-height: 0.98;
+          letter-spacing: -0.02em;
           margin: 0;
         }
-        .h-name-accent { color: #E63946; font-style: italic; }
+        .h-name-accent {
+          font-style: italic;
+          font-weight: 400;
+          color: var(--purple);
+        }
 
-        /* Title row */
         .h-title-row {
           display: flex; align-items: center; gap: 10px;
           min-height: 30px;
         }
         .h-title-prompt {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.65rem;
-          color: '#4B5563';
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.68rem;
+          color: var(--slate);
           letter-spacing: 0.04em;
         }
-        .h-title-text { font-size: clamp(0.95rem, 2vw, 1.2rem); }
+        .h-title-text {
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 600;
+          font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+        .h-typed { color: var(--purple); }
+        .h-caret { color: var(--orange); font-weight: 600; }
 
-        /* Bio */
         .h-bio {
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           font-weight: 300;
-          color: #8B949E;
-          line-height: 1.82;
+          color: var(--slate);
+          line-height: 1.8;
           max-width: 520px;
         }
 
-        /* Section label */
         .h-sec {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.62rem;
           font-weight: 500;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: #E63946;
-          margin-bottom: 9px;
+          color: var(--purple);
+          margin-bottom: 10px;
         }
 
-        /* Metrics grid */
+        /* Metrics — quiet card row, not the generic gradient-stat template */
         .h-metrics {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 1px;
-          border: 1px solid rgba(230,57,70,0.14);
-          border-radius: 4px;
+          border: 1px solid var(--line);
+          border-radius: 6px;
           overflow: hidden;
-          background-color: rgba(230,57,70,0.07);
+          background-color: var(--line);
         }
         .h-metric {
-          background-color: #0D1117;
-          padding: 14px 10px;
+          background-color: #FFFFFF;
+          padding: 16px 10px;
           text-align: center;
         }
         .h-metric-val {
-          font-family: 'DM Serif Display', serif;
-          font-size: clamp(1.35rem, 2.5vw, 1.85rem);
-          color: #E6EDF3;
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+          color: var(--ink);
           display: block;
           line-height: 1;
         }
         .h-metric-lbl {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.52rem;
-          color: #6B7280;
-          letter-spacing: 0.1em;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.54rem;
+          color: var(--slate);
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           display: block;
-          margin-top: 4px;
+          margin-top: 5px;
         }
 
-        /* Stack wrap */
-        .h-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+        .h-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+        .h-chipTag {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          color: var(--ink);
+          padding: 6px 12px;
+          background-color: #FFFFFF;
+          border: 1px solid var(--line);
+          clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+          letter-spacing: 0.01em;
+          cursor: default;
+          user-select: none;
+          white-space: nowrap;
+        }
 
-        /* Interests */
-        .h-interests { display: flex; flex-wrap: wrap; gap: 6px; }
+        .h-interests { display: flex; flex-wrap: wrap; gap: 8px; }
         .h-interest {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.6rem;
-          color: '#6B7280';
-          border: 1px solid rgba(107,114,128,0.2);
-          padding: 3px 9px;
-          border-radius: 2px;
-          letter-spacing: 0.04em;
-          color: #6B7280;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.66rem;
+          color: var(--purple);
+          border: 1px solid rgba(91,33,182,0.22);
+          background-color: var(--paper-2);
+          padding: 4px 10px;
+          border-radius: 3px;
+          letter-spacing: 0.03em;
         }
 
-        /* Buttons */
-        .h-btns { display: flex; gap: 9px; flex-wrap: wrap; }
+        .h-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         .h-btn-p {
-          font-family: 'Syne', sans-serif;
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          background-color: #E63946;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          background-color: var(--purple);
           color: #fff;
-          padding: 11px 20px;
-          border-radius: 3px;
-          border: 1.5px solid #E63946;
+          padding: 12px 22px;
+          border-radius: 4px;
+          border: 1.5px solid var(--purple);
           text-decoration: none;
           display: inline-flex;
           align-items: center;
-          gap: 7px;
-          transition: background-color 0.18s, transform 0.15s;
+          gap: 8px;
+          transition: background-color 0.18s, border-color 0.18s, transform 0.15s;
           cursor: pointer;
           white-space: nowrap;
         }
-        .h-btn-p:hover { background-color: #C62833; transform: translateY(-1px); }
+        .h-btn-p:hover { background-color: #4C1D95; border-color: #4C1D95; transform: translateY(-1px); }
 
         .h-btn-o {
-          font-family: 'Syne', sans-serif;
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
           background-color: transparent;
-          color: #8B949E;
-          padding: 11px 20px;
-          border-radius: 3px;
-          border: 1.5px solid rgba(139,148,158,0.22);
+          color: var(--ink);
+          padding: 12px 22px;
+          border-radius: 4px;
+          border: 1.5px solid var(--line);
           text-decoration: none;
           display: inline-flex;
           align-items: center;
-          gap: 7px;
+          gap: 8px;
           transition: border-color 0.18s, color 0.18s, transform 0.15s;
           cursor: pointer;
           white-space: nowrap;
         }
-        .h-btn-o:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
+        .h-btn-o:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-1px); }
 
         /* ── RIGHT PANEL ── */
-        .h-right { display: flex; flex-direction: column; gap: 13px; }
+        .h-right { display: flex; flex-direction: column; gap: 14px; }
 
-        /* Image card */
+        /* Photo — framed with a hexagon corner-notch, echoing the brand mark */
         .h-imgcard {
           position: relative;
-          border: 1px solid rgba(230,57,70,0.18);
-          border-radius: 6px;
+          border: 1px solid var(--line);
+          border-radius: 4px;
           overflow: hidden;
-          background-color: #161B22;
+          background-color: #FFFFFF;
+          box-shadow: 10px 10px 0 rgba(91,33,182,0.08);
         }
-        .h-win-bar {
-          display: flex; align-items: center; gap: 5px;
-          padding: 7px 12px;
-          background-color: #161B22;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .h-dot { width: 9px; height: 9px; border-radius: 50%; }
-        .h-win-label {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #6B7280;
-          margin-left: 5px;
+        .h-imgcard::before {
+          content: '';
+          position: absolute; top: 0; right: 0;
+          width: 46px; height: 46px;
+          background-color: var(--orange);
+          clip-path: polygon(100% 0, 0 0, 100% 100%);
+          z-index: 2;
         }
         .h-imgcard img {
           width: 100%;
-          height: 248px;
+          height: 300px;
           object-fit: cover;
           object-position: top center;
           display: block;
-          filter: grayscale(18%);
-          transition: filter 0.4s;
         }
-        .h-imgcard:hover img { filter: grayscale(0%); }
         .h-img-overlay {
-          position: absolute; bottom: 0; left: 0; right: 0;
-          padding: 20px 13px 13px;
-          background: linear-gradient(to top, rgba(13,17,23,0.9) 0%, transparent 100%);
-          display: flex; align-items: flex-end; justify-content: space-between;
+          padding: 16px 16px 16px;
+          background-color: #FFFFFF;
+          border-top: 1px solid var(--line);
+          display: flex; align-items: center; justify-content: space-between;
         }
         .h-overlay-name {
-          font-family: 'DM Serif Display', serif;
-          font-size: 1rem;
-          color: #E6EDF3;
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 700;
+          font-size: 0.95rem;
+          color: var(--ink);
         }
         .h-overlay-loc {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #6B7280;
-          margin-top: 2px;
-        }
-
-        /* Terminal card */
-        .h-termcard {
-          border: 1px solid rgba(230,57,70,0.13);
-          border-radius: 6px;
-          overflow: hidden;
-          background-color: #0D1117;
-        }
-        .h-term-body { padding: 11px 14px; display: flex; flex-direction: column; gap: 2px; }
-
-        /* Cred bar */
-        .h-cred {
-          border: 1px solid rgba(230,57,70,0.1);
-          border-radius: 4px;
-          padding: 9px 13px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 8px;
-          background-color: rgba(22,27,34,0.55);
-        }
-        .h-cred-item { display: flex; align-items: center; gap: 5px; }
-        .h-cred-dot { color: #E63946; font-size: 0.5rem; }
-        .h-cred-text {
-          font-family: 'Fira Code', monospace;
+          font-family: 'JetBrains Mono', monospace;
           font-size: 0.6rem;
-          color: #6B7280;
+          color: var(--slate);
+          margin-top: 3px;
         }
 
-        /* ── FOOTER BAR ── */
+        /* Log card — quiet, professional recap, no terminal cosplay */
+        .h-logcard {
+          border: 1px solid var(--line);
+          border-radius: 4px;
+          overflow: hidden;
+          background-color: #FFFFFF;
+        }
+        .h-logcard-head {
+          padding: 10px 14px;
+          border-bottom: 1px solid var(--line);
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.6rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--purple);
+        }
+        .h-logcard-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; }
+        .h-logline {
+          display: flex; gap: 9px;
+          font-family: 'Inter', sans-serif;
+          font-size: 0.76rem;
+          color: var(--ink);
+          line-height: 1.4;
+        }
+        .h-logline::before {
+          content: '';
+          width: 5px; height: 5px;
+          margin-top: 6px;
+          border-radius: 50%;
+          background-color: var(--orange);
+          flex-shrink: 0;
+        }
+
+        .h-cred {
+          border: 1px solid var(--line);
+          border-radius: 4px;
+          padding: 10px 14px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 8px;
+          background-color: var(--paper-2);
+        }
+        .h-cred-item { display: flex; align-items: center; gap: 6px; }
+        .h-cred-dot { color: var(--purple); font-size: 0.5rem; }
+        .h-cred-text {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.62rem;
+          color: var(--ink);
+        }
+
+        .h-statusDotWrap { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px; }
+        .h-statusDotPulse {
+          position: absolute; width: 10px; height: 10px; border-radius: 50%;
+          background-color: var(--orange); opacity: 0.35;
+          animation: dotPulse 1.8s cubic-bezier(0,0,0.2,1) infinite;
+        }
+        .h-statusDotCore { width: 6px; height: 6px; border-radius: 50%; background-color: var(--orange); position: relative; z-index: 1; }
+
+        /* ── FOOTER ── */
         .h-foot {
-          border-top: 1px solid rgba(230,57,70,0.09);
-          padding: 11px 0 15px;
+          border-top: 1px solid var(--line);
+          padding: 13px 0 18px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
           gap: 8px;
         }
-        .h-foot-icons { display: flex; align-items: center; gap: 13px; }
+        .h-foot-icons { display: flex; align-items: center; gap: 14px; }
         .h-foot-label {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.56rem;
-          color: #374151;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.58rem;
+          color: var(--slate);
           letter-spacing: 0.16em;
         }
-        .h-foot-copy {
-          display: flex; align-items: center; gap: 8px;
-        }
-        .h-foot-sep { width: 1px; height: 10px; background-color: rgba(107,114,128,0.25); }
+        .h-foot-copy { display: flex; align-items: center; gap: 8px; }
+        .h-foot-sep { width: 1px; height: 10px; background-color: var(--line); }
         .h-foot-txt {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem;
-          color: #374151;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.6rem;
+          color: var(--slate);
         }
 
         /* ─── RESPONSIVE ──────────────────────────────────── */
 
-        /* Tablet ≤ 900px */
         @media (max-width: 900px) {
-          .h-grid {
-            grid-template-columns: 1fr;
-            gap: 32px;
-            padding: 32px 0 24px;
-          }
-          .h-right {
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-          .h-imgcard { flex: 1 1 220px; min-width: 0; }
-          .h-termcard { flex: 1 1 220px; min-width: 0; }
+          .h-grid { grid-template-columns: 1fr; gap: 34px; padding: 34px 0 26px; }
+          .h-right { flex-direction: row; flex-wrap: wrap; }
+          .h-imgcard, .h-logcard { flex: 1 1 240px; min-width: 0; }
           .h-cred { width: 100%; }
           .h-metrics { grid-template-columns: repeat(2, 1fr); }
+          .h-tagline { display: none; }
         }
 
-        /* Mobile ≤ 640px */
         @media (max-width: 640px) {
           .h-shell { padding: 0 16px; }
-          .h-nav { display: none; }
           .h-name { font-size: clamp(2.4rem, 13vw, 3.2rem); }
           .h-right { flex-direction: column; }
           .h-metrics { grid-template-columns: repeat(2, 1fr); }
           .h-btns { gap: 8px; }
-          .h-btn-p, .h-btn-o { padding: 10px 15px; font-size: 0.68rem; }
+          .h-btn-p, .h-btn-o { padding: 11px 16px; font-size: 0.72rem; }
           .h-foot { flex-direction: column; align-items: flex-start; }
         }
 
-        /* Tiny ≤ 360px */
         @media (max-width: 360px) {
           .h-name { font-size: 2rem; }
-          .h-stack { gap: 4px; }
-          .h-interests { gap: 4px; }
+          .h-stack { gap: 5px; }
+          .h-interests { gap: 5px; }
         }
       `}</style>
 
       <section className="h-root">
-        <div className="h-glow-r" aria-hidden="true" />
-        <div className="h-glow-b" aria-hidden="true" />
+        <div className="h-hexLayer" aria-hidden="true" />
+        <div className="h-glowPurple" aria-hidden="true" />
+        <div className="h-glowOrange" aria-hidden="true" />
 
         <div className="h-shell">
 
           {/* ── TOP BAR ── */}
           <header className="h-bar">
-            <div className="h-logo">Brian<span>.</span>dev</div>
+            <div className="h-logo">Mwalish<span>.dev</span></div>
 
-            <nav className="h-nav" aria-label="Quick navigation" />
+            <div className="h-tagline">
+              <b>CODE</b><span className="sep">·</span><b>DESIGN</b><span className="sep">·</span><b>INNOVATE</b>
+            </div>
 
             <div className="h-status">
               <StatusDot />
-              <span>open_to_work</span>
+              <span>Open to work</span>
             </div>
           </header>
 
           {/* ── MAIN GRID ── */}
-          <motion.div
-            className="h-grid"
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-          >
+          <motion.div className="h-grid" variants={stagger} initial="hidden" animate="show">
 
             {/* ── LEFT ── */}
             <div className="h-left">
 
-              {/* whoami prompt */}
               <motion.div variants={fadeUp}>
-                <TermLine prompt="$">whoami</TermLine>
+                <p className="h-eyebrow">Software Engineer · Eldoret, Kenya</p>
               </motion.div>
 
-              {/* Name */}
               <motion.div variants={fadeUp}>
                 <h1 className="h-name">
                   Brian<br />
@@ -605,37 +620,25 @@ const Hero = ({ onSectionChange }) => {
                 </h1>
               </motion.div>
 
-              {/* Typing title */}
               <motion.div variants={fadeUp} className="h-title-row">
-                <span style={{
-                  fontFamily: "'Fira Code', monospace",
-                  fontSize: '0.65rem',
-                  color: '#4B5563',
-                  letterSpacing: '0.04em',
-                  flexShrink: 0,
-                }}>
-                  role:
-                </span>
+                <span className="h-title-prompt">Currently:</span>
                 <span className="h-title-text">
                   <TypingTitle />
                 </span>
               </motion.div>
 
-              {/* Bio */}
               <motion.div variants={fadeUp}>
                 <p className="h-bio">
-                  {'> '} I develop scalable systems, intelligent software solutions,
+                  I develop scalable systems, intelligent software solutions,
                   and modern applications with a focus on software architecture,
                   cloud infrastructure, machine learning, backend engineering, automation,
                   and emerging technologies. Passionate about building secure, high-performance,
-                  and data-driven solutions using modern software engineering principles
-                  and technologies.
+                  and data-driven solutions using modern software engineering principles.
                 </p>
               </motion.div>
 
-              {/* Metrics */}
               <motion.div variants={fadeUp}>
-                <p className="h-sec">// engineering metrics</p>
+                <p className="h-sec">Engineering Metrics</p>
                 <div className="h-metrics">
                   {metrics.map((m, i) => (
                     <div key={i} className="h-metric">
@@ -646,17 +649,15 @@ const Hero = ({ onSectionChange }) => {
                 </div>
               </motion.div>
 
-              {/* Stack */}
               <motion.div variants={fadeUp}>
-                <p className="h-sec">// tech stack</p>
+                <p className="h-sec">Tech Stack</p>
                 <div className="h-stack">
-                  {stack.map((t, i) => <StackBadge key={i} label={t.label} color={t.color} />)}
+                  {stack.map((t, i) => <StackChip key={i} label={t.label} />)}
                 </div>
               </motion.div>
 
-              {/* Interests */}
               <motion.div variants={fadeUp}>
-                <p className="h-sec">// interested in</p>
+                <p className="h-sec">Interested In</p>
                 <div className="h-interests">
                   {interests.map((t, i) => (
                     <span key={i} className="h-interest">{t}</span>
@@ -664,7 +665,6 @@ const Hero = ({ onSectionChange }) => {
                 </div>
               </motion.div>
 
-              {/* CTAs */}
               <motion.div variants={fadeUp} className="h-btns">
                 <a
                   href="https://github.com/Brian2021-Mwalish"
@@ -672,14 +672,13 @@ const Hero = ({ onSectionChange }) => {
                   rel="noopener noreferrer"
                   className="h-btn-p"
                 >
-
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                     <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 012.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55C20.22 21.4 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
                   </svg>
                   GitHub Profile
                 </a>
                 <a href="/BRIAN%20CV.pdf" download="BRIAN CV.pdf" className="h-btn-o">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M12 10v6m0 0l-3-3m3 3l3-3M7 19H5a2 2 0 01-2-2V7a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2h-2"/>
                   </svg>
                   Resume / CV
@@ -692,8 +691,7 @@ const Hero = ({ onSectionChange }) => {
                     onSectionChange && onSectionChange('projects');
                   }}
                 >
-
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
                   </svg>
                   View Projects
@@ -705,46 +703,27 @@ const Hero = ({ onSectionChange }) => {
             {/* ── RIGHT ── */}
             <motion.div className="h-right" variants={fadeIn}>
 
-              {/* Photo — IDE window style */}
               <div className="h-imgcard">
-                <div className="h-win-bar" aria-hidden="true">
-                  <span className="h-dot" style={{ backgroundColor: '#FF5F57' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#FEBC2E' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#28C840' }} />
-                  <span className="h-win-label">brian_mwalish.jpg</span>
-                </div>
                 <img src={ownerImage} alt="Brian Mwalish — Software Engineer" />
                 <div className="h-img-overlay">
                   <div>
                     <p className="h-overlay-name">Brian Mwalish</p>
-                    <p className="h-overlay-loc">Eldoret, KE · Available</p>
+                    <p className="h-overlay-loc">Eldoret, KE</p>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <StatusDot />
-                    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#22C55E' }}>online</span>
-                  </div>
+                  <StatusDot />
                 </div>
               </div>
 
-              {/* Terminal README */}
-              <div className="h-termcard">
-                <div className="h-win-bar" aria-hidden="true">
-                  <span className="h-dot" style={{ backgroundColor: '#FF5F57' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#FEBC2E' }} />
-                  <span className="h-dot" style={{ backgroundColor: '#28C840' }} />
-                  <span className="h-win-label">README.md</span>
-                </div>
-                <div className="h-term-body">
-                  <TermLine prompt="$">git log --oneline --author="Brian"</TermLine>
-                  <TermLine prompt="›" dimPrompt>Built scalable REST APIs with Django</TermLine>
-                  <TermLine prompt="›" dimPrompt>Deployed microservices on AWS ECS</TermLine>
-                  <TermLine prompt="›" dimPrompt>Optimised PostgreSQL query performance</TermLine>
-                  <TermLine prompt="›" dimPrompt>Shipped 10+ production applications</TermLine>
-                  <TermLine prompt="$">_</TermLine>
+              <div className="h-logcard">
+                <div className="h-logcard-head">Recent Work</div>
+                <div className="h-logcard-body">
+                  <div className="h-logline">Built scalable REST APIs with Django</div>
+                  <div className="h-logline">Deployed microservices on AWS ECS</div>
+                  <div className="h-logline">Optimised PostgreSQL query performance</div>
+                  <div className="h-logline">Shipped 10+ production applications</div>
                 </div>
               </div>
 
-              {/* Credibility bar */}
               <div className="h-cred">
                 {['Open Source', 'Problem Solver', 'System Thinker'].map((t, i) => (
                   <div key={i} className="h-cred-item">
@@ -767,8 +746,8 @@ const Hero = ({ onSectionChange }) => {
                   key={i}
                   src={t.src}
                   alt={t.alt}
-                  style={{ width: 19, height: 19, opacity: 0.35, filter: 'grayscale(65%)', cursor: 'pointer' }}
-                  whileHover={{ opacity: 1, scale: 1.3, filter: 'grayscale(0%)' }}
+                  style={{ width: 20, height: 20, opacity: 0.4, cursor: 'pointer' }}
+                  whileHover={{ opacity: 1, scale: 1.25 }}
                   transition={{ type: 'spring', stiffness: 400 }}
                 />
               ))}
