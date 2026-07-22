@@ -150,7 +150,8 @@ const Hero = ({ onSectionChange }) => {
           --orange: #F97316;
           --paper: #FAF9F7;
           --paper-2: #F1EEFB;
-          --line: rgba(27,17,48,0.10);
+          --line: #E7E1F4;
+          --orange-tint: #FDE0C7;
           --slate: #6B6478;
         }
 
@@ -163,29 +164,31 @@ const Hero = ({ onSectionChange }) => {
           overflow: hidden;
         }
 
-        /* Geometric backdrop — hexagon lattice, the brand's signature motif */
+        /* Geometric backdrop — flat solid hexagon, the brand's signature motif */
         .h-hexLayer {
           position: absolute;
-          inset: -10% -10% -10% 40%;
-          opacity: 0.5;
-          background-image:
-            linear-gradient(120deg, transparent 46%, rgba(91,33,182,0.06) 47%, rgba(91,33,182,0.06) 53%, transparent 54%),
-            linear-gradient(60deg,  transparent 46%, rgba(249,115,22,0.05) 47%, rgba(249,115,22,0.05) 53%, transparent 54%);
-          background-size: 130px 150px;
+          top: 8%;
+          right: -80px;
+          width: 340px;
+          height: 300px;
+          background-color: var(--paper-2);
+          clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
           animation: hexDrift 26s ease-in-out infinite alternate;
           pointer-events: none;
           z-index: 0;
         }
         .h-glowPurple {
-          position: absolute; top: -160px; right: -120px;
-          width: 560px; height: 560px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(91,33,182,0.14) 0%, transparent 70%);
+          position: absolute; bottom: 6%; left: -70px;
+          width: 150px; height: 150px;
+          background-color: var(--purple);
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
           pointer-events: none; z-index: 0;
         }
         .h-glowOrange {
-          position: absolute; bottom: -140px; left: -100px;
-          width: 420px; height: 420px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 70%);
+          position: absolute; top: -40px; left: 46%;
+          width: 90px; height: 90px;
+          background-color: var(--orange);
+          clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
           pointer-events: none; z-index: 0;
         }
 
@@ -375,7 +378,7 @@ const Hero = ({ onSectionChange }) => {
           font-family: 'JetBrains Mono', monospace;
           font-size: 0.66rem;
           color: var(--purple);
-          border: 1px solid rgba(91,33,182,0.22);
+          border: 1px solid #D6C6F5;
           background-color: var(--paper-2);
           padding: 4px 10px;
           border-radius: 3px;
@@ -433,7 +436,7 @@ const Hero = ({ onSectionChange }) => {
           border-radius: 4px;
           overflow: hidden;
           background-color: #FFFFFF;
-          box-shadow: 10px 10px 0 rgba(91,33,182,0.08);
+          box-shadow: 10px 10px 0 var(--paper-2);
         }
         .h-imgcard::before {
           content: '';
@@ -524,7 +527,7 @@ const Hero = ({ onSectionChange }) => {
         .h-statusDotWrap { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px; }
         .h-statusDotPulse {
           position: absolute; width: 10px; height: 10px; border-radius: 50%;
-          background-color: var(--orange); opacity: 0.35;
+          background-color: var(--orange-tint);
           animation: dotPulse 1.8s cubic-bezier(0,0,0.2,1) infinite;
         }
         .h-statusDotCore { width: 6px; height: 6px; border-radius: 50%; background-color: var(--orange); position: relative; z-index: 1; }
