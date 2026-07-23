@@ -271,7 +271,6 @@ const DetailDrawer = ({ project, onClose }) => {
         onClick={e => e.stopPropagation()}
         style={{
           background: '#161B22',
-          borderTop: `3px solid ${project.accent}`,
           border: `1px solid rgba(230,57,70,0.2)`,
           borderTop: `3px solid ${project.accent}`,
           borderRadius: '6px 6px 0 0',
