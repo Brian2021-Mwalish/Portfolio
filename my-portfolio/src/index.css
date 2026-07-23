@@ -1,5 +1,30 @@
-/* Import Inter — must precede all other statements */
+/* Import Inter font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Theme configuration (Tailwind v4 uses CSS @theme directives) */
+@theme {
+  --font-sans: 'Inter', sans-serif;
+
+  --font-size-xs: 0.8125rem;
+  --font-size-xs--line-height: 1.5;
+  --font-size-sm: 0.875rem;
+  --font-size-sm--line-height: 1.5;
+  --font-size-base: 1rem;
+  --font-size-base--line-height: 1.6;
+  --font-size-lg: 1.125rem;
+  --font-size-lg--line-height: 1.6;
+  --font-size-xl: 1.25rem;
+  --font-size-xl--line-height: 1.6;
+  --font-size-2xl: 1.5rem;
+  --font-size-2xl--line-height: 1.8;
+  --font-size-3xl: 1.875rem;
+  --font-size-3xl--line-height: 1.9;
+  --font-size-4xl: 2.25rem;
+  --font-size-4xl--line-height: 2;
+}
 
 @keyframes slide {
   0% { transform: translateX(100%); opacity: 0.7; }
@@ -17,9 +42,6 @@
 .animate-blink {
   animation: blink 1s infinite;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 html { 
   font-size: 18px; 
