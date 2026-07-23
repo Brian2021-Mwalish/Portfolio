@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -11,8 +12,7 @@ const projects = [
     live: 'https://peepalmtc.ac.ke/',
     github: 'https://github.com/Brian2021-Mwalish',
     category: 'Full-Stack',
-    num: '00',
-    accent: '#E63946',
+    num: '01',
     year: '2026',
     status: 'live',
     features: ['Student Enrollment', 'Course Management', 'Academic Records', 'Fee Tracking', 'Admin Portal', 'Staff Dashboard'],
@@ -26,16 +26,11 @@ const projects = [
     live: 'https://akinaties.org/',
     github: '',
     category: 'Full-Stack',
-    num: '01',
-    accent: '#E63946',
+    num: '02',
     year: '2025',
     status: 'live',
     features: ['Responsive UI', 'Program & Content Display', 'Community Engagement', 'Modern UI Design'],
-    metrics: [
-      { label: 'Sections', val: 10 },
-      { label: 'Pages', val: 5 },
-      { label: 'Uptime %', val: 99 },
-    ],
+    metrics: [{ label: 'Sections', val: 10 }, { label: 'Pages', val: 5 }, { label: 'Uptime %', val: 99 }],
   },
   {
     title: 'Liquidity-Funding',
@@ -45,8 +40,7 @@ const projects = [
     live: 'https://liquiinvestke.co.ke',
     github: 'https://github.com/Brian2021-Mwalish/Digital-Liquidity-Fund-Platform-.git',
     category: 'Full-Stack',
-    num: '02',
-    accent: '#E63946',
+    num: '03',
     year: '2025',
     status: 'live',
     features: ['M-Pesa Payment Integration', 'Real-Time Dashboard', 'Investment Tracking', 'Referral Program', 'Modern UI'],
@@ -60,8 +54,7 @@ const projects = [
     live: 'https://home-leasing.vercel.app/',
     github: 'https://github.com/Brian2021-Mwalish/HomeLeasing.git',
     category: 'Full-Stack',
-    num: '02',
-    accent: '#2563EB',
+    num: '04',
     year: '2026',
     status: 'live',
     features: ['Map-Based Search', 'Property Listings', 'Online Booking', 'Secure Payments', 'In-App Messaging', 'Reviews & Ratings'],
@@ -75,8 +68,7 @@ const projects = [
     live: 'https://www.primetrades.app',
     github: 'https://github.com/Brian2021-Mwalish/Prime-Trade.git',
     category: 'Dashboard',
-    num: '03',
-    accent: '#16A34A',
+    num: '05',
     year: '2025',
     status: 'live',
     features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization'],
@@ -90,8 +82,7 @@ const projects = [
     live: 'https://restaurant-app-demo.vercel.app',
     github: 'https://github.com/Brian2021-Mwalish/Reservation-System.git',
     category: 'Full-Stack',
-    num: '04',
-    accent: '#D97706',
+    num: '06',
     year: '2025',
     status: 'live',
     features: ['Smart Real-Time Updates', 'Admin Dashboard', 'Customer Loyalty', 'Fully Responsive'],
@@ -100,13 +91,12 @@ const projects = [
   {
     title: 'Loyalty Dashboard',
     description: 'Advanced administrative control panel for managing customer loyalty tiers, comprehensive engagement analytics visualization, and automated loyalty action triggers with manual override.',
-    longDesc: 'A standalone loyalty engine that can be white-labelled into any e-commerce or SaaS product. Tier thresholds, point multipliers, and reward catalogues are all configurable without code. The Chart.js-powered analytics board shows cohort retention and redemption rates at a weekly cadence.',
+    longDesc: 'A standalone loyalty engine that can be white-labelled into any e-commerce or SaaS product. Tier thresholds, point multipliers, and reward catalogues are all configurable without code. The analytics board shows cohort retention and redemption rates at a weekly cadence.',
     tech: ['React', 'Django REST', 'Chart.js', 'Redux'],
     live: '',
     github: 'https://github.com/Brian2021-Mwalish/loyalty-dashboard',
     category: 'Dashboard',
-    num: '05',
-    accent: '#E63946',
+    num: '07',
     year: '2023',
     status: 'dev',
     features: ['Analytics Dashboard', 'Tier Management', 'Auto Actions', 'Data Visualization'],
@@ -123,56 +113,30 @@ const collabItems = [
   'Database design (PostgreSQL)',
   'System architecture planning',
   'Deployment & server configuration',
-  'Git-based team collaboration',
 ];
 
 const techUsage = [
-  { name: 'React',       count: 4 },
-  { name: 'Django',      count: 4 },
-  { name: 'TypeScript',  count: 3 },
-  { name: 'Tailwind CSS',count: 3 },
-  { name: 'PostgreSQL',  count: 2 },
-  { name: 'Chart.js',    count: 2 },
-  { name: 'Redux',       count: 2 },
-  { name: 'FastAPI',     count: 1 },
+  { name: 'React', count: 4 },
+  { name: 'Django', count: 4 },
+  { name: 'TypeScript', count: 3 },
+  { name: 'Tailwind CSS', count: 3 },
+  { name: 'PostgreSQL', count: 2 },
+  { name: 'Chart.js', count: 2 },
+  { name: 'Redux', count: 2 },
+  { name: 'FastAPI', count: 1 },
 ];
 
 const CATEGORIES = ['All', 'Full-Stack', 'Dashboard'];
 
+const accentFor = (category) => (category === 'Dashboard' ? 'var(--orange)' : 'var(--purple)');
+
 // ─── STATUS DOT ──────────────────────────────────────────────────────────────
 
 const StatusDot = () => (
-  <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 10, height: 10 }}>
-    <span style={{
-      position: 'absolute', width: 10, height: 10, borderRadius: '50%',
-      backgroundColor: '#22C55E', opacity: 0.3,
-      animation: 'heroPing 1.5s cubic-bezier(0,0,0.2,1) infinite',
-    }} />
-    <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#22C55E', position: 'relative', zIndex: 1 }} />
+  <span className="p-statusDotWrap">
+    <span className="p-statusDotPulse" />
+    <span className="p-statusDotCore" />
   </span>
-);
-
-// ─── TERM LINE ───────────────────────────────────────────────────────────────
-
-const TermLine = ({ prompt = '$', dimPrompt, children }) => (
-  <div style={{ display: 'flex', gap: 8, fontFamily: "'Fira Code', monospace", fontSize: '0.72rem', lineHeight: 1.65 }}>
-    <span style={{ color: dimPrompt ? '#374151' : '#22C55E', flexShrink: 0 }}>{prompt}</span>
-    <span style={{ color: '#9CA3AF' }}>{children}</span>
-  </div>
-);
-
-// ─── WIN BAR ─────────────────────────────────────────────────────────────────
-
-const WinBar = ({ label }) => (
-  <div style={{
-    display: 'flex', alignItems: 'center', gap: 5,
-    padding: '7px 12px', borderBottom: '1px solid rgba(255,255,255,0.04)',
-  }}>
-    {[{ bg: '#FF5F57' }, { bg: '#FEBC2E' }, { bg: '#28C840' }].map((d, i) => (
-      <span key={i} style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: d.bg }} />
-    ))}
-    <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#6B7280', marginLeft: 5 }}>{label}</span>
-  </div>
 );
 
 // ─── ANIMATED COUNTER ────────────────────────────────────────────────────────
@@ -187,7 +151,7 @@ const Counter = ({ target, suffix = '' }) => {
       if (e.isIntersecting && !started.current) {
         started.current = true;
         let start = 0;
-        const step = Math.ceil(target / 40);
+        const step = Math.max(1, Math.ceil(target / 40));
         const timer = setInterval(() => {
           start += step;
           if (start >= target) { setVal(target); clearInterval(timer); }
@@ -220,27 +184,8 @@ const CopyLinkBtn = ({ url }) => {
   }, [url]);
 
   return (
-    <button
-      onClick={handleCopy}
-      title="Copy link"
-      style={{
-        fontFamily: "'Fira Code', monospace",
-        fontSize: '0.62rem',
-        background: state === 'copied' ? 'rgba(34,197,94,0.15)' : state === 'error' ? 'rgba(230,57,70,0.15)' : 'transparent',
-        border: `1px solid ${state === 'copied' ? 'rgba(34,197,94,0.4)' : state === 'error' ? 'rgba(230,57,70,0.4)' : 'rgba(107,114,128,0.2)'}`,
-        borderRadius: 2,
-        padding: '9px 10px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 5,
-        color: state === 'copied' ? '#22C55E' : state === 'error' ? '#E63946' : '#6B7280',
-        transition: 'all 0.2s',
-        flexShrink: 0,
-        letterSpacing: '0.06em',
-      }}
-    >
-      {state === 'copied' ? '✓ copied' : state === 'error' ? '✕ fail' : '⧉ link'}
+    <button onClick={handleCopy} title="Copy link" className={`p-copyBtn p-copyBtn--${state}`}>
+      {state === 'copied' ? 'Copied' : state === 'error' ? "Couldn't copy" : 'Copy link'}
     </button>
   );
 };
@@ -255,155 +200,63 @@ const DetailDrawer = ({ project, onClose }) => {
   }, [onClose]);
 
   const maxMetric = Math.max(...project.metrics.map(m => m.val));
+  const accent = accentFor(project.category);
 
   return (
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(13,17,23,0.85)',
-        backdropFilter: 'blur(4px)',
-        display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-        animation: 'fadeInOverlay 0.25s ease',
-      }}
-    >
-      <div
+    <div onClick={onClose} className="p-overlay">
+      <motion.div
         onClick={e => e.stopPropagation()}
-        style={{
-          background: '#161B22',
-          border: `1px solid rgba(230,57,70,0.2)`,
-          borderTop: `3px solid ${project.accent}`,
-          borderRadius: '6px 6px 0 0',
-          width: '100%',
-          maxWidth: 760,
-          maxHeight: '80vh',
-          overflowY: 'auto',
-          position: 'relative',
-          animation: 'slideUp 0.35s cubic-bezier(.22,1,.36,1)',
-          fontFamily: "'DM Sans', ui-sans-serif, system-ui, sans-serif",
-        }}
+        className="p-drawer"
+        style={{ borderTopColor: accent }}
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        <WinBar label={`${project.title.toLowerCase().replace(/\s/g, '_')}.md`} />
+        <button onClick={onClose} className="p-drawerClose" aria-label="Close">×</button>
 
-        <div style={{ padding: '32px 44px 44px' }}>
-          <button
-            onClick={onClose}
-            style={{
-              position: 'absolute', top: 44, right: 44,
-              background: '#E63946', color: '#fff',
-              border: 'none', borderRadius: 2,
-              width: 28, height: 28,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', fontSize: 16, lineHeight: 1,
-              fontFamily: "'Fira Code', monospace",
-            }}
-          >×</button>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <div style={{ width: 4, height: 28, background: project.accent, borderRadius: 2 }} />
-            <span style={{
-              fontFamily: "'Fira Code', monospace",
-              fontSize: '0.6rem', fontWeight: 500, letterSpacing: '0.12em',
-              color: '#E63946', padding: '3px 8px', borderRadius: 2,
-              border: '1px solid rgba(230,57,70,0.3)', background: 'rgba(230,57,70,0.08)',
-              textTransform: 'uppercase',
-            }}>{project.category}</span>
-            <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.6rem', color: '#6B7280' }}>{project.year}</span>
-          </div>
-
-          <h2 style={{
-            fontFamily: "'DM Serif Display', Georgia, serif",
-            fontSize: '2rem', fontWeight: 400,
-            color: '#E6EDF3', margin: '0 0 14px',
-            letterSpacing: '-0.02em',
-          }}>{project.title}</h2>
-
-          <p style={{ color: '#8B949E', fontSize: '0.88rem', lineHeight: 1.8, margin: '0 0 28px' }}>
-            {project.longDesc}
-          </p>
-
-          {/* Metrics */}
-          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// project metrics</p>
-          <div style={{ marginBottom: 24 }}>
-            {project.metrics.map((m, i) => (
-              <div key={i} style={{ marginBottom: 10 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.7rem', color: '#8B949E' }}>{m.label}</span>
-                  <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.7rem', color: '#E6EDF3', fontWeight: 500 }}>{m.val}</span>
-                </div>
-                <div style={{ height: 5, background: 'rgba(255,255,255,0.06)', borderRadius: 2, overflow: 'hidden' }}>
-                  <div style={{
-                    height: '100%',
-                    width: `${Math.round((m.val / maxMetric) * 100)}%`,
-                    background: project.accent,
-                    borderRadius: 2,
-                    transition: 'width 0.8s cubic-bezier(.22,1,.36,1)',
-                  }} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Features */}
-          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// key features</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 24 }}>
-            {project.features.map((f, i) => (
-              <span key={i} style={{
-                fontFamily: "'Fira Code', monospace", fontSize: '0.68rem', color: '#22C55E',
-                padding: '4px 12px', borderRadius: 2,
-                border: '1px solid rgba(34,197,94,0.25)', background: 'rgba(34,197,94,0.08)',
-              }}>{f}</span>
-            ))}
-          </div>
-
-          {/* Tech */}
-          <p style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#E63946', marginBottom: 12 }}>// tech stack</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, marginBottom: 28 }}>
-            {project.tech.map((t, i) => (
-              <span key={i} style={{
-                fontFamily: "'Fira Code', monospace", fontSize: '0.68rem', color: '#6B7280',
-                padding: '4px 12px', borderRadius: 2,
-                border: '1px solid rgba(107,114,128,0.2)', background: 'rgba(107,114,128,0.06)',
-              }}>{t}</span>
-            ))}
-          </div>
-
-          {/* Buttons */}
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            {project.live && (
-              <a
-                href={project.live} target="_blank" rel="noopener noreferrer"
-                style={{
-                  fontFamily: "'Syne', sans-serif", fontSize: '0.72rem', fontWeight: 700,
-                  letterSpacing: '0.1em', textTransform: 'uppercase',
-                  background: '#E63946', color: '#fff',
-                  padding: '11px 24px', borderRadius: 3,
-                  border: '1.5px solid #E63946', textDecoration: 'none',
-                  display: 'inline-flex', alignItems: 'center', gap: 7,
-                  transition: 'background 0.18s',
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = '#C62833'}
-                onMouseLeave={e => e.currentTarget.style.background = '#E63946'}
-              >View Live ↗</a>
-            )}
-            <a
-              href={project.github} target="_blank" rel="noopener noreferrer"
-              style={{
-                fontFamily: "'Syne', sans-serif", fontSize: '0.72rem', fontWeight: 700,
-                letterSpacing: '0.1em', textTransform: 'uppercase',
-                background: 'transparent', color: '#8B949E',
-                padding: '11px 24px', borderRadius: 3,
-                border: '1.5px solid rgba(139,148,158,0.22)', textDecoration: 'none',
-                display: 'inline-flex', alignItems: 'center', gap: 7,
-                transition: 'all 0.18s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#E63946'; e.currentTarget.style.color = '#E63946'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(139,148,158,0.22)'; e.currentTarget.style.color = '#8B949E'; }}
-            >GitHub →</a>
-            {project.live && <CopyLinkBtn url={project.live} />}
-          </div>
+        <div className="p-drawerHead">
+          <span className="p-tag" style={{ color: accent, borderColor: accent === 'var(--orange)' ? 'var(--orange-tint)' : '#D6C6F5' }}>
+            {project.category}
+          </span>
+          <span className="p-drawerYear">{project.year}</span>
         </div>
-      </div>
+
+        <h2 className="p-drawerTitle">{project.title}</h2>
+        <p className="p-drawerDesc">{project.longDesc}</p>
+
+        <p className="p-sec">Project Metrics</p>
+        <div className="p-metricBars">
+          {project.metrics.map((m, i) => (
+            <div key={i} className="p-metricBarRow">
+              <div className="p-metricBarTop">
+                <span>{m.label}</span>
+                <span>{m.val}</span>
+              </div>
+              <div className="p-metricBarTrack">
+                <div className="p-metricBarFill" style={{ width: `${Math.round((m.val / maxMetric) * 100)}%`, backgroundColor: accent }} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="p-sec">Key Features</p>
+        <div className="p-pillRow">
+          {project.features.map((f, i) => <span key={i} className="p-featurePill">{f}</span>)}
+        </div>
+
+        <p className="p-sec">Tech Stack</p>
+        <div className="p-pillRow" style={{ marginBottom: 28 }}>
+          {project.tech.map((t, i) => <span key={i} className="p-techPill">{t}</span>)}
+        </div>
+
+        <div className="p-drawerBtns">
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-btn-p">View Live Site</a>
+          )}
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-btn-o">View Code</a>
+          {project.live && <CopyLinkBtn url={project.live} />}
+        </div>
+      </motion.div>
     </div>
   );
 };
@@ -411,9 +264,7 @@ const DetailDrawer = ({ project, onClose }) => {
 // ─── MAIN COMPONENT ──────────────────────────────────────────────────────────
 
 const Projects = ({ onSectionChange }) => {
-  const sectionRef = useRef(null);
   const techRef = useRef(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeCategory, setActiveCategory] = useState('All');
   const [openProject, setOpenProject] = useState(null);
   const [techBarReady, setTechBarReady] = useState(false);
@@ -431,575 +282,464 @@ const Projects = ({ onSectionChange }) => {
   }, []);
 
   const maxTech = Math.max(...techUsage.map(t => t.count));
+  const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  };
 
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=Fira+Code:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-        @keyframes heroPing {
-          75%, 100% { transform: scale(2); opacity: 0; }
+        @keyframes hexDrift {
+          0%   { transform: translate(0, 0) rotate(0deg); }
+          100% { transform: translate(-60px, 60px) rotate(6deg); }
         }
-        @keyframes heroGrid {
-          0%   { background-position: 0 0; }
-          100% { background-position: 0 40px; }
+        @keyframes dotPulse {
+          75%, 100% { transform: scale(2.4); opacity: 0; }
         }
-        @keyframes heroScan {
-          0%   { transform: translateY(-5%); }
-          100% { transform: translateY(110vh); }
-        }
-        @keyframes fadeInOverlay {
-          from { opacity: 0; }
-          to   { opacity: 1; }
-        }
-        @keyframes slideUp {
-          from { transform: translateY(60px); opacity: 0; }
-          to   { transform: translateY(0);    opacity: 1; }
-        }
-        @keyframes fadeInCard {
-          from { opacity: 0; transform: translateY(20px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
 
         *, *::before, *::after { box-sizing: border-box; }
 
-        .pr-root {
-          font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-          background-color: #0D1117;
+        :root {
+          --ink: #1B1130;
+          --purple: #5B21B6;
+          --purple-2: #8B5CF6;
+          --orange: #F97316;
+          --paper: #FAF9F7;
+          --paper-2: #F1EEFB;
+          --line: #E7E1F4;
+          --orange-tint: #FDE0C7;
+          --slate: #6B6478;
+          --hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .p-root {
+          font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+          background-color: var(--paper);
           min-height: 100dvh;
-          color: #E6EDF3;
+          color: var(--ink);
           position: relative;
           overflow: hidden;
         }
-        .pr-root::before {
-          content: '';
-          position: absolute; inset: 0;
-          background-image: radial-gradient(circle, rgba(230,57,70,0.07) 1px, transparent 1px);
-          background-size: 40px 40px;
-          animation: heroGrid 6s linear infinite;
-          pointer-events: none;
-          z-index: 0;
+
+        .p-hexLayer {
+          position: absolute; top: 4%; right: -90px;
+          width: 320px; height: 280px;
+          background-color: var(--paper-2);
+          clip-path: var(--hex);
+          animation: hexDrift 26s ease-in-out infinite alternate;
+          pointer-events: none; z-index: 0;
         }
-        .pr-root::after {
-          content: '';
-          position: absolute; left: 0; right: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.05) 50%, transparent 100%);
-          animation: heroScan 9s linear infinite;
-          pointer-events: none;
-          z-index: 1;
+        .p-glowOrange {
+          position: absolute; bottom: 4%; left: -60px;
+          width: 130px; height: 130px;
+          background-color: var(--orange);
+          opacity: 0.9;
+          clip-path: var(--hex);
+          pointer-events: none; z-index: 0;
         }
 
-        .pr-glow-r { position: absolute; top: -140px; left: -100px; width: 550px; height: 550px; border-radius: 50%; background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-        .pr-glow-b { position: absolute; bottom: -100px; right: -60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(26,26,46,0.55) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-
-        .pr-shell {
+        .p-shell {
           position: relative; z-index: 10;
-          max-width: 1180px;
-          margin: 0 auto;
-          padding: 0 24px;
-          display: flex;
-          flex-direction: column;
-          min-height: 100dvh;
+          max-width: 1180px; margin: 0 auto; padding: 0 24px;
+          display: flex; flex-direction: column; min-height: 100dvh;
         }
 
         /* TOP BAR */
-        .pr-bar {
-          display: flex; align-items: center;
-          justify-content: space-between;
-          padding: 18px 0 14px;
-          border-bottom: 1px solid rgba(230,57,70,0.14);
+        .p-bar {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 22px 0 16px; border-bottom: 1px solid var(--line);
           gap: 12px; flex-wrap: wrap;
         }
-        .pr-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: #E6EDF3; white-space: nowrap; }
-        .pr-logo span { color: #E63946; }
-        .pr-nav { display: flex; gap: 6px; flex-wrap: wrap; }
-        .pr-chip {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.62rem; color: #6B7280;
-          padding: 3px 8px; border: 1px solid rgba(107,114,128,0.18);
-          border-radius: 2px; letter-spacing: 0.06em;
-          white-space: nowrap; text-decoration: none; cursor: pointer;
-          transition: border-color 0.18s, color 0.18s;
-          background: transparent;
-        }
-        .pr-chip:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
-        .pr-chip.active { border-color: rgba(230,57,70,0.4); color: #E63946; }
-        .pr-status { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
-        .pr-status span { font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #22C55E; }
+        .p-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); letter-spacing: -0.01em; }
+        .p-logo span { color: var(--orange); }
+        .p-status { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .p-status span { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.06em; color: var(--ink); }
 
-        /* INNER */
-        .pr-inner { flex: 1; padding: 44px 0 60px; }
+        .p-statusDotWrap { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 10px; height: 10px; }
+        .p-statusDotPulse { position: absolute; width: 10px; height: 10px; border-radius: 50%; background-color: var(--orange-tint); animation: dotPulse 1.8s cubic-bezier(0,0,0.2,1) infinite; }
+        .p-statusDotCore { width: 6px; height: 6px; border-radius: 50%; background-color: var(--orange); position: relative; z-index: 1; }
 
-        /* SECTION LABEL */
-        .pr-sec {
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem; font-weight: 500;
-          letter-spacing: 0.2em; text-transform: uppercase;
-          color: #E63946; margin-bottom: 9px;
+        .p-inner { flex: 1; padding: 48px 0 60px; }
+
+        .p-sec {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 500;
+          letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple); margin-bottom: 10px;
         }
 
         /* HEADER */
-        .pr-header-row {
-          display: flex; align-items: flex-start;
-          justify-content: space-between; gap: 32px;
-          flex-wrap: wrap; margin-bottom: 36px;
+        .p-headerRow {
+          display: flex; align-items: flex-end; justify-content: space-between;
+          gap: 32px; flex-wrap: wrap; margin-bottom: 38px;
         }
-        .pr-heading {
-          font-family: 'DM Serif Display', Georgia, serif;
-          font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 400;
-          color: #E6EDF3; line-height: 0.92;
-          letter-spacing: -0.03em; margin: 0 0 0;
+        .p-eyebrow {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; letter-spacing: 0.2em;
+          text-transform: uppercase; color: var(--orange); display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
         }
-        .pr-heading em { color: #E63946; font-style: italic; }
-        .pr-section-tag {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-family: 'Fira Code', monospace;
-          font-size: 0.58rem; font-weight: 500;
-          letter-spacing: 0.2em; text-transform: uppercase;
-          color: #E63946; margin-bottom: 12px;
+        .p-eyebrow::before { content: ''; width: 22px; height: 1px; background-color: var(--orange); display: inline-block; }
+        .p-heading {
+          font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto;
+          font-size: clamp(2.6rem, 5.6vw, 4.2rem); font-weight: 600; color: var(--ink);
+          line-height: 0.98; letter-spacing: -0.02em; margin: 0;
         }
-        .pr-subtext {
-          font-size: 0.88rem; color: #8B949E;
-          line-height: 1.82; max-width: 440px;
-          align-self: flex-end; margin: 0;
-        }
+        .p-heading em { font-style: italic; font-weight: 400; color: var(--purple); }
+        .p-subtext { font-size: 0.92rem; font-weight: 300; color: var(--slate); line-height: 1.8; max-width: 400px; margin: 0; }
 
         /* STATS */
-        .pr-stats {
-          display: grid; grid-template-columns: repeat(4, 1fr);
-          gap: 1px; border: 1px solid rgba(230,57,70,0.14);
-          border-radius: 4px; overflow: hidden;
-          background-color: rgba(230,57,70,0.07);
-          margin-bottom: 36px;
+        .p-stats {
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+          border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+          background-color: var(--line); margin-bottom: 40px;
         }
-        .pr-stat { background-color: #0D1117; padding: 18px 10px; text-align: center; }
-        .pr-stat-val {
-          font-family: 'DM Serif Display', serif;
-          font-size: clamp(1.5rem, 2.5vw, 2rem); color: #E6EDF3;
-          display: block; line-height: 1;
-        }
-        .pr-stat-val.accent { color: #E63946; }
-        .pr-stat-lbl {
-          font-family: 'Fira Code', monospace; font-size: 0.52rem;
-          color: #6B7280; letter-spacing: 0.1em; text-transform: uppercase;
-          display: block; margin-top: 5px;
-        }
+        .p-stat { background-color: #FFFFFF; padding: 18px 10px; text-align: center; }
+        .p-stat-val { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 1.8rem); color: var(--ink); display: block; line-height: 1; }
+        .p-stat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; color: var(--slate); letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-top: 6px; }
 
         /* FILTER */
-        .pr-filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 32px; }
-        .pr-filter-btn {
-          font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #6B7280;
-          padding: 5px 12px; border: 1px solid rgba(107,114,128,0.2); border-radius: 2px;
-          letter-spacing: 0.06em; cursor: pointer; transition: all .18s; background: transparent;
+        .p-filterRow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+        .p-filterLabel { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--slate); letter-spacing: 0.1em; text-transform: uppercase; }
+        .p-filterBtn {
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; color: var(--ink);
+          padding: 7px 14px; border: 1.5px solid var(--line); border-radius: 20px; background: #FFFFFF;
+          cursor: pointer; transition: all 0.18s; display: inline-flex; align-items: center; gap: 6px;
         }
-        .pr-filter-btn:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
-        .pr-filter-btn.active { border-color: #E63946; color: #E63946; background: rgba(230,57,70,0.08); }
-        .pr-filter-count {
-          display: inline-flex; align-items: center; justify-content: center;
-          background: #E63946; color: #fff;
-          width: 16px; height: 16px; border-radius: 50%;
-          font-size: 0.55rem; font-weight: 800; margin-left: 5px; vertical-align: middle;
+        .p-filterBtn:hover { border-color: var(--purple-2); }
+        .p-filterBtn.active { border-color: var(--purple); background: var(--paper-2); color: var(--purple); }
+        .p-filterCount {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--slate);
         }
+        .p-filterBtn.active .p-filterCount { color: var(--purple); }
 
-        /* COLLAB */
-        .pr-collab {
-          border: 1px solid rgba(230,57,70,0.18); border-radius: 6px;
-          background-color: #161B22; overflow: hidden; margin-bottom: 40px;
-          position: relative;
-        }
-        .pr-collab::before {
-          content: 'COLLAB'; position: absolute; right: -12px; top: 38px;
-          font-family: 'DM Serif Display', serif; font-size: 6rem; font-weight: 400;
-          color: rgba(230,57,70,0.04); letter-spacing: -2px;
-          pointer-events: none; user-select: none;
-        }
-        .pr-collab-body { padding: 24px 28px 28px; }
-        .pr-collab-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #E6EDF3; margin: 0 0 8px; }
-        .pr-collab-sub { font-size: 0.85rem; color: #8B949E; line-height: 1.75; margin: 0 0 20px; }
-        .pr-collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px 16px; }
-        .pr-collab-item { display: flex; align-items: flex-start; gap: 8px; font-family: 'Fira Code', monospace; font-size: 0.68rem; color: #6B7280; line-height: 1.5; }
-        .pr-collab-arrow { color: #E63946; flex-shrink: 0; margin-top: 1px; }
+        /* COLLAB PANEL */
+        .p-collab { border: 1px solid var(--line); border-radius: 6px; background-color: #FFFFFF; padding: 26px 28px; margin-bottom: 44px; }
+        .p-collabTitle { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); margin: 0 0 8px; }
+        .p-collabSub { font-size: 0.86rem; color: var(--slate); line-height: 1.75; margin: 0 0 18px; max-width: 640px; }
+        .p-collabGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; }
+        .p-collabItem { display: flex; align-items: flex-start; gap: 8px; font-family: 'Inter', sans-serif; font-size: 0.78rem; color: var(--ink); line-height: 1.5; }
+        .p-collabItem::before { content: ''; width: 5px; height: 5px; margin-top: 7px; border-radius: 50%; background-color: var(--orange); flex-shrink: 0; }
 
         /* GRID */
-        .pr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+        .p-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 52px; }
 
-        /* CARD */
-        .pr-card {
-          background-color: #161B22;
-          border: 1px solid rgba(230,57,70,0.15);
-          border-radius: 6px; padding: 28px;
-          display: flex; flex-direction: column;
-          position: relative; overflow: hidden;
-          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color .2s;
-          cursor: pointer;
-          animation: fadeInCard 0.5s ease both;
+        .p-card {
+          background-color: #FFFFFF; border: 1px solid var(--line); border-radius: 8px;
+          padding: 26px; display: flex; flex-direction: column; cursor: pointer;
+          transition: transform 0.25s cubic-bezier(.22,1,.36,1), box-shadow 0.25s ease, border-color 0.2s;
         }
-        .pr-card:hover { transform: translateY(-5px); border-color: rgba(230,57,70,0.35); }
-        .pr-card-num {
-          position: absolute; top: 10px; right: 14px;
-          font-family: 'DM Serif Display', serif; font-size: 4rem; font-weight: 400;
-          color: rgba(230,57,70,0.06); line-height: 1; letter-spacing: -3px;
-          pointer-events: none; user-select: none;
-        }
-        .pr-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 8px; }
-        .pr-card-top-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .pr-card-cat {
-          font-family: 'Fira Code', monospace; font-size: 0.6rem; font-weight: 500;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: #E63946; padding: 3px 8px; border-radius: 2px;
-          border: 1px solid rgba(230,57,70,0.3); background: rgba(230,57,70,0.08);
-        }
-        .pr-card-year { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; }
-        .pr-card-status { display: flex; align-items: center; gap: 5px; font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; }
-        .pr-card-status-dot { width: 6px; height: 6px; border-radius: 50%; }
-        .pr-card-accent { height: 2px; border-radius: 2px; margin-bottom: 14px; width: 32px; }
-        .pr-card-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: #E6EDF3; margin: 0 0 10px; line-height: 1.15; letter-spacing: -0.02em; }
-        .pr-card-desc { font-size: 0.82rem; color: #8B949E; line-height: 1.7; margin: 0 0 16px; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .pr-card-features { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 10px; margin-bottom: 16px; }
-        .pr-feat-item { display: flex; align-items: flex-start; gap: 5px; font-family: 'Fira Code', monospace; font-size: 0.62rem; color: #6B7280; line-height: 1.4; }
-        .pr-feat-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-        .pr-card-tech-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .pr-tech-pill { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; padding: 2px 8px; border-radius: 2px; border: 1px solid rgba(107,114,128,0.2); background: rgba(107,114,128,0.06); }
+        .p-card:hover { transform: translateY(-4px); border-color: var(--purple-2); box-shadow: 0 12px 28px rgba(91,33,182,0.08); }
 
-        /* CARD BUTTONS */
-        .pr-card-btns { display: flex; gap: 7px; margin-top: auto; }
-        .pr-btn-live {
-          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-          font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700;
-          letter-spacing: 0.08em; text-transform: uppercase;
-          background-color: #E63946; color: #fff;
-          padding: 9px 12px; border-radius: 3px;
-          border: 1.5px solid #E63946; cursor: pointer;
-          transition: background .18s, transform .15s; text-decoration: none;
+        .p-cardTop { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px; }
+        .p-cardTopLeft { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .p-tag {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500;
+          letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 3px;
+          border: 1px solid var(--line); background: var(--paper-2);
         }
-        .pr-btn-live:hover { background: #C62833; transform: translateY(-1px); }
-        .pr-btn-gh {
-          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
-          font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700;
-          letter-spacing: 0.08em; text-transform: uppercase;
-          background: transparent; color: #8B949E;
-          padding: 9px 12px; border-radius: 3px;
-          border: 1.5px solid rgba(139,148,158,0.22); cursor: pointer;
-          transition: all .18s; text-decoration: none;
+        .p-cardYear { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--slate); }
+        .p-cardStatus { display: flex; align-items: center; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--slate); white-space: nowrap; }
+        .p-cardStatusDot { width: 6px; height: 6px; border-radius: 50%; }
+
+        .p-cardAccent { height: 3px; border-radius: 3px; margin-bottom: 14px; width: 30px; }
+        .p-cardTitle { font-family: 'Fraunces', serif; font-size: 1.28rem; font-weight: 600; color: var(--ink); margin: 0 0 10px; line-height: 1.15; letter-spacing: -0.01em; }
+        .p-cardDesc { font-size: 0.83rem; color: var(--slate); line-height: 1.7; margin: 0 0 16px; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .p-cardFeatures { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 10px; margin-bottom: 16px; }
+        .p-featItem { display: flex; align-items: flex-start; gap: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--slate); line-height: 1.4; }
+        .p-featDot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; background-color: var(--purple-2); }
+
+        .p-cardTechRow { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+        .p-techChip {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.64rem; color: var(--ink);
+          padding: 4px 10px; background-color: #FFFFFF; border: 1px solid var(--line);
+          clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
         }
-        .pr-btn-gh:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
-        .pr-btn-detail {
+
+        .p-cardBtns { display: flex; gap: 7px; margin-top: auto; }
+        .p-btn-live {
+          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600;
+          background-color: var(--purple); color: #fff; padding: 10px 12px; border-radius: 5px;
+          border: 1.5px solid var(--purple); cursor: pointer; transition: background-color 0.18s, transform 0.15s; text-decoration: none;
+        }
+        .p-btn-live:hover { background-color: #4C1D95; transform: translateY(-1px); }
+        .p-btn-gh {
+          flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600;
+          background: transparent; color: var(--ink); padding: 10px 12px; border-radius: 5px;
+          border: 1.5px solid var(--line); cursor: pointer; transition: all 0.18s; text-decoration: none;
+        }
+        .p-btn-gh:hover { border-color: var(--orange); color: var(--orange); }
+        .p-btn-detail {
           display: inline-flex; align-items: center; justify-content: center;
-          font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280;
-          background: transparent; border: 1px solid rgba(107,114,128,0.2); border-radius: 2px;
-          padding: 9px 10px; cursor: pointer; transition: all .18s; white-space: nowrap;
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; color: var(--slate);
+          background: transparent; border: 1px solid var(--line); border-radius: 5px;
+          padding: 10px 12px; cursor: pointer; transition: all 0.18s; white-space: nowrap;
         }
-        .pr-btn-detail:hover { border-color: rgba(230,57,70,0.4); color: #E63946; }
+        .p-btn-detail:hover { border-color: var(--purple-2); color: var(--purple); }
 
-        /* TECH SECTION */
-        .pr-tech-section {
-          border: 1px solid rgba(230,57,70,0.13); border-radius: 6px;
-          background-color: #161B22; overflow: hidden; margin-bottom: 40px;
-        }
-        .pr-tech-body { padding: 24px 28px 28px; }
-        .pr-tech-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #E6EDF3; margin: 0 0 4px; }
-        .pr-tech-sub { font-family: 'Fira Code', monospace; font-size: 0.6rem; color: #6B7280; margin: 0 0 20px; letter-spacing: 0.04em; }
-        .pr-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .pr-bar-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: #8B949E; width: 100px; flex-shrink: 0; }
-        .pr-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
-        .pr-bar-fill { height: 100%; border-radius: 2px; transition: width 0.9s cubic-bezier(.22,1,.36,1); }
-        .pr-bar-count { font-family: 'Fira Code', monospace; font-size: 0.65rem; color: #6B7280; width: 24px; text-align: right; flex-shrink: 0; }
+        /* TECH FREQUENCY */
+        .p-techSection { border: 1px solid var(--line); border-radius: 6px; background-color: #FFFFFF; padding: 26px 28px; margin-bottom: 44px; }
+        .p-techTitle { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 600; color: var(--ink); margin: 0 0 4px; }
+        .p-techSub { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--slate); margin: 0 0 20px; letter-spacing: 0.03em; }
+        .p-barRow { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; }
+        .p-barLabel { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--ink); width: 100px; flex-shrink: 0; }
+        .p-barTrack { flex: 1; height: 7px; background: var(--paper-2); border-radius: 4px; overflow: hidden; }
+        .p-barFill { height: 100%; border-radius: 4px; transition: width 0.9s cubic-bezier(.22,1,.36,1); }
+        .p-barCount { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; color: var(--slate); width: 22px; text-align: right; flex-shrink: 0; }
 
         /* CTA */
-        .pr-cta {
-          border: 1px solid rgba(230,57,70,0.2); border-radius: 6px;
-          background-color: #161B22; overflow: hidden;
-          position: relative;
+        .p-cta { border: 1px solid var(--line); border-radius: 8px; background-color: var(--paper-2); overflow: hidden; position: relative; }
+        .p-ctaBody { padding: 34px 40px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; position: relative; z-index: 1; }
+        .p-ctaHeading { font-family: 'Fraunces', serif; font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 600; color: var(--ink); margin: 0 0 8px; letter-spacing: -0.01em; }
+        .p-ctaSub { font-family: 'Inter', sans-serif; font-size: 0.86rem; color: var(--slate); line-height: 1.7; max-width: 380px; margin: 0; font-weight: 300; }
+        .p-ctaBtns { display: flex; gap: 10px; flex-wrap: wrap; }
+        .p-btn-p {
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+          background-color: var(--purple); color: #fff; padding: 12px 22px; border-radius: 5px;
+          border: 1.5px solid var(--purple); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+          transition: background-color 0.18s, transform 0.15s; cursor: pointer; white-space: nowrap;
         }
-        .pr-cta::before {
-          content: '';position: absolute; top: -100px; right: -100px;
-          width: 300px; height: 300px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 70%);
-          pointer-events: none;
+        .p-btn-p:hover { background-color: #4C1D95; transform: translateY(-1px); }
+        .p-btn-o {
+          font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+          background-color: transparent; color: var(--ink); padding: 12px 22px; border-radius: 5px;
+          border: 1.5px solid var(--line); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+          transition: border-color 0.18s, color 0.18s, transform 0.15s; cursor: pointer; white-space: nowrap;
         }
-        .pr-cta-body {
-          padding: 36px 44px;
-          display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
-        }
-        .pr-cta-heading { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); color: #E6EDF3; margin: 0 0 8px; letter-spacing: -0.02em; }
-        .pr-cta-sub { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: '#6B7280'; line-height: 1.75; max-width: 400px; margin: 0; color: #6B7280; }
-        .pr-cta-btns { display: flex; gap: 9px; flex-wrap: wrap; }
-        .pr-btn-p {
-          font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
-          letter-spacing: 0.1em; text-transform: uppercase;
-          background-color: #E63946; color: #fff;
-          padding: 11px 20px; border-radius: 3px; border: 1.5px solid #E63946;
-          text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
-          transition: background-color .18s, transform .15s; cursor: pointer; white-space: nowrap;
-        }
-        .pr-btn-p:hover { background-color: #C62833; transform: translateY(-1px); }
-        .pr-btn-o {
-          font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700;
-          letter-spacing: 0.1em; text-transform: uppercase;
-          background-color: transparent; color: #8B949E;
-          padding: 11px 20px; border-radius: 3px; border: 1.5px solid rgba(139,148,158,0.22);
-          text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
-          transition: border-color .18s, color .18s, transform .15s; cursor: pointer; white-space: nowrap;
-        }
-        .pr-btn-o:hover { border-color: #E63946; color: #E63946; transform: translateY(-1px); }
+        .p-btn-o:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-1px); }
 
         /* FOOTER */
-        .pr-foot {
-          border-top: 1px solid rgba(230,57,70,0.09);
-          padding: 11px 0 15px;
-          display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-        }
-        .pr-foot-txt { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: #374151; }
-
-        /* WIN BAR shared */
-        .pr-winbar { display: flex; align-items: center; gap: 5px; padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); background-color: #161B22; }
-        .pr-wdot { width: 9px; height: 9px; border-radius: 50%; }
-        .pr-wlabel { font-family: 'Fira Code', monospace; font-size: 0.58rem; color: #6B7280; margin-left: 5px; }
+        .p-foot { border-top: 1px solid var(--line); padding: 13px 0 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .p-footCopy { display: flex; align-items: center; gap: 8px; }
+        .p-footSep { width: 1px; height: 10px; background-color: var(--line); }
+        .p-footTxt { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--slate); }
 
         /* EMPTY */
-        .pr-empty { text-align: center; padding: 60px 40px; color: #6B7280; grid-column: 1 / -1; font-family: 'Fira Code', monospace; font-size: 0.78rem; }
+        .p-empty { text-align: center; padding: 60px 40px; color: var(--slate); grid-column: 1 / -1; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
 
-        /* RESPONSIVE */
+        /* DRAWER / OVERLAY */
+        .p-overlay {
+          position: fixed; inset: 0; z-index: 9999; background: rgba(27,17,48,0.55);
+          backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center;
+          animation: fadeInOverlay 0.25s ease;
+        }
+        .p-drawer {
+          background: var(--paper); border-top: 3px solid var(--purple); border-radius: 10px 10px 0 0;
+          width: 100%; max-width: 720px; max-height: 82vh; overflow-y: auto; position: relative;
+          padding: 40px 44px 44px; font-family: 'Inter', sans-serif;
+        }
+        .p-drawerClose {
+          position: absolute; top: 24px; right: 24px; background: var(--paper-2); color: var(--ink);
+          border: 1px solid var(--line); border-radius: 50%; width: 30px; height: 30px;
+          display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 17px; line-height: 1;
+        }
+        .p-drawerClose:hover { border-color: var(--orange); color: var(--orange); }
+        .p-drawerHead { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .p-drawerYear { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; color: var(--slate); }
+        .p-drawerTitle { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 600; color: var(--ink); margin: 0 0 14px; letter-spacing: -0.02em; }
+        .p-drawerDesc { color: var(--slate); font-size: 0.9rem; font-weight: 300; line-height: 1.8; margin: 0 0 28px; }
+
+        .p-metricBars { margin-bottom: 26px; }
+        .p-metricBarRow { margin-bottom: 12px; }
+        .p-metricBarTop { display: flex; justify-content: space-between; margin-bottom: 5px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--ink); }
+        .p-metricBarTrack { height: 6px; background: var(--paper-2); border-radius: 3px; overflow: hidden; }
+        .p-metricBarFill { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(.22,1,.36,1); }
+
+        .p-pillRow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+        .p-featurePill { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--purple); padding: 5px 12px; border-radius: 3px; border: 1px solid #D6C6F5; background: var(--paper-2); }
+        .p-techPill { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--ink); padding: 5px 12px; border-radius: 3px; border: 1px solid var(--line); background: #FFFFFF; }
+
+        .p-drawerBtns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .p-copyBtn {
+          font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; background: transparent;
+          border: 1px solid var(--line); border-radius: 5px; padding: 11px 14px; cursor: pointer;
+          color: var(--slate); transition: all 0.2s; white-space: nowrap;
+        }
+        .p-copyBtn--copied { border-color: var(--purple-2); color: var(--purple); background: var(--paper-2); }
+        .p-copyBtn--error { border-color: var(--orange); color: var(--orange); }
+
+        /* ─── RESPONSIVE ── */
         @media (max-width: 900px) {
-          .pr-grid { grid-template-columns: repeat(2, 1fr); }
-          .pr-stats { grid-template-columns: repeat(2, 1fr); }
-          .pr-cta-body { flex-direction: column; }
+          .p-grid { grid-template-columns: repeat(2, 1fr); }
+          .p-stats { grid-template-columns: repeat(2, 1fr); }
+          .p-ctaBody { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 640px) {
-          .pr-shell { padding: 0 16px; }
-          .pr-nav { display: none; }
-          .pr-heading { font-size: clamp(2.2rem, 12vw, 2.8rem); }
-          .pr-grid { grid-template-columns: 1fr; }
-          .pr-stats { grid-template-columns: repeat(2, 1fr); }
-          .pr-cta-body { padding: 28px 20px; }
-          .pr-card-features { grid-template-columns: 1fr; }
+          .p-shell { padding: 0 16px; }
+          .p-heading { font-size: clamp(2.1rem, 11vw, 2.6rem); }
+          .p-grid { grid-template-columns: 1fr; }
+          .p-stats { grid-template-columns: repeat(2, 1fr); }
+          .p-ctaBody { padding: 28px 20px; }
+          .p-cardFeatures { grid-template-columns: 1fr; }
+          .p-drawer { padding: 32px 22px 32px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .p-hexLayer, .p-statusDotPulse { animation: none; }
         }
       `}</style>
 
-      <section className="pr-root" ref={sectionRef} id="projects">
-        <div className="pr-glow-r" aria-hidden="true" />
-        <div className="pr-glow-b" aria-hidden="true" />
+      <section className="p-root" id="projects">
+        <div className="p-hexLayer" aria-hidden="true" />
+        <div className="p-glowOrange" aria-hidden="true" />
 
-        <div className="pr-shell">
+        <div className="p-shell">
 
           {/* ── TOP BAR ── */}
-          <header className="pr-bar">
-            <div className="pr-logo">Brian<span>.</span>dev</div>
-
-            <div className="pr-status">
+          <header className="p-bar">
+            <div className="p-logo">Mwalish<span>.dev</span></div>
+            <div className="p-status">
               <StatusDot />
-              <span>{projects.length}_projects_indexed</span>
+              <span>Open to work</span>
             </div>
           </header>
 
-          <div className="pr-inner">
+          <motion.div className="p-inner" variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}>
 
             {/* ── HEADER ── */}
-            <div className="pr-header-row">
+            <motion.div variants={fadeUp} className="p-headerRow">
               <div>
-                <div className="pr-section-tag">
-                  <span style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: '#22C55E', display: 'inline-block' }} />
-                  Portfolio · {projects.length} Projects
-                </div>
-                <h2 className="pr-heading">
-                  Featured<br />
-                  <em>Projects</em>
-                </h2>
+                <p className="p-eyebrow">Portfolio · {projects.length} Projects</p>
+                <h2 className="p-heading">Featured <em>Projects</em></h2>
               </div>
-              <p className="pr-subtext">
-                {'>'} Full-stack solutions built with modern technologies — from investment platforms to institutional portals and smart booking systems.
+              <p className="p-subtext">
+                Full-stack solutions built with modern technologies — from investment platforms to institutional portals and smart booking systems.
               </p>
-            </div>
+            </motion.div>
 
             {/* ── STATS ── */}
-            <p className="pr-sec">// engineering metrics</p>
-            <div className="pr-stats">
-              {[
-                { val: projects.length,                                           suffix: '',  label: 'Total Projects',    accent: true  },
-                { val: projects.filter(p => p.status === 'live').length,          suffix: '',  label: 'Live & Deployed',   accent: false },
-                { val: new Set(projects.flatMap(p => p.tech)).size,               suffix: '+', label: 'Technologies Used', accent: false },
-                { val: 3,                                                          suffix: '+', label: 'Years Experience',  accent: false },
-              ].map((s, i) => (
-                <div key={i} className="pr-stat">
-                  <span className={`pr-stat-val${s.accent ? ' accent' : ''}`}>
-                    <Counter target={s.val} suffix={s.suffix} />
-                  </span>
-                  <span className="pr-stat-lbl">{s.label}</span>
-                </div>
-              ))}
-            </div>
+            <motion.div variants={fadeUp}>
+              <p className="p-sec">Engineering Metrics</p>
+              <div className="p-stats">
+                {[
+                  { val: projects.length, suffix: '', label: 'Total Projects' },
+                  { val: projects.filter(p => p.status === 'live').length, suffix: '', label: 'Live & Deployed' },
+                  { val: new Set(projects.flatMap(p => p.tech)).size, suffix: '+', label: 'Technologies Used' },
+                  { val: 3, suffix: '+', label: 'Years Experience' },
+                ].map((s, i) => (
+                  <div key={i} className="p-stat">
+                    <span className="p-stat-val"><Counter target={s.val} suffix={s.suffix} /></span>
+                    <span className="p-stat-lbl">{s.label}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
 
             {/* ── FILTER ── */}
-            <div className="pr-filter-row">
-              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: '0.58rem', color: '#6B7280', letterSpacing: '0.12em', textTransform: 'uppercase' }}>filter:</span>
+            <motion.div variants={fadeUp} className="p-filterRow">
+              <span className="p-filterLabel">Filter</span>
               {CATEGORIES.map(cat => {
                 const count = cat === 'All' ? projects.length : projects.filter(p => p.category === cat).length;
                 return (
                   <button
                     key={cat}
-                    className={`pr-filter-btn${activeCategory === cat ? ' active' : ''}`}
+                    className={`p-filterBtn${activeCategory === cat ? ' active' : ''}`}
                     onClick={() => setActiveCategory(cat)}
                   >
-                    {cat}
-                    <span className="pr-filter-count">{count}</span>
+                    {cat} <span className="p-filterCount">{count}</span>
                   </button>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* ── COLLAB ── */}
-            <div className="pr-collab">
-              <div className="pr-winbar">
-                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
-                <span className="pr-wlabel">collaborative_experience.md</span>
+            <motion.div variants={fadeUp} className="p-collab">
+              <h3 className="p-collabTitle">Collaborative Development Experience</h3>
+              <p className="p-collabSub">
+                Worked with multiple engineers across business, booking, institutional, and SME domains — covering the full delivery cycle from architecture to deployment.
+              </p>
+              <div className="p-collabGrid">
+                {collabItems.map((item, i) => <div key={i} className="p-collabItem">{item}</div>)}
               </div>
-              <div className="pr-collab-body">
-                <div style={{ marginBottom: 14 }}>
-                  <TermLine prompt="$">git log --oneline --team --author="Brian"</TermLine>
-                </div>
-                <h3 className="pr-collab-title">Collaborative Development Experience</h3>
-                <p className="pr-collab-sub">
-                  Worked with multiple engineers across business, booking, institutional, and SME domains.
-                </p>
-                <div className="pr-collab-grid">
-                  {collabItems.map((item, i) => (
-                    <div key={i} className="pr-collab-item">
-                      <span className="pr-collab-arrow">▸</span>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </motion.div>
 
             {/* ── GRID ── */}
-            <p className="pr-sec">// recent work</p>
-            <div className="pr-grid">
+            <motion.p variants={fadeUp} className="p-sec">Recent Work</motion.p>
+            <motion.div variants={fadeUp} className="p-grid">
               {filtered.length === 0 ? (
-                <div className="pr-empty">// no projects match filter</div>
-              ) : filtered.map((project, index) => (
-                <div
-                  key={project.num}
-                  className="pr-card"
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  style={{
-                    boxShadow: hoveredIndex === index ? `0 8px 32px rgba(230,57,70,0.15)` : 'none',
-                    animationDelay: `${index * 0.08}s`,
-                  }}
-                >
-                  <div className="pr-card-num">{project.num}</div>
-
-                  <div className="pr-card-top">
-                    <div className="pr-card-top-left">
-                      <span className="pr-card-cat">{project.category}</span>
-                      <span className="pr-card-year">{project.year}</span>
-                    </div>
-                    <div className="pr-card-status">
-                      <span className="pr-card-status-dot" style={{ backgroundColor: project.status === 'live' ? '#22C55E' : '#D97706' }} />
-                      {project.status === 'live' ? 'live' : 'in_dev'}
-                    </div>
-                  </div>
-
-                  <div className="pr-card-accent" style={{ backgroundColor: project.accent }} />
-                  <h3 className="pr-card-title">{project.title}</h3>
-                  <p className="pr-card-desc">{project.description}</p>
-
-                  <div className="pr-card-features">
-                    {project.features.slice(0, 4).map((f, i) => (
-                      <div key={i} className="pr-feat-item">
-                        <div className="pr-feat-dot" style={{ backgroundColor: project.accent }} />
-                        {f}
+                <div className="p-empty">No projects match this filter.</div>
+              ) : filtered.map((project) => {
+                const accent = accentFor(project.category);
+                return (
+                  <div key={project.num} className="p-card" onClick={() => setOpenProject(project)}>
+                    <div className="p-cardTop">
+                      <div className="p-cardTopLeft">
+                        <span className="p-tag" style={{ color: accent }}>{project.category}</span>
+                        <span className="p-cardYear">{project.year}</span>
                       </div>
-                    ))}
-                  </div>
+                      <div className="p-cardStatus">
+                        <span className="p-cardStatusDot" style={{ backgroundColor: project.status === 'live' ? '#16A34A' : 'var(--orange)' }} />
+                        {project.status === 'live' ? 'Live' : 'In development'}
+                      </div>
+                    </div>
 
-                  <div className="pr-card-tech-row">
-                    {project.tech.map((t, i) => (
-                      <span key={i} className="pr-tech-pill">{t}</span>
-                    ))}
-                  </div>
+                    <div className="p-cardAccent" style={{ backgroundColor: accent }} />
+                    <h3 className="p-cardTitle">{project.title}</h3>
+                    <p className="p-cardDesc">{project.description}</p>
 
-                  <div className="pr-card-btns">
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="pr-btn-live">
-                        Live ↗
-                      </a>
-                    )}
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="pr-btn-gh">
-                      GitHub
-                    </a>
-                    <button className="pr-btn-detail" onClick={() => setOpenProject(project)}>
-                      Details
-                    </button>
+                    <div className="p-cardFeatures">
+                      {project.features.slice(0, 4).map((f, i) => (
+                        <div key={i} className="p-featItem"><div className="p-featDot" />{f}</div>
+                      ))}
+                    </div>
+
+                    <div className="p-cardTechRow">
+                      {project.tech.map((t, i) => <span key={i} className="p-techChip">{t}</span>)}
+                    </div>
+
+                    <div className="p-cardBtns" onClick={e => e.stopPropagation()}>
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-btn-live">Live ↗</a>
+                      )}
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-btn-gh">GitHub</a>
+                      <button className="p-btn-detail" onClick={() => setOpenProject(project)}>Details</button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                );
+              })}
+            </motion.div>
 
             {/* ── TECH STACK ── */}
-            <p className="pr-sec">// stack frequency</p>
-            <div className="pr-tech-section" ref={techRef}>
-              <div className="pr-winbar">
-                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
-                <span className="pr-wlabel">stack_analysis.sh</span>
-              </div>
-              <div className="pr-tech-body">
-                <div style={{ marginBottom: 16 }}>
-                  <TermLine prompt="$">git log --stat | grep "Tech" | sort | uniq -c | sort -rn</TermLine>
-                </div>
-                <h3 className="pr-tech-title">Stack Frequency</h3>
-                <p className="pr-tech-sub">Technologies used across all {projects.length} projects</p>
+            <motion.div variants={fadeUp}>
+              <p className="p-sec">Stack Frequency</p>
+              <div className="p-techSection" ref={techRef}>
+                <h3 className="p-techTitle">Technologies Across Projects</h3>
+                <p className="p-techSub">Usage frequency across all {projects.length} shipped projects</p>
                 {techUsage.map((t, i) => (
-                  <div key={i} className="pr-bar-row">
-                    <span className="pr-bar-label">{t.name}</span>
-                    <div className="pr-bar-track">
+                  <div key={i} className="p-barRow">
+                    <span className="p-barLabel">{t.name}</span>
+                    <div className="p-barTrack">
                       <div
-                        className="pr-bar-fill"
+                        className="p-barFill"
                         style={{
                           width: techBarReady ? `${Math.round((t.count / maxTech) * 100)}%` : '0%',
-                          background: i % 2 === 0 ? '#E63946' : '#22C55E',
-                          transitionDelay: `${i * 0.08}s`,
+                          backgroundColor: i % 2 === 0 ? 'var(--purple)' : 'var(--orange)',
+                          transitionDelay: `${i * 0.06}s`,
                         }}
                       />
                     </div>
-                    <span className="pr-bar-count">{t.count}×</span>
+                    <span className="p-barCount">{t.count}×</span>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* ── CTA ── */}
-            <div className="pr-cta">
-              <div className="pr-winbar">
-                <span className="pr-wdot" style={{ backgroundColor: '#FF5F57' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#FEBC2E' }} />
-                <span className="pr-wdot" style={{ backgroundColor: '#28C840' }} />
-                <span className="pr-wlabel">new_opportunity.sh</span>
-              </div>
-              <div className="pr-cta-body">
+            <motion.div variants={fadeUp} className="p-cta">
+              <div className="p-ctaBody">
                 <div>
-                  <div style={{ marginBottom: 12 }}>
-                    <TermLine prompt="$">./start_collaboration.sh --mode=open</TermLine>
-                  </div>
-                  <h3 className="pr-cta-heading">Interested in Working Together?</h3>
-                  <p className="pr-cta-sub">
-                    {'>'} Ready to build scalable, high-performance solutions. Let's create something remarkable.
-                  </p>
+                  <h3 className="p-ctaHeading">Interested in Working Together?</h3>
+                  <p className="p-ctaSub">Ready to build scalable, high-performance solutions. Let's create something remarkable.</p>
                 </div>
-                <div className="pr-cta-btns">
-                  <button className="pr-btn-p" onClick={() => onSectionChange && onSectionChange('contact')}>
+                <div className="p-ctaBtns">
+                  <button className="p-btn-p" onClick={() => onSectionChange && onSectionChange('contact')}>
                     Let's Connect
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
                   </button>
-                  <a href="https://github.com/Brian2021-Mwalish" target="_blank" rel="noopener noreferrer" className="pr-btn-o">
+                  <a href="https://github.com/Brian2021-Mwalish" target="_blank" rel="noopener noreferrer" className="p-btn-o">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.41 7.86 10.94.57.1.78-.25.78-.55v-2.1c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11.1 11.1 0 012.89-.39c.98 0 1.97.13 2.89.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.79.55C20.22 21.4 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/>
                     </svg>
@@ -1007,30 +747,23 @@ const Projects = ({ onSectionChange }) => {
                   </a>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* ── FOOTER ── */}
-          <footer className="pr-foot">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-              <StatusDot />
-              <span className="pr-foot-txt" style={{ color: '#22C55E' }}>online</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span className="pr-foot-txt">© 2025 Brian Mwalish</span>
-              <span style={{ width: 1, height: 10, backgroundColor: 'rgba(107,114,128,0.25)' }} />
-              <span className="pr-foot-txt">Software Engineer · Eldoret KE</span>
+          <footer className="p-foot">
+            <div className="p-footCopy">
+              <span className="p-footTxt">© 2025 Brian Mwalish</span>
+              <span className="p-footSep" />
+              <span className="p-footTxt">Software Engineer · Eldoret KE</span>
             </div>
           </footer>
 
         </div>
       </section>
 
-      {/* ── DETAIL DRAWER ── */}
-      {openProject && (
-        <DetailDrawer project={openProject} onClose={() => setOpenProject(null)} />
-      )}
+      {openProject && <DetailDrawer project={openProject} onClose={() => setOpenProject(null)} />}
     </>
   );
 };
