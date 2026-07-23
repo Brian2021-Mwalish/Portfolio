@@ -51,8 +51,8 @@ export default function App() {
         activeSection={currentSection}
       />
 
-      {/* Page sections — pt matches navbar height (64px) so content starts exactly below the header */}
-      <main className="flex-grow pt-[64px]">
+      {/* Page sections — pt matches navbar height responsively (64px mobile, 76px desktop) so content starts exactly below the header */}
+      <main className="flex-grow pt-16 md:pt-[76px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSection}
